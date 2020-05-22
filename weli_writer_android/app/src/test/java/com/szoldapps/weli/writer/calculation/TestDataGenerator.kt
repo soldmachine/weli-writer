@@ -6,7 +6,7 @@ private val player3 = Player("S")
 private val player4 = Player("W")
 
 @Suppress("UNUSED_CHANGED_VALUE")
-internal fun generateGame(): Game {
+internal fun generateGame1(): Game {
     var number = 1
     return Game(
         rounds = listOf(
@@ -21,6 +21,34 @@ internal fun generateGame(): Game {
         )
     )
 }
+
+fun generateCalculationResult1() =
+    CalculationResult(
+        payments = listOf(
+            Payment(receiver = player1, payer = player4, value = 10.0),
+            Payment(receiver = player1, payer = player2, value = 456.0),
+            Payment(receiver = player3, payer = player2, value = 58.0)
+        )
+    )
+
+@Suppress("UNUSED_CHANGED_VALUE")
+internal fun generateGame2(): Game {
+    var number = 1
+    return Game(
+        rounds = listOf(
+            generateRound(number++, listOf(44, 31, 26, 0))
+        )
+    )
+}
+
+fun generateCalculationResult2() =
+    CalculationResult(
+        payments = listOf(
+            Payment(receiver = player4, payer = player3, value = 3.0),
+            Payment(receiver = player4, payer = player2, value = 23.0),
+            Payment(receiver = player4, payer = player1, value = 75.0)
+        )
+    )
 
 private fun generateRound(number: Int, points: List<Int>): Round {
     return Round(
@@ -53,16 +81,5 @@ fun generateZeroRatedGameSums() =
             RoundValue(player3, 102),
             RoundValue(player4, 119),
             RoundValue(player2, 245)
-        )
-    )
-
-fun generateCalculationResult() =
-    CalculationResult(
-        payments = listOf(
-            Payment(player1, 466.0),
-            Payment(player3, 58.0),
-            Payment(player4, -10.0),
-            Payment(player2, -514.0)
-
         )
     )

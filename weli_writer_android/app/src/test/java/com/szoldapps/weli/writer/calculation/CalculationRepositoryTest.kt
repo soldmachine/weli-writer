@@ -10,7 +10,7 @@ internal class CalculationRepositoryTest {
     @Test
     fun `given generated game 1, correct zero rated game sums are created`() {
         // given
-        val game = generateGame()
+        val game = generateGame1()
         val expectedZeroRatedGameSums = generateZeroRatedGameSums()
 
         // when
@@ -23,16 +23,30 @@ internal class CalculationRepositoryTest {
     @Test
     fun `given generated game 1, correct result is calculated`() {
         // given
-        val game = generateGame()
-        val expectedCalculationResult = generateCalculationResult()
+        val game = generateGame1()
+        val expectedCalculationResult = generateCalculationResult1()
 
         // when
         val actualCalculationResult = calculationRepository.calculateResult(game)
 
         // then
+        print(actualCalculationResult)
         assertEquals(expectedCalculationResult, actualCalculationResult)
     }
 
+    @Test
+    fun `given generated game 2, correct result is calculated`() {
+        // given
+        val game = generateGame2()
+        val expectedCalculationResult = generateCalculationResult2()
+
+        // when
+        val actualCalculationResult = calculationRepository.calculateResult(game)
+
+        // then
+        print(actualCalculationResult)
+        assertEquals(expectedCalculationResult, actualCalculationResult)
+    }
 
 
 //    @Test

@@ -3,18 +3,18 @@ package com.szoldapps.weli.writer.calculation
 class CalculationRepository {
 
     fun calculateResult(game: Game): CalculationResult {
-        val zeroRatedGameSums = getZeroRatedAndSortedSums(game)
-        val payments = mutableListOf<Payment>()
+        val zeroRatedGameSums = getZeroRatedAndSortedSums(game).gameSums
 
-        val playerCount = zeroRatedGameSums.gameSums.size
-        zeroRatedGameSums.gameSums.forEachIndexed { index, roundValue ->
+        val balanceMap = mutableMapOf<Player, Int>()
+        val playerCount = zeroRatedGameSums.size
+        zeroRatedGameSums.forEachIndexed { index, roundValue ->
             val player = roundValue.player
             val playerPoints = roundValue.points
 
             // receives
             var receivesSum = 0
             for (innerIndex in index + 1 until playerCount) {
-                val innerPoints = zeroRatedGameSums.gameSums[innerIndex].points
+                val innerPoints = zeroRatedGameSums[innerIndex].points
                 receivesSum += innerPoints - playerPoints
             }
 
@@ -22,22 +22,56 @@ class CalculationRepository {
             var paysSum = 0
             if (index != 0) {
                 for (innerIndex in index downTo 0) {
-                    val innerPoints = zeroRatedGameSums.gameSums[innerIndex].points
+                    val innerPoints = zeroRatedGameSums[innerIndex].points
                     paysSum += playerPoints - innerPoints
                 }
             }
 
-            payments.add(
-                Payment(
-                    receiver = player,
-                    value = (receivesSum - paysSum).toDouble()
-                )
-            )
+            // store
+            balanceMap[player] = receivesSum - paysSum
         }
 
+
         return CalculationResult(
-            payments = payments
+            payments = getPaymentsFrom(balanceMap)
         )
+    }
+
+    private fun getPaymentsFrom(balanceMap: MutableMap<Player, Int>): List<Payment> {
+        val positivePoints = balanceMap.filterValues { points -> points >= 0 }
+        val negativePoints = balanceMap.filterValues { points -> points < 0 }.toMutableMap()
+
+        // Sanity check
+        if (positivePoints.values.sum() + negativePoints.values.sum() != 0) {
+            throw IllegalStateException("Calculation of balances was wrong!")
+        }
+
+        val payments = mutableListOf<Payment>()
+        positivePoints.forEach { positiveBalance ->
+            var pointsToReceive = positiveBalance.value
+            negativePoints.forEach { negativeBalance ->
+                val pointsAvailable = negativeBalance.value
+                if (pointsAvailable != 0) {
+                    val paymentValue = if (pointsToReceive <= (pointsAvailable * -1)) {
+                        pointsToReceive
+                    } else {
+                        pointsAvailable * -1
+                    }
+                    negativePoints[negativeBalance.key] = pointsAvailable + paymentValue
+                    pointsToReceive -= paymentValue
+
+                    payments.add(
+                        Payment(
+                            receiver = positiveBalance.key,
+                            payer = negativeBalance.key,
+                            value = paymentValue.toDouble()
+                        )
+                    )
+                }
+            }
+        }
+
+        return payments
     }
 
     fun getZeroRatedAndSortedSums(game: Game): ZeroRatedGameSums {
@@ -93,7 +127,7 @@ data class CalculationResult(
 )
 
 data class Payment(
-//    val payer: Player,
+    val payer: Player,
     val receiver: Player,
     val value: Double
 )
