@@ -1,6 +1,8 @@
 package com.szoldapps.weli.writer.calculation
 
-class CalculationRepository {
+import javax.inject.Inject
+
+class CalculationRepository @Inject constructor() {
 
     fun calculateResult(game: Game): CalculationResult {
         val zeroRatedGameSums = getZeroRatedAndSortedSums(game).gameSums
