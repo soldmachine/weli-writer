@@ -1,9 +1,10 @@
 package com.szoldapps.weli.writer.calculation
 
-private val player1 = Player("K")
-private val player2 = Player("M")
-private val player3 = Player("S")
-private val player4 = Player("W")
+private val playerK = Player("K")
+private val playerM = Player("M")
+private val playerS = Player("S")
+private val playerW = Player("W")
+private val playerE = Player("E")
 
 @Suppress("UNUSED_CHANGED_VALUE")
 internal fun generateGame1(): Game {
@@ -25,9 +26,9 @@ internal fun generateGame1(): Game {
 fun generateCalculationResult1() =
     CalculationResult(
         payments = listOf(
-            Payment(receiver = player1, payer = player4, value = 10.0),
-            Payment(receiver = player1, payer = player2, value = 456.0),
-            Payment(receiver = player3, payer = player2, value = 58.0)
+            Payment(receiver = playerK, payer = playerW, value = 10.0),
+            Payment(receiver = playerK, payer = playerM, value = 456.0),
+            Payment(receiver = playerS, payer = playerM, value = 58.0)
         )
     )
 
@@ -44,9 +45,62 @@ internal fun generateGame2(): Game {
 fun generateCalculationResult2() =
     CalculationResult(
         payments = listOf(
-            Payment(receiver = player4, payer = player3, value = 3.0),
-            Payment(receiver = player4, payer = player2, value = 23.0),
-            Payment(receiver = player4, payer = player1, value = 75.0)
+            Payment(receiver = playerW, payer = playerS, value = 3.0),
+            Payment(receiver = playerW, payer = playerM, value = 23.0),
+            Payment(receiver = playerW, payer = playerK, value = 75.0)
+        )
+    )
+
+internal fun generateGame3(): Game {
+    var number = 1
+    return Game(
+        rounds = listOf(
+            generateRound06072020(number++, listOf(14, 0, 35, 21)),
+            generateRound06072020(number++, listOf(33, 0, 16, 35)),
+            generateRound06072020(number++, listOf(35, 95, 30, 0)),
+            generateRound06072020(number++, listOf(0, 36, 20, 8)),
+            generateRound06072020(number++, listOf(34, 0, 43, 80)),
+            generateRound06072020(number++, listOf(40, 0, 54, 41)),
+            generateRound06072020(number++, listOf(39, 0, 6, 33)),
+            generateRound06072020(number++, listOf(0, 32, 26, 36))
+        )
+    )
+}
+
+internal fun generateGame4(): Game {
+    var number = 1
+    return Game(
+        rounds = listOf(
+            generateRound18072020(number++, listOf(2, 55, 44, 0)),
+            generateRound18072020(number++, listOf(0, 33, 33, 44)),
+            generateRound18072020(number++, listOf(32, 17, 46, 0)),
+            generateRound18072020(number++, listOf(0, 24, 46, 8)),
+            generateRound18072020(number++, listOf(85, 70, 11, 0)),
+            generateRound18072020(number++, listOf(75, 80, 0, 42)),
+            generateRound18072020(number++, listOf(17, 62, 20, 0)),
+            generateRound18072020(number++, listOf(14, 6, 69, 0)),
+            generateRound18072020(number++, listOf(0, 73, 61, 93)),
+            generateRound18072020(number++, listOf(19, 0, 44, 27)),
+            generateRound18072020(number++, listOf(46, 0, 24, 10))
+        )
+    )
+}
+
+fun generateCalculationResult3() =
+    CalculationResult(
+        payments = listOf(
+            Payment(receiver = playerW, payer = playerS, value = 3.0),
+            Payment(receiver = playerW, payer = playerM, value = 23.0),
+            Payment(receiver = playerW, payer = playerK, value = 75.0)
+        )
+    )
+
+fun generateCalculationResult4() =
+    CalculationResult(
+        payments = listOf(
+            Payment(receiver = playerS, payer = playerE, value = 260.0),
+            Payment(receiver = playerS, payer = playerK, value = 176.0),
+            Payment(receiver = playerM, payer = playerK, value = 172.0)
         )
     )
 
@@ -55,19 +109,67 @@ private fun generateRound(number: Int, points: List<Int>): Round {
         number = number,
         values = listOf(
             RoundValue(
-                player = player1,
+                player = playerK,
                 points = points[0]
             ),
             RoundValue(
-                player = player2,
+                player = playerM,
                 points = points[1]
             ),
             RoundValue(
-                player = player3,
+                player = playerS,
                 points = points[2]
             ),
             RoundValue(
-                player = player4,
+                player = playerW,
+                points = points[3]
+            )
+        )
+    )
+}
+
+private fun generateRound06072020(number: Int, points: List<Int>): Round {
+    return Round(
+        number = number,
+        values = listOf(
+            RoundValue(
+                player = playerM,
+                points = points[0]
+            ),
+            RoundValue(
+                player = playerS,
+                points = points[1]
+            ),
+            RoundValue(
+                player = playerK,
+                points = points[2]
+            ),
+            RoundValue(
+                player = playerW,
+                points = points[3]
+            )
+        )
+    )
+}
+
+private fun generateRound18072020(number: Int, points: List<Int>): Round {
+    return Round(
+        number = number,
+        values = listOf(
+            RoundValue(
+                player = playerM,
+                points = points[0]
+            ),
+            RoundValue(
+                player = playerK,
+                points = points[1]
+            ),
+            RoundValue(
+                player = playerE,
+                points = points[2]
+            ),
+            RoundValue(
+                player = playerS,
                 points = points[3]
             )
         )
@@ -77,9 +179,9 @@ private fun generateRound(number: Int, points: List<Int>): Round {
 fun generateZeroRatedGameSums() =
     ZeroRatedGameSums(
         gameSums = listOf(
-            RoundValue(player1, 0),
-            RoundValue(player3, 102),
-            RoundValue(player4, 119),
-            RoundValue(player2, 245)
+            RoundValue(playerK, 0),
+            RoundValue(playerS, 102),
+            RoundValue(playerW, 119),
+            RoundValue(playerM, 245)
         )
     )
