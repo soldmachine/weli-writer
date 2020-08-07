@@ -125,9 +125,9 @@ fun generateCalculationResult4() =
 fun generateCalculationResult5() =
     CalculationResult(
         payments = listOf(
-            Payment(receiver = playerS, payer = playerE, value = 260.0),
-            Payment(receiver = playerS, payer = playerK, value = 176.0),
-            Payment(receiver = playerM, payer = playerK, value = 172.0)
+            Payment(receiver = playerW, payer = playerS, value = 315.0),
+            Payment(receiver = playerK, payer = playerS, value = 123.0),
+            Payment(receiver = playerP, payer = playerS, value = 55.0)
         )
     )
 
