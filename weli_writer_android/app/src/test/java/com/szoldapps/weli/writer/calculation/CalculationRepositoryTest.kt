@@ -76,6 +76,20 @@ internal class CalculationRepositoryTest {
         assertEquals(expectedCalculationResult, actualCalculationResult)
     }
 
+    @Test
+    fun `given generated game 5, correct result is calculated`() {
+        // given
+        val game = generateGame5()
+        val expectedCalculationResult = generateCalculationResult5()
+
+        // when
+        val actualCalculationResult = calculationRepository.calculateResult(game)
+
+        // then
+        print(actualCalculationResult)
+        assertEquals(expectedCalculationResult, actualCalculationResult)
+    }
+
 
 //    @Test
 //    fun calculateResult() {

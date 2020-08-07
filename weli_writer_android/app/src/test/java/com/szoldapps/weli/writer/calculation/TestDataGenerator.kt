@@ -5,6 +5,7 @@ private val playerM = Player("M")
 private val playerS = Player("S")
 private val playerW = Player("W")
 private val playerE = Player("E")
+private val playerP = Player("P")
 
 @Suppress("UNUSED_CHANGED_VALUE")
 internal fun generateGame1(): Game {
@@ -86,6 +87,23 @@ internal fun generateGame4(): Game {
     )
 }
 
+internal fun generateGame5(): Game {
+    var number = 1
+    return Game(
+        rounds = listOf(
+            generateRound07082020(number++, listOf(30, 69, 0, 12)),
+            generateRound07082020(number++, listOf(19, 47, 0, 23)),
+            generateRound07082020(number++, listOf(28, 22, 56, 0)),
+            generateRound07082020(number++, listOf(0, 21, 114, 31)),
+            generateRound07082020(number++, listOf(23, 0, 101, 3)),
+            generateRound07082020(number++, listOf(19, 0, 2, 22)),
+            generateRound07082020(number++, listOf(27, 23, 0, 15)),
+            generateRound07082020(number++, listOf(25, 0, 26, 24)),
+            generateRound07082020(number++, listOf(7, 13, 33, 0))
+        )
+    )
+}
+
 fun generateCalculationResult3() =
     CalculationResult(
         payments = listOf(
@@ -96,6 +114,15 @@ fun generateCalculationResult3() =
     )
 
 fun generateCalculationResult4() =
+    CalculationResult(
+        payments = listOf(
+            Payment(receiver = playerS, payer = playerE, value = 260.0),
+            Payment(receiver = playerS, payer = playerK, value = 176.0),
+            Payment(receiver = playerM, payer = playerK, value = 172.0)
+        )
+    )
+
+fun generateCalculationResult5() =
     CalculationResult(
         payments = listOf(
             Payment(receiver = playerS, payer = playerE, value = 260.0),
@@ -170,6 +197,30 @@ private fun generateRound18072020(number: Int, points: List<Int>): Round {
             ),
             RoundValue(
                 player = playerS,
+                points = points[3]
+            )
+        )
+    )
+}
+
+private fun generateRound07082020(number: Int, points: List<Int>): Round {
+    return Round(
+        number = number,
+        values = listOf(
+            RoundValue(
+                player = playerK,
+                points = points[0]
+            ),
+            RoundValue(
+                player = playerP,
+                points = points[1]
+            ),
+            RoundValue(
+                player = playerS,
+                points = points[2]
+            ),
+            RoundValue(
+                player = playerW,
                 points = points[3]
             )
         )
