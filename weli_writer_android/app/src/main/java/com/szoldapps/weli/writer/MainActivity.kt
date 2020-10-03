@@ -3,7 +3,9 @@ package com.szoldapps.weli.writer
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_main.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -14,6 +16,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        mainViewModel.someFunc()
+        mainViewModel.result.observe(this, Observer {
+            result.text = it
+        })
+        calcButton.setOnClickListener {
+            mainViewModel.calculateResult(editText.text.toString())
+        }
     }
 }
