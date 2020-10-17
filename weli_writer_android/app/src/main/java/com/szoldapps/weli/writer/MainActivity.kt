@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
             result.text = it
         })
         calcButton.setOnClickListener {
-            mainViewModel.calculateResult(editText.text.toString())
+            mainViewModel.doSomethingInDb()
         }
     }
 }
