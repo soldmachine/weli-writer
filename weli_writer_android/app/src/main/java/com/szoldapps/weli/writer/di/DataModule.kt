@@ -1,7 +1,8 @@
 package com.szoldapps.weli.writer.di
 
 import android.content.Context
-import com.szoldapps.weli.writer.data.dao.UserDao
+import com.szoldapps.weli.writer.data.dao.MatchDao
+import com.szoldapps.weli.writer.data.dao.PlayerDao
 import com.szoldapps.weli.writer.data.db.AppDatabase
 import dagger.Module
 import dagger.Provides
@@ -18,6 +19,9 @@ object DataModule {
         AppDatabase.createDatabase(appContext)
 
     @Provides
-    fun provideUserDao(appDatabase: AppDatabase): UserDao = appDatabase.userDao()
+    fun providePlayerDao(appDatabase: AppDatabase): PlayerDao = appDatabase.playerDao()
+
+    @Provides
+    fun provideMatchDao(appDatabase: AppDatabase): MatchDao = appDatabase.matchDao()
 
 }

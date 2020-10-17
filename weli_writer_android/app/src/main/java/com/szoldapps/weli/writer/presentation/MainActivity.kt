@@ -1,9 +1,10 @@
-package com.szoldapps.weli.writer
+package com.szoldapps.weli.writer.presentation
 
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import com.szoldapps.weli.writer.R
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity() {
             result.text = it
         })
         calcButton.setOnClickListener {
-            mainViewModel.doSomethingInDb()
+            mainViewModel.getMatches()
         }
     }
 }
