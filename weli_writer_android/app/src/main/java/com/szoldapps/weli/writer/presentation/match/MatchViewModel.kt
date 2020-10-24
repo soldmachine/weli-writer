@@ -1,6 +1,7 @@
 package com.szoldapps.weli.writer.presentation.match
 
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,12 +15,26 @@ class MatchViewModel @ViewModelInject constructor(
     private val weliRepository: WeliRepository
 ) : ViewModel() {
 
-    val result: MutableLiveData<String> = MutableLiveData("")
+    private val _viewState: MutableLiveData<MatchViewState> = MutableLiveData(MatchViewState.Loading)
+    val viewState: LiveData<MatchViewState> = _viewState
 
     fun getMatches() {
         viewModelScope.launch {
-            weliRepository.addMatch(Match(OffsetDateTime.now(), "testLocation"))
-            Timber.i(weliRepository.getMatches().toString())
+            _viewState.postValue(MatchViewState.Content(weliRepository.getMatches()))
         }
     }
+
+    fun addRandomMatch() {
+        viewModelScope.launch {
+            weliRepository.addMatch(Match(OffsetDateTime.now(), "testLocation"))
+            getMatches()
+        }
+    }
+
+}
+
+sealed class MatchViewState {
+    object Loading : MatchViewState()
+    object Error : MatchViewState()
+    data class Content(val matches: List<Match>) : MatchViewState()
 }

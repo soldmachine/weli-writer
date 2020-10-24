@@ -47,7 +47,7 @@ dependencies {
 
     // hilt
     implementation "com.google.dagger:hilt-android:$hiltVersion"
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation "androidx.legacy:legacy-support-v4:1.0.0"
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
     def hiltAndroidXVersion = "1.0.0-alpha02"
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltAndroidXVersion"
@@ -68,7 +68,7 @@ dependencies {
 
     // ThreeTenAbp
     implementation "com.jakewharton.threetenabp:threetenabp:1.2.4"
-    
+
     // Timer
     implementation "com.jakewharton.timber:timber:4.7.1"
 
