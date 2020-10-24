@@ -1,4 +1,4 @@
-package com.szoldapps.weli.writer.presentation
+package com.szoldapps.weli.writer.presentation.match
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime
 import timber.log.Timber
 
-class MainViewModel @ViewModelInject constructor(
+class MatchViewModel @ViewModelInject constructor(
     private val weliRepository: WeliRepository
 ) : ViewModel() {
 

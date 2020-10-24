@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/matchFragment"
-        android:name="com.szoldapps.weli.writer.MatchFragment"
+        android:name="com.szoldapps.weli.writer.presentation.match.MatchFragment"
         android:label="fragment_match2"
         tools:layout="@layout/fragment_match" />
 </navigation>
