@@ -1,18 +1,18 @@
 package com.szoldapps.weli.writer.data.mapper
 
-import com.szoldapps.weli.writer.data.entity.MatchDb
+import com.szoldapps.weli.writer.data.entity.MatchEntity
 import com.szoldapps.weli.writer.domain.Match
 
-fun MatchDb.mapToMatch(): Match =
+fun MatchEntity.mapToMatch(): Match =
     Match(
         date = dateTime,
         location = location
     )
 
-fun List<MatchDb>.mapToMatch(): List<Match> = this.map { matchDb -> matchDb.mapToMatch() }
+fun List<MatchEntity>.mapToMatch(): List<Match> = this.map { matchDb -> matchDb.mapToMatch() }
 
-fun Match.mapToMatchDb(): MatchDb =
-    MatchDb(
+fun Match.mapToMatchDb(): MatchEntity =
+    MatchEntity(
         dateTime = date,
         location = location
     )

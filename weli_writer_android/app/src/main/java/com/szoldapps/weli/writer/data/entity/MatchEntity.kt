@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import org.threeten.bp.OffsetDateTime
 
 @Entity(tableName = "match")
-data class MatchDb(
+data class MatchEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "match_id")
     val matchId: Int = 0,

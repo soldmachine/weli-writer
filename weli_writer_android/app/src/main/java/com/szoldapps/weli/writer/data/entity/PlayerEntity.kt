@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class Player(
+data class PlayerEntity(
     @PrimaryKey(autoGenerate = true)
     val player_id: Int = 0,
     @ColumnInfo(name = "first_name")

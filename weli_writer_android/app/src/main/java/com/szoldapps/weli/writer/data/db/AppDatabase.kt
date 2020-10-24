@@ -8,13 +8,13 @@ import androidx.room.TypeConverters
 import com.szoldapps.weli.writer.data.dao.MatchDao
 import com.szoldapps.weli.writer.data.dao.PlayerDao
 import com.szoldapps.weli.writer.data.db.converter.DateTypeConverter
-import com.szoldapps.weli.writer.data.entity.MatchDb
-import com.szoldapps.weli.writer.data.entity.Player
+import com.szoldapps.weli.writer.data.entity.MatchEntity
+import com.szoldapps.weli.writer.data.entity.PlayerEntity
 
 @Database(
     entities = [
-        Player::class,
-        MatchDb::class
+        PlayerEntity::class,
+        MatchEntity::class
     ],
     version = 1
 )

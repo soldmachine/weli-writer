@@ -4,16 +4,16 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.szoldapps.weli.writer.data.entity.MatchDb
+import com.szoldapps.weli.writer.data.entity.MatchEntity
 
 @Dao
 interface MatchDao {
     @Query("SELECT * FROM `match`")
-    fun getAll(): List<MatchDb>
+    fun getAll(): List<MatchEntity>
 
     @Insert
-    fun insertAll(vararg matchDb: MatchDb)
+    fun insertAll(vararg matchEntity: MatchEntity)
 
     @Delete
-    fun delete(matchDb: MatchDb)
+    fun delete(matchEntity: MatchEntity)
 }
