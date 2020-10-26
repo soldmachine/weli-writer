@@ -1,5 +1,6 @@
 package com.szoldapps.weli.writer.data.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -8,8 +9,9 @@ import com.szoldapps.weli.writer.data.entity.MatchEntity
 
 @Dao
 interface MatchDao {
+
     @Query("SELECT * FROM `match`")
-    fun getAll(): List<MatchEntity>
+    fun getAll(): LiveData<List<MatchEntity>>
 
     @Insert
     fun insertAll(vararg matchEntity: MatchEntity)

@@ -22,7 +22,7 @@ class MatchRvAdapter : RecyclerView.Adapter<MatchRvAdapter.MatchViewHolder>() {
 
     override fun getItemCount(): Int = list.size
 
-    fun updateList(list: List<Match>) {
+    fun refresh(list: List<Match>) {
         this.list.clear()
         this.list.addAll(list)
         notifyDataSetChanged()

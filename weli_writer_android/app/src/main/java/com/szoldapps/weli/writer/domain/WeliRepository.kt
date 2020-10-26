@@ -1,8 +1,10 @@
 package com.szoldapps.weli.writer.domain
 
+import androidx.lifecycle.LiveData
+
 interface WeliRepository {
 
-    suspend fun getMatches(): List<Match>
+    val matches: LiveData<List<Match>>
 
     suspend fun addMatch(match: Match)
 }

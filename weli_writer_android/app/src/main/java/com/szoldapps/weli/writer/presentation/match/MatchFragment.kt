@@ -16,7 +16,9 @@ import kotlinx.android.synthetic.main.fragment_match.*
 @AndroidEntryPoint
 class MatchFragment : Fragment() {
 
-    private val matchViewModel: MatchViewModel by viewModels()
+    private val viewModel: MatchViewModel by viewModels()
+
+    private val matchRvAdapter = MatchRvAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_match, container, false)
@@ -25,29 +27,23 @@ class MatchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
-        setupToolbar()
-        initRv()
-        matchViewModel.viewState.observe(viewLifecycleOwner, ::handleViewState)
+        setupToolbarAndRv()
+        viewModel.viewState.observe(viewLifecycleOwner, ::handleViewState)
     }
 
-    private val matchRvAdapter = MatchRvAdapter()
-
-    private fun initRv() {
+    private fun setupToolbarAndRv() {
+        (activity as AppCompatActivity).setSupportActionBar(matchToolbar)
         matchRv.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = matchRvAdapter
         }
     }
 
-    private fun setupToolbar() {
-        (activity as AppCompatActivity).setSupportActionBar(matchToolbar)
-    }
-
     private fun handleViewState(viewState: MatchViewState) {
         when (viewState) {
             Loading,
             Error -> Unit
-            is Content -> matchRvAdapter.updateList(viewState.matches)
+            is Content -> matchRvAdapter.refresh(viewState.matches)
         }
         updateVisibility(viewState)
     }
@@ -65,7 +61,7 @@ class MatchFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menu_match_add) {
-            matchViewModel.addRandomMatch()
+            viewModel.addRandomMatch()
         }
         return super.onOptionsItemSelected(item)
     }
