@@ -8,6 +8,19 @@
     <fragment
         android:id="@+id/matchFragment"
         android:name="com.szoldapps.weli.writer.presentation.match.MatchFragment"
-        android:label="fragment_match2"
-        tools:layout="@layout/fragment_match" />
+        android:label="fragment_match"
+        tools:layout="@layout/fragment_match">
+        <action
+            android:id="@+id/action_matchFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="com.szoldapps.weli.writer.presentation.game.GameFragment"
+        android:label="fragment_game"
+        tools:layout="@layout/fragment_game">
+        <argument
+            android:name="gameId"
+            app:argType="integer" />
+    </fragment>
 </navigation>

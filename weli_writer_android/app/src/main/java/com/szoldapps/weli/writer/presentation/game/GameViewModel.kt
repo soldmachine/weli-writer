@@ -11,7 +11,7 @@ import com.szoldapps.weli.writer.presentation.match.MatchViewState.Content
 import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime
 
-class MatchViewModel @ViewModelInject constructor(
+class GameViewModel @ViewModelInject constructor(
     private val weliRepository: WeliRepository
 ) : ViewModel() {
 
@@ -25,8 +25,8 @@ class MatchViewModel @ViewModelInject constructor(
 
 }
 
-sealed class MatchViewState {
-    object Loading : MatchViewState()
-    object Error : MatchViewState()
-    data class Content(val matches: List<Match>) : MatchViewState()
+sealed class GameViewState {
+    object Loading : GameViewState()
+    object Error : GameViewState()
+    data class Content(val matches: List<Match>) : GameViewState()
 }

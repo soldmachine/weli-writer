@@ -1,4 +1,4 @@
-package com.szoldapps.weli.writer.presentation.match.adapter
+package com.szoldapps.weli.writer.presentation.game.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,19 +7,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.szoldapps.weli.writer.R
 import com.szoldapps.weli.writer.domain.Match
 
-class MatchRvAdapter(
-    private val onItemClickListener: (Int) -> (Unit)
-) : RecyclerView.Adapter<MatchRvAdapter.MatchViewHolder>() {
+class GameRvAdapter : RecyclerView.Adapter<GameRvAdapter.GameViewHolder>() {
 
     private val list: MutableList<Match> = mutableListOf()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return MatchViewHolder(inflater, parent)
+        return GameViewHolder(inflater, parent)
     }
 
-    override fun onBindViewHolder(holder: MatchViewHolder, position: Int) {
-        holder.bind(list[position], onItemClickListener)
+    override fun onBindViewHolder(holder: GameViewHolder, position: Int) {
+        holder.bind(list[position])
     }
 
     override fun getItemCount(): Int = list.size
@@ -30,16 +28,13 @@ class MatchRvAdapter(
         notifyDataSetChanged()
     }
 
-    class MatchViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
+    class GameViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
         RecyclerView.ViewHolder(inflater.inflate(R.layout.item_match, parent, false)) {
 
         private var titleTv = itemView.findViewById<TextView>(R.id.matchTitleTv)
 
-        fun bind(match: Match, onItemClickListener: (Int) -> Unit) {
+        fun bind(match: Match) {
             titleTv.text = "${match.date}, ${match.location}"
-            titleTv.setOnClickListener {
-                onItemClickListener.invoke(match.id)
-            }
         }
 
     }

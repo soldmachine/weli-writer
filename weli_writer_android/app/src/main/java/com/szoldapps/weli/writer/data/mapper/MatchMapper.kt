@@ -5,6 +5,7 @@ import com.szoldapps.weli.writer.domain.Match
 
 fun MatchEntity.mapToMatch(): Match =
     Match(
+        id = matchId,
         date = dateTime,
         location = location
     )
