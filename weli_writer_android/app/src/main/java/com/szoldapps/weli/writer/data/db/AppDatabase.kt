@@ -5,15 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.szoldapps.weli.writer.data.dao.GameDao
-import com.szoldapps.weli.writer.data.dao.MatchDao
-import com.szoldapps.weli.writer.data.dao.PlayerDao
-import com.szoldapps.weli.writer.data.dao.RoundDao
+import com.szoldapps.weli.writer.data.dao.*
 import com.szoldapps.weli.writer.data.db.converter.DateTypeConverter
-import com.szoldapps.weli.writer.data.entity.GameEntity
-import com.szoldapps.weli.writer.data.entity.MatchEntity
-import com.szoldapps.weli.writer.data.entity.PlayerEntity
-import com.szoldapps.weli.writer.data.entity.RoundEntity
+import com.szoldapps.weli.writer.data.entity.*
 
 @Database(
     entities = [
@@ -21,6 +15,7 @@ import com.szoldapps.weli.writer.data.entity.RoundEntity
         MatchEntity::class,
         GameEntity::class,
         RoundEntity::class,
+        RoundValueEntity::class,
     ],
     version = 4
 )
@@ -35,6 +30,8 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun roundDao(): RoundDao
 
+    abstract fun roundValueDao(): RoundValueDao
+
     companion object {
 
         private const val APP_DATABASE_NAME = "weli-writer-db"
@@ -44,7 +41,9 @@ abstract class AppDatabase : RoomDatabase() {
                 applicationContext,
                 AppDatabase::class.java,
                 APP_DATABASE_NAME
-            ).build()
+            )
+                .fallbackToDestructiveMigration()
+                .build()
         }
     }
 }

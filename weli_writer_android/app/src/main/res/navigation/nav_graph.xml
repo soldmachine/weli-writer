@@ -34,5 +34,17 @@
         <argument
             android:name="gameId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_gameFragment_to_roundFragment"
+            app:destination="@id/roundFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/roundFragment"
+        android:name="com.szoldapps.weli.writer.presentation.round.RoundFragment"
+        android:label="fragment_round"
+        tools:layout="@layout/fragment_round">
+        <argument
+            android:name="roundId"
+            app:argType="long" />
     </fragment>
 </navigation>

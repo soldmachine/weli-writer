@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.szoldapps.weli.writer.R
 import com.szoldapps.weli.writer.domain.Round
 
-class RoundRvAdapter : RecyclerView.Adapter<RoundRvAdapter.RoundViewHolder>() {
+class RoundRvAdapter(
+    private val onItemClickListener: (Long) -> (Unit)
+) : RecyclerView.Adapter<RoundRvAdapter.RoundViewHolder>() {
 
     private val list: MutableList<Round> = mutableListOf()
 
@@ -17,7 +19,7 @@ class RoundRvAdapter : RecyclerView.Adapter<RoundRvAdapter.RoundViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RoundViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.bind(list[position], onItemClickListener)
     }
 
     override fun getItemCount(): Int = list.size
@@ -33,8 +35,11 @@ class RoundRvAdapter : RecyclerView.Adapter<RoundRvAdapter.RoundViewHolder>() {
 
         private var titleTv = itemView.findViewById<TextView>(R.id.matchTitleTv)
 
-        fun bind(round: Round) {
+        fun bind(round: Round, onItemClickListener: (Long) -> Unit) {
             titleTv.text = "${round.date}"
+            titleTv.setOnClickListener {
+                onItemClickListener.invoke(round.id)
+            }
         }
 
     }

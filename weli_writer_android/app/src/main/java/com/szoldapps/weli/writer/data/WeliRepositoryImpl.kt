@@ -5,11 +5,9 @@ import androidx.lifecycle.Transformations
 import com.szoldapps.weli.writer.data.dao.GameDao
 import com.szoldapps.weli.writer.data.dao.MatchDao
 import com.szoldapps.weli.writer.data.dao.RoundDao
+import com.szoldapps.weli.writer.data.dao.RoundValueDao
 import com.szoldapps.weli.writer.data.mapper.*
-import com.szoldapps.weli.writer.domain.Game
-import com.szoldapps.weli.writer.domain.Match
-import com.szoldapps.weli.writer.domain.Round
-import com.szoldapps.weli.writer.domain.WeliRepository
+import com.szoldapps.weli.writer.domain.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -18,6 +16,7 @@ class WeliRepositoryImpl @Inject constructor(
     private val matchDao: MatchDao,
     private val gameDao: GameDao,
     private val roundDao: RoundDao,
+    private val roundValueDao: RoundValueDao,
 ) : WeliRepository {
 
     override val matches: LiveData<List<Match>> = Transformations.map(matchDao.getAll()) {
@@ -34,6 +33,11 @@ class WeliRepositoryImpl @Inject constructor(
             roundEntities.mapToRounds()
         }
 
+    override fun roundValuesByRoundId(roundId: Long): LiveData<List<RoundValue>> =
+        Transformations.map(roundValueDao.getRoundValueByRoundId(roundId)) { roundValueEntities ->
+            roundValueEntities.mapToRoundValues()
+        }
+
     override suspend fun addMatch(match: Match) = withContext(Dispatchers.IO) {
         matchDao.insertAll(match.mapToMatchDb())
     }
@@ -44,5 +48,9 @@ class WeliRepositoryImpl @Inject constructor(
 
     override suspend fun addRound(round: Round, gameId: Int) = withContext(Dispatchers.IO) {
         roundDao.insertAll(round.mapToRoundEntity(gameId))
+    }
+
+    override suspend fun addRoundValue(roundValue: RoundValue, roundId: Long) = withContext(Dispatchers.IO) {
+        roundValueDao.insertAll(roundValue.mapToRoundValueEntity(roundId))
     }
 }

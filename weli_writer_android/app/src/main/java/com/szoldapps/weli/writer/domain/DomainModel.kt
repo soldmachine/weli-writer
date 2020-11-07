@@ -17,3 +17,10 @@ data class Round(
     val id: Long = -1,
     val date: OffsetDateTime,
 )
+
+data class RoundValue(
+    val id: Long = -1,
+    val date: OffsetDateTime,
+    val number: Int,
+    val value: Int
+)

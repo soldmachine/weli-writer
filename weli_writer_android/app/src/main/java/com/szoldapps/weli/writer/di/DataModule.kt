@@ -1,10 +1,7 @@
 package com.szoldapps.weli.writer.di
 
 import android.content.Context
-import com.szoldapps.weli.writer.data.dao.GameDao
-import com.szoldapps.weli.writer.data.dao.MatchDao
-import com.szoldapps.weli.writer.data.dao.PlayerDao
-import com.szoldapps.weli.writer.data.dao.RoundDao
+import com.szoldapps.weli.writer.data.dao.*
 import com.szoldapps.weli.writer.data.db.AppDatabase
 import dagger.Module
 import dagger.Provides
@@ -31,5 +28,8 @@ object DataModule {
 
     @Provides
     fun provideRoundDao(appDatabase: AppDatabase): RoundDao = appDatabase.roundDao()
+
+    @Provides
+    fun provideRoundValueDao(appDatabase: AppDatabase): RoundValueDao = appDatabase.roundValueDao()
 
 }
