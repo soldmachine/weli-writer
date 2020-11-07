@@ -8,7 +8,11 @@ interface WeliRepository {
 
     fun gamesByMatchId(matchId: Int): LiveData<List<Game>>
 
+    fun roundsByGameId(gameId: Int): LiveData<List<Round>>
+
     suspend fun addMatch(match: Match)
 
     suspend fun addGame(game: Game, matchId: Int)
+
+    suspend fun addRound(round: Round, gameId: Int)
 }

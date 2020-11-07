@@ -11,7 +11,7 @@
         android:label="fragment_match_list"
         tools:layout="@layout/fragment_match_list">
         <action
-            android:id="@+id/action_matchFragment_to_gameFragment"
+            android:id="@+id/action_matchListFragment_to_matchFragment"
             app:destination="@id/matchFragment" />
     </fragment>
     <fragment
@@ -22,6 +22,9 @@
         <argument
             android:name="matchId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_matchFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
     </fragment>
     <fragment
         android:id="@+id/gameFragment"

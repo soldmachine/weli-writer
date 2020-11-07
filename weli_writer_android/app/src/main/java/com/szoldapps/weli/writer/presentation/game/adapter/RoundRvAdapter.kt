@@ -5,37 +5,36 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.szoldapps.weli.writer.R
-import com.szoldapps.weli.writer.domain.Game
-import com.szoldapps.weli.writer.presentation.match.adapter.MatchRvAdapter
+import com.szoldapps.weli.writer.domain.Round
 
-class GameRvAdapter : RecyclerView.Adapter<GameRvAdapter.GameViewHolder>() {
+class RoundRvAdapter : RecyclerView.Adapter<RoundRvAdapter.RoundViewHolder>() {
 
-    private val list: MutableList<Game> = mutableListOf()
+    private val list: MutableList<Round> = mutableListOf()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoundViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return GameViewHolder(inflater, parent)
+        return RoundViewHolder(inflater, parent)
     }
 
-    override fun onBindViewHolder(holder: GameViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RoundViewHolder, position: Int) {
         holder.bind(list[position])
     }
 
     override fun getItemCount(): Int = list.size
 
-    fun refresh(list: List<Game>) {
+    fun refresh(list: List<Round>) {
         this.list.clear()
         this.list.addAll(list)
         notifyDataSetChanged()
     }
 
-    class GameViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
+    class RoundViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
         RecyclerView.ViewHolder(inflater.inflate(R.layout.item_match, parent, false)) {
 
         private var titleTv = itemView.findViewById<TextView>(R.id.matchTitleTv)
 
-        fun bind(game: Game) {
-            titleTv.text = "${game.date}"
+        fun bind(round: Round) {
+            titleTv.text = "${round.date}"
         }
 
     }

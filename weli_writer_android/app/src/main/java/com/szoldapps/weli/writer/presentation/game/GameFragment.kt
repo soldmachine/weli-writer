@@ -17,7 +17,7 @@ import com.szoldapps.weli.writer.domain.Game
 import com.szoldapps.weli.writer.domain.Round
 import com.szoldapps.weli.writer.presentation.common.helper.viewBinding
 import com.szoldapps.weli.writer.presentation.game.GameViewState.*
-import com.szoldapps.weli.writer.presentation.game.adapter.GameRvAdapter
+import com.szoldapps.weli.writer.presentation.game.adapter.RoundRvAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -32,7 +32,7 @@ class GameFragment : Fragment(R.layout.fragment_game) {
 
     private val viewModel: GameViewModel by viewModels()
 
-    private val gameRvAdapter = GameRvAdapter()
+    private val roundRvAdapter = RoundRvAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,7 +49,7 @@ class GameFragment : Fragment(R.layout.fragment_game) {
         }
         binding.gameRv.apply {
             layoutManager = LinearLayoutManager(activity)
-            adapter = gameRvAdapter
+            adapter = roundRvAdapter
         }
     }
 
@@ -57,7 +57,7 @@ class GameFragment : Fragment(R.layout.fragment_game) {
         when (viewState) {
             Loading,
             Error -> Unit
-            is Content -> gameRvAdapter.refresh(viewState.games)
+            is Content -> roundRvAdapter.refresh(viewState.rounds)
         }
         updateVisibility(viewState)
     }
@@ -77,7 +77,7 @@ class GameFragment : Fragment(R.layout.fragment_game) {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menu_match_add) {
-            viewModel.addRandomGame()
+            viewModel.addRandomRound()
         }
         return super.onOptionsItemSelected(item)
     }

@@ -8,14 +8,17 @@ import com.szoldapps.weli.writer.data.entity.PlayerEntity
 
 @Dao
 interface PlayerDao {
+
     @Query("SELECT * FROM player")
     fun getAll(): List<PlayerEntity>
 
     @Query("SELECT * FROM player WHERE player_id IN (:playerIds)")
     fun loadAllByIds(playerIds: IntArray): List<PlayerEntity>
 
-    @Query("SELECT * FROM player WHERE first_name LIKE :first AND " +
-            "last_name LIKE :last LIMIT 1")
+    @Query(
+        "SELECT * FROM player WHERE first_name LIKE :first AND " +
+                "last_name LIKE :last LIMIT 1"
+    )
     fun findByName(first: String, last: String): PlayerEntity
 
     @Insert

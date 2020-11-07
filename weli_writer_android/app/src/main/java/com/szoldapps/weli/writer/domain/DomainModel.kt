@@ -14,6 +14,6 @@ data class Game(
 )
 
 data class Round(
-    val id: Int = -1,
+    val id: Long = -1,
     val date: OffsetDateTime,
 )

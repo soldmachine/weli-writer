@@ -9,7 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.szoldapps.weli.writer.R
 import com.szoldapps.weli.writer.databinding.FragmentMatchBinding
@@ -32,7 +34,9 @@ class MatchFragment : Fragment(R.layout.fragment_match) {
 
     private val viewModel: MatchViewModel by viewModels()
 
-    private val gameRvAdapter = MatchRvAdapter()
+    private val gameRvAdapter = MatchRvAdapter { gameId ->
+        findNavController().navigate(MatchFragmentDirections.actionMatchFragmentToGameFragment(gameId))
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -50,6 +54,7 @@ class MatchFragment : Fragment(R.layout.fragment_match) {
         binding.matchRv.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = gameRvAdapter
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
     }
 

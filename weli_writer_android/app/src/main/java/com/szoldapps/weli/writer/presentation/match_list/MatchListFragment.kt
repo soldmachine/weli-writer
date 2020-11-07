@@ -31,7 +31,7 @@ class MatchListFragment : Fragment(R.layout.fragment_match_list) {
     private val listViewModel: MatchListViewModel by viewModels()
 
     private val matchRvAdapter = MatchListRvAdapter { matchId ->
-        findNavController().navigate(MatchListFragmentDirections.actionMatchFragmentToGameFragment(matchId))
+        findNavController().navigate(MatchListFragmentDirections.actionMatchListFragmentToMatchFragment(matchId))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
