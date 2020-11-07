@@ -1,11 +1,11 @@
 package com.szoldapps.weli.writer.calculation
 
-private val playerK = Player("K")
-private val playerM = Player("M")
-private val playerS = Player("S")
-private val playerW = Player("W")
-private val playerE = Player("E")
-private val playerP = Player("P")
+private val playerK = PlayerX("K")
+private val playerM = PlayerX("M")
+private val playerS = PlayerX("S")
+private val playerW = PlayerX("W")
+private val playerE = PlayerX("E")
+private val playerP = PlayerX("P")
 
 @Suppress("UNUSED_CHANGED_VALUE")
 internal fun generateGame1(): GameX {
@@ -25,11 +25,11 @@ internal fun generateGame1(): GameX {
 }
 
 fun generateCalculationResult1() =
-    CalculationResult(
+    CalculationResultX(
         payments = listOf(
-            Payment(receiver = playerK, payer = playerW, value = 10.0),
-            Payment(receiver = playerK, payer = playerM, value = 456.0),
-            Payment(receiver = playerS, payer = playerM, value = 58.0)
+            PaymentX(receiver = playerK, payer = playerW, value = 10.0),
+            PaymentX(receiver = playerK, payer = playerM, value = 456.0),
+            PaymentX(receiver = playerS, payer = playerM, value = 58.0)
         )
     )
 
@@ -44,11 +44,11 @@ internal fun generateGame2(): GameX {
 }
 
 fun generateCalculationResult2() =
-    CalculationResult(
+    CalculationResultX(
         payments = listOf(
-            Payment(receiver = playerW, payer = playerS, value = 3.0),
-            Payment(receiver = playerW, payer = playerM, value = 23.0),
-            Payment(receiver = playerW, payer = playerK, value = 75.0)
+            PaymentX(receiver = playerW, payer = playerS, value = 3.0),
+            PaymentX(receiver = playerW, payer = playerM, value = 23.0),
+            PaymentX(receiver = playerW, payer = playerK, value = 75.0)
         )
     )
 
@@ -105,49 +105,49 @@ internal fun generateGame5(): GameX {
 }
 
 fun generateCalculationResult3() =
-    CalculationResult(
+    CalculationResultX(
         payments = listOf(
-            Payment(receiver = playerW, payer = playerS, value = 3.0),
-            Payment(receiver = playerW, payer = playerM, value = 23.0),
-            Payment(receiver = playerW, payer = playerK, value = 75.0)
+            PaymentX(receiver = playerW, payer = playerS, value = 3.0),
+            PaymentX(receiver = playerW, payer = playerM, value = 23.0),
+            PaymentX(receiver = playerW, payer = playerK, value = 75.0)
         )
     )
 
 fun generateCalculationResult4() =
-    CalculationResult(
+    CalculationResultX(
         payments = listOf(
-            Payment(receiver = playerS, payer = playerE, value = 260.0),
-            Payment(receiver = playerS, payer = playerK, value = 176.0),
-            Payment(receiver = playerM, payer = playerK, value = 172.0)
+            PaymentX(receiver = playerS, payer = playerE, value = 260.0),
+            PaymentX(receiver = playerS, payer = playerK, value = 176.0),
+            PaymentX(receiver = playerM, payer = playerK, value = 172.0)
         )
     )
 
 fun generateCalculationResult5() =
-    CalculationResult(
+    CalculationResultX(
         payments = listOf(
-            Payment(receiver = playerW, payer = playerS, value = 315.0),
-            Payment(receiver = playerK, payer = playerS, value = 123.0),
-            Payment(receiver = playerP, payer = playerS, value = 55.0)
+            PaymentX(receiver = playerW, payer = playerS, value = 315.0),
+            PaymentX(receiver = playerK, payer = playerS, value = 123.0),
+            PaymentX(receiver = playerP, payer = playerS, value = 55.0)
         )
     )
 
-private fun generateRound(number: Int, points: List<Int>): Round {
-    return Round(
+private fun generateRound(number: Int, points: List<Int>): RoundX {
+    return RoundX(
         number = number,
         values = listOf(
-            RoundValue(
+            RoundValueX(
                 player = playerK,
                 points = points[0]
             ),
-            RoundValue(
+            RoundValueX(
                 player = playerM,
                 points = points[1]
             ),
-            RoundValue(
+            RoundValueX(
                 player = playerS,
                 points = points[2]
             ),
-            RoundValue(
+            RoundValueX(
                 player = playerW,
                 points = points[3]
             )
@@ -155,23 +155,23 @@ private fun generateRound(number: Int, points: List<Int>): Round {
     )
 }
 
-private fun generateRound06072020(number: Int, points: List<Int>): Round {
-    return Round(
+private fun generateRound06072020(number: Int, points: List<Int>): RoundX {
+    return RoundX(
         number = number,
         values = listOf(
-            RoundValue(
+            RoundValueX(
                 player = playerM,
                 points = points[0]
             ),
-            RoundValue(
+            RoundValueX(
                 player = playerS,
                 points = points[1]
             ),
-            RoundValue(
+            RoundValueX(
                 player = playerK,
                 points = points[2]
             ),
-            RoundValue(
+            RoundValueX(
                 player = playerW,
                 points = points[3]
             )
@@ -179,23 +179,23 @@ private fun generateRound06072020(number: Int, points: List<Int>): Round {
     )
 }
 
-private fun generateRound18072020(number: Int, points: List<Int>): Round {
-    return Round(
+private fun generateRound18072020(number: Int, points: List<Int>): RoundX {
+    return RoundX(
         number = number,
         values = listOf(
-            RoundValue(
+            RoundValueX(
                 player = playerM,
                 points = points[0]
             ),
-            RoundValue(
+            RoundValueX(
                 player = playerK,
                 points = points[1]
             ),
-            RoundValue(
+            RoundValueX(
                 player = playerE,
                 points = points[2]
             ),
-            RoundValue(
+            RoundValueX(
                 player = playerS,
                 points = points[3]
             )
@@ -203,23 +203,23 @@ private fun generateRound18072020(number: Int, points: List<Int>): Round {
     )
 }
 
-private fun generateRound07082020(number: Int, points: List<Int>): Round {
-    return Round(
+private fun generateRound07082020(number: Int, points: List<Int>): RoundX {
+    return RoundX(
         number = number,
         values = listOf(
-            RoundValue(
+            RoundValueX(
                 player = playerK,
                 points = points[0]
             ),
-            RoundValue(
+            RoundValueX(
                 player = playerP,
                 points = points[1]
             ),
-            RoundValue(
+            RoundValueX(
                 player = playerS,
                 points = points[2]
             ),
-            RoundValue(
+            RoundValueX(
                 player = playerW,
                 points = points[3]
             )
@@ -228,11 +228,11 @@ private fun generateRound07082020(number: Int, points: List<Int>): Round {
 }
 
 fun generateZeroRatedGameSums() =
-    ZeroRatedGameSums(
+    ZeroRatedGameSumsX(
         gameSums = listOf(
-            RoundValue(playerK, 0),
-            RoundValue(playerS, 102),
-            RoundValue(playerW, 119),
-            RoundValue(playerM, 245)
+            RoundValueX(playerK, 0),
+            RoundValueX(playerS, 102),
+            RoundValueX(playerW, 119),
+            RoundValueX(playerM, 245)
         )
     )

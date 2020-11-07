@@ -4,10 +4,10 @@ import javax.inject.Inject
 
 class CalculationRepository @Inject constructor() {
 
-    fun calculateResult(game: GameX): CalculationResult {
+    fun calculateResult(game: GameX): CalculationResultX {
         val zeroRatedGameSums = getZeroRatedAndSortedSums(game).gameSums
 
-        val balanceMap = mutableMapOf<Player, Int>()
+        val balanceMap = mutableMapOf<PlayerX, Int>()
         val playerCount = zeroRatedGameSums.size
         zeroRatedGameSums.forEachIndexed { index, roundValue ->
             val player = roundValue.player
@@ -34,12 +34,12 @@ class CalculationRepository @Inject constructor() {
         }
 
 
-        return CalculationResult(
+        return CalculationResultX(
             payments = getPaymentsFrom(balanceMap)
         )
     }
 
-    private fun getPaymentsFrom(balanceMap: MutableMap<Player, Int>): List<Payment> {
+    private fun getPaymentsFrom(balanceMap: MutableMap<PlayerX, Int>): List<PaymentX> {
         val positivePoints = balanceMap.filterValues { points -> points >= 0 }
         val negativePoints = balanceMap.filterValues { points -> points < 0 }.toMutableMap()
 
@@ -48,7 +48,7 @@ class CalculationRepository @Inject constructor() {
             throw IllegalStateException("Calculation of balances was wrong!")
         }
 
-        val payments = mutableListOf<Payment>()
+        val payments = mutableListOf<PaymentX>()
         positivePoints.forEach { positiveBalance ->
             var pointsToReceive = positiveBalance.value
             negativePoints.forEach { negativeBalance ->
@@ -63,7 +63,7 @@ class CalculationRepository @Inject constructor() {
                     pointsToReceive -= paymentValue
 
                     payments.add(
-                        Payment(
+                        PaymentX(
                             receiver = positiveBalance.key,
                             payer = negativeBalance.key,
                             value = paymentValue.toDouble()
@@ -76,8 +76,8 @@ class CalculationRepository @Inject constructor() {
         return payments
     }
 
-    fun getZeroRatedAndSortedSums(game: GameX): ZeroRatedGameSums {
-        val playerSumMap = mutableMapOf<Player, Int>()
+    fun getZeroRatedAndSortedSums(game: GameX): ZeroRatedGameSumsX {
+        val playerSumMap = mutableMapOf<PlayerX, Int>()
         game.rounds.forEach { round ->
             round.values.forEach { roundValue ->
                 // enter player into map if missing
@@ -94,46 +94,46 @@ class CalculationRepository @Inject constructor() {
         }?.value ?: 0
 
         val gameSums = playerSumMap.map { entry ->
-            RoundValue(
+            RoundValueX(
                 player = entry.key,
                 points = entry.value - minimumSum
             )
         }.sortedBy { roundValue -> roundValue.points }
 
-        return ZeroRatedGameSums(gameSums)
+        return ZeroRatedGameSumsX(gameSums)
     }
 
 
 }
 
 data class GameX(
-    val rounds: List<Round>
+    val rounds: List<RoundX>
 )
 
-data class Round(
+data class RoundX(
     val number: Int,
-    val values: List<RoundValue>
+    val values: List<RoundValueX>
 )
 
-data class RoundValue(
-    val player: Player,
+data class RoundValueX(
+    val player: PlayerX,
     val points: Int
 )
 
-data class Player(
+data class PlayerX(
     val name: String
 )
 
-data class CalculationResult(
-    val payments: List<Payment>
+data class CalculationResultX(
+    val payments: List<PaymentX>
 )
 
-data class Payment(
-    val payer: Player,
-    val receiver: Player,
+data class PaymentX(
+    val payer: PlayerX,
+    val receiver: PlayerX,
     val value: Double
 )
 
-data class ZeroRatedGameSums(
-    val gameSums: List<RoundValue>
+data class ZeroRatedGameSumsX(
+    val gameSums: List<RoundValueX>
 )
