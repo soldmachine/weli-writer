@@ -2,10 +2,11 @@ package com.szoldapps.weli.writer.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import com.szoldapps.weli.writer.data.dao.GameDao
-import com.szoldapps.weli.writer.data.dao.MatchDao
-import com.szoldapps.weli.writer.data.dao.RoundDao
-import com.szoldapps.weli.writer.data.dao.RoundValueDao
+import com.szoldapps.weli.writer.data.db.dao.GameDao
+import com.szoldapps.weli.writer.data.db.dao.MatchDao
+import com.szoldapps.weli.writer.data.db.dao.RoundDao
+import com.szoldapps.weli.writer.data.db.dao.RoundValueDao
+import com.szoldapps.weli.writer.data.db.mapper.*
 import com.szoldapps.weli.writer.data.mapper.*
 import com.szoldapps.weli.writer.domain.*
 import kotlinx.coroutines.Dispatchers

@@ -1,4 +1,4 @@
-package com.szoldapps.weli.writer.data.entity
+package com.szoldapps.weli.writer.data.db.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

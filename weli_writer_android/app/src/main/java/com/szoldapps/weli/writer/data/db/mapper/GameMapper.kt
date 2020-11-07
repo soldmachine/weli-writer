@@ -1,6 +1,6 @@
-package com.szoldapps.weli.writer.data.mapper
+package com.szoldapps.weli.writer.data.db.mapper
 
-import com.szoldapps.weli.writer.data.entity.GameEntity
+import com.szoldapps.weli.writer.data.db.entity.GameEntity
 import com.szoldapps.weli.writer.domain.Game
 
 fun GameEntity.mapToGame(): Game =

@@ -1,6 +1,6 @@
-package com.szoldapps.weli.writer.data.mapper
+package com.szoldapps.weli.writer.data.db.mapper
 
-import com.szoldapps.weli.writer.data.entity.RoundEntity
+import com.szoldapps.weli.writer.data.db.entity.RoundEntity
 import com.szoldapps.weli.writer.domain.Round
 
 fun RoundEntity.mapToRound(): Round =

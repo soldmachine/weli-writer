@@ -1,11 +1,11 @@
-package com.szoldapps.weli.writer.data.dao
+package com.szoldapps.weli.writer.data.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.szoldapps.weli.writer.data.entity.MatchEntity
+import com.szoldapps.weli.writer.data.db.entity.MatchEntity
 
 @Dao
 interface MatchDao {

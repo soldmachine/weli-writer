@@ -3,6 +3,7 @@ package com.szoldapps.weli.writer.di
 import android.content.Context
 import com.szoldapps.weli.writer.data.dao.*
 import com.szoldapps.weli.writer.data.db.AppDatabase
+import com.szoldapps.weli.writer.data.db.dao.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

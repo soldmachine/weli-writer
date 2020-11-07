@@ -1,6 +1,6 @@
-package com.szoldapps.weli.writer.data.mapper
+package com.szoldapps.weli.writer.data.db.mapper
 
-import com.szoldapps.weli.writer.data.entity.MatchEntity
+import com.szoldapps.weli.writer.data.db.entity.MatchEntity
 import com.szoldapps.weli.writer.domain.Match
 
 fun MatchEntity.mapToMatch(): Match =

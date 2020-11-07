@@ -7,6 +7,8 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.szoldapps.weli.writer.data.dao.*
 import com.szoldapps.weli.writer.data.db.converter.DateTypeConverter
+import com.szoldapps.weli.writer.data.db.dao.*
+import com.szoldapps.weli.writer.data.db.entity.*
 import com.szoldapps.weli.writer.data.entity.*
 
 @Database(
