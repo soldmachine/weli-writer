@@ -1,26 +1,28 @@
-package com.szoldapps.weli.writer.presentation.match
+package com.szoldapps.weli.writer.presentation.game
 
+import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.szoldapps.weli.writer.domain.Match
+import androidx.lifecycle.*
+import com.szoldapps.weli.writer.domain.Game
 import com.szoldapps.weli.writer.domain.WeliRepository
-import com.szoldapps.weli.writer.presentation.match.MatchViewState.Content
+import com.szoldapps.weli.writer.presentation.game.GameViewState.Content
 import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime
 
 class GameViewModel @ViewModelInject constructor(
-    private val weliRepository: WeliRepository
+    private val weliRepository: WeliRepository,
+    @Assisted private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    val viewState: LiveData<MatchViewState> = Transformations.map(weliRepository.matches) { matches ->
-        Content(matches)
+    private val matchId: Int =
+        savedStateHandle.get<Int>("matchId") ?: throw kotlin.IllegalStateException("Mandatory matchId is missing!")
+
+    val viewState: LiveData<GameViewState> = Transformations.map(weliRepository.gamesByMatchId(matchId)) { games ->
+        Content(games)
     }
 
-    fun addRandomMatch() = viewModelScope.launch {
-        weliRepository.addMatch(Match(date = OffsetDateTime.now(), location = "testLocation"))
+    fun addRandomGame() = viewModelScope.launch {
+        weliRepository.addGame(Game(date = OffsetDateTime.now()), matchId)
     }
 
 }
@@ -28,5 +30,5 @@ class GameViewModel @ViewModelInject constructor(
 sealed class GameViewState {
     object Loading : GameViewState()
     object Error : GameViewState()
-    data class Content(val matches: List<Match>) : GameViewState()
+    data class Content(val games: List<Game>) : GameViewState()
 }

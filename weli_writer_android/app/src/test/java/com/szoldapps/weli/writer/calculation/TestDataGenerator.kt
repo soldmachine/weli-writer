@@ -8,9 +8,9 @@ private val playerE = Player("E")
 private val playerP = Player("P")
 
 @Suppress("UNUSED_CHANGED_VALUE")
-internal fun generateGame1(): Game {
+internal fun generateGame1(): GameX {
     var number = 1
-    return Game(
+    return GameX(
         rounds = listOf(
             generateRound(number++, listOf(44, 31, 26, 0)),
             generateRound(number++, listOf(29, 68, 0, 51)),
@@ -34,9 +34,9 @@ fun generateCalculationResult1() =
     )
 
 @Suppress("UNUSED_CHANGED_VALUE")
-internal fun generateGame2(): Game {
+internal fun generateGame2(): GameX {
     var number = 1
-    return Game(
+    return GameX(
         rounds = listOf(
             generateRound(number++, listOf(44, 31, 26, 0))
         )
@@ -52,9 +52,9 @@ fun generateCalculationResult2() =
         )
     )
 
-internal fun generateGame3(): Game {
+internal fun generateGame3(): GameX {
     var number = 1
-    return Game(
+    return GameX(
         rounds = listOf(
             generateRound06072020(number++, listOf(14, 0, 35, 21)),
             generateRound06072020(number++, listOf(33, 0, 16, 35)),
@@ -68,9 +68,9 @@ internal fun generateGame3(): Game {
     )
 }
 
-internal fun generateGame4(): Game {
+internal fun generateGame4(): GameX {
     var number = 1
-    return Game(
+    return GameX(
         rounds = listOf(
             generateRound18072020(number++, listOf(2, 55, 44, 0)),
             generateRound18072020(number++, listOf(0, 33, 33, 44)),
@@ -87,9 +87,9 @@ internal fun generateGame4(): Game {
     )
 }
 
-internal fun generateGame5(): Game {
+internal fun generateGame5(): GameX {
     var number = 1
-    return Game(
+    return GameX(
         rounds = listOf(
             generateRound07082020(number++, listOf(30, 69, 0, 12)),
             generateRound07082020(number++, listOf(19, 47, 0, 23)),

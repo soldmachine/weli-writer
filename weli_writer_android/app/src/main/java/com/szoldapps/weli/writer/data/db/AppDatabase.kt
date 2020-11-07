@@ -5,18 +5,21 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.szoldapps.weli.writer.data.dao.GameDao
 import com.szoldapps.weli.writer.data.dao.MatchDao
 import com.szoldapps.weli.writer.data.dao.PlayerDao
 import com.szoldapps.weli.writer.data.db.converter.DateTypeConverter
+import com.szoldapps.weli.writer.data.entity.GameEntity
 import com.szoldapps.weli.writer.data.entity.MatchEntity
 import com.szoldapps.weli.writer.data.entity.PlayerEntity
 
 @Database(
     entities = [
         PlayerEntity::class,
-        MatchEntity::class
+        MatchEntity::class,
+        GameEntity::class,
     ],
-    version = 1
+    version = 3
 )
 @TypeConverters(DateTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
@@ -24,6 +27,8 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun playerDao(): PlayerDao
 
     abstract fun matchDao(): MatchDao
+
+    abstract fun gameDao(): GameDao
 
     companion object {
 

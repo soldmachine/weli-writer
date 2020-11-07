@@ -13,6 +13,9 @@ interface MatchDao {
     @Query("SELECT * FROM `match`")
     fun getAll(): LiveData<List<MatchEntity>>
 
+    @Query("SELECT * FROM `match` WHERE match_id=:matchId")
+    fun getMatchById(matchId: Int): LiveData<MatchEntity>
+
     @Insert
     fun insertAll(vararg matchEntity: MatchEntity)
 

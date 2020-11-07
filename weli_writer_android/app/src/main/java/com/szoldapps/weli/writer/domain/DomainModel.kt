@@ -7,3 +7,8 @@ data class Match(
     val date: OffsetDateTime,
     val location: String
 )
+
+data class Game(
+    val id: Int = -1,
+    val date: OffsetDateTime,
+)

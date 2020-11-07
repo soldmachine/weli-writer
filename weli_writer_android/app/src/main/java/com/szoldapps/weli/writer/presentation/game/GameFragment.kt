@@ -14,10 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.szoldapps.weli.writer.R
 import com.szoldapps.weli.writer.databinding.FragmentGameBinding
 import com.szoldapps.weli.writer.presentation.common.helper.viewBinding
+import com.szoldapps.weli.writer.presentation.game.GameViewState.*
 import com.szoldapps.weli.writer.presentation.game.adapter.GameRvAdapter
-import com.szoldapps.weli.writer.presentation.match.GameViewModel
-import com.szoldapps.weli.writer.presentation.match.MatchViewState
-import com.szoldapps.weli.writer.presentation.match.MatchViewState.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -42,7 +40,7 @@ class GameFragment : Fragment(R.layout.fragment_game) {
     private fun setupToolbarAndRv() {
         with(binding) {
             (activity as AppCompatActivity).setSupportActionBar(gameToolbar)
-            gameToolbar.title = "Match: ${args.gameId}"
+            gameToolbar.title = "Match: ${args.matchId}"
         }
         binding.gameRv.apply {
             layoutManager = LinearLayoutManager(activity)
@@ -50,16 +48,16 @@ class GameFragment : Fragment(R.layout.fragment_game) {
         }
     }
 
-    private fun handleViewState(viewState: MatchViewState) {
+    private fun handleViewState(viewState: GameViewState) {
         when (viewState) {
             Loading,
             Error -> Unit
-            is Content -> gameRvAdapter.refresh(viewState.matches)
+            is Content -> gameRvAdapter.refresh(viewState.games)
         }
         updateVisibility(viewState)
     }
 
-    private fun updateVisibility(viewState: MatchViewState) {
+    private fun updateVisibility(viewState: GameViewState) {
         with(binding) {
             gameLoadingSpinner.isVisible = viewState is Loading
             gameErrorTv.isVisible = viewState is Error
@@ -74,7 +72,7 @@ class GameFragment : Fragment(R.layout.fragment_game) {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menu_match_add) {
-            viewModel.addRandomMatch()
+            viewModel.addRandomGame()
         }
         return super.onOptionsItemSelected(item)
     }

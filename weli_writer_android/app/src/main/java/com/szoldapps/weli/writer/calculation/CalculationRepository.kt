@@ -4,7 +4,7 @@ import javax.inject.Inject
 
 class CalculationRepository @Inject constructor() {
 
-    fun calculateResult(game: Game): CalculationResult {
+    fun calculateResult(game: GameX): CalculationResult {
         val zeroRatedGameSums = getZeroRatedAndSortedSums(game).gameSums
 
         val balanceMap = mutableMapOf<Player, Int>()
@@ -76,7 +76,7 @@ class CalculationRepository @Inject constructor() {
         return payments
     }
 
-    fun getZeroRatedAndSortedSums(game: Game): ZeroRatedGameSums {
+    fun getZeroRatedAndSortedSums(game: GameX): ZeroRatedGameSums {
         val playerSumMap = mutableMapOf<Player, Int>()
         game.rounds.forEach { round ->
             round.values.forEach { roundValue ->
@@ -106,7 +106,7 @@ class CalculationRepository @Inject constructor() {
 
 }
 
-data class Game(
+data class GameX(
     val rounds: List<Round>
 )
 

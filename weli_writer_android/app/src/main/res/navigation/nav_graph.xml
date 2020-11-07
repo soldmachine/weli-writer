@@ -20,7 +20,7 @@
         android:label="fragment_game"
         tools:layout="@layout/fragment_game">
         <argument
-            android:name="gameId"
+            android:name="matchId"
             app:argType="integer" />
     </fragment>
 </navigation>
