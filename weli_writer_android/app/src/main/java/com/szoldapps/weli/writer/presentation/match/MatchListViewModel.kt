@@ -11,7 +11,7 @@ import com.szoldapps.weli.writer.presentation.match.MatchViewState.Content
 import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime
 
-class MatchViewModel @ViewModelInject constructor(
+class MatchListViewModel @ViewModelInject constructor(
     private val weliRepository: WeliRepository
 ) : ViewModel() {
 
@@ -22,7 +22,6 @@ class MatchViewModel @ViewModelInject constructor(
     fun addRandomMatch() = viewModelScope.launch {
         weliRepository.addMatch(Match(date = OffsetDateTime.now(), location = "testLocation"))
     }
-
 }
 
 sealed class MatchViewState {

@@ -13,21 +13,21 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.szoldapps.weli.writer.R
-import com.szoldapps.weli.writer.databinding.FragmentMatchBinding
+import com.szoldapps.weli.writer.databinding.FragmentMatchListBinding
 import com.szoldapps.weli.writer.presentation.common.helper.viewBinding
 import com.szoldapps.weli.writer.presentation.match.MatchViewState.*
-import com.szoldapps.weli.writer.presentation.match.adapter.MatchRvAdapter
+import com.szoldapps.weli.writer.presentation.match.adapter.MatchListRvAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MatchFragment : Fragment(R.layout.fragment_match) {
+class MatchListFragment : Fragment(R.layout.fragment_match_list) {
 
-    private val binding by viewBinding(FragmentMatchBinding::bind)
+    private val binding by viewBinding(FragmentMatchListBinding::bind)
 
-    private val viewModel: MatchViewModel by viewModels()
+    private val listViewModel: MatchListViewModel by viewModels()
 
-    private val matchRvAdapter = MatchRvAdapter { matchId ->
-        findNavController().navigate(MatchFragmentDirections.actionMatchFragmentToGameFragment(matchId))
+    private val matchRvAdapter = MatchListRvAdapter { matchId ->
+        findNavController().navigate(MatchListFragmentDirections.actionMatchFragmentToGameFragment(matchId))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,7 +35,7 @@ class MatchFragment : Fragment(R.layout.fragment_match) {
         setHasOptionsMenu(true)
 
         setupToolbarAndRv()
-        viewModel.viewState.observe(viewLifecycleOwner, ::handleViewState)
+        listViewModel.viewState.observe(viewLifecycleOwner, ::handleViewState)
     }
 
     private fun setupToolbarAndRv() {
@@ -71,7 +71,7 @@ class MatchFragment : Fragment(R.layout.fragment_match) {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menu_match_add) {
-            viewModel.addRandomMatch()
+            listViewModel.addRandomMatch()
         }
         return super.onOptionsItemSelected(item)
     }

@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.szoldapps.weli.writer.R
 import com.szoldapps.weli.writer.domain.Match
 
-class MatchRvAdapter(
+class MatchListRvAdapter(
     private val onItemClickListener: (Int) -> (Unit)
-) : RecyclerView.Adapter<MatchRvAdapter.MatchViewHolder>() {
+) : RecyclerView.Adapter<MatchListRvAdapter.MatchViewHolder>() {
 
     private val list: MutableList<Match> = mutableListOf()
 

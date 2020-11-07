@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/matchFragment"
-        android:name="com.szoldapps.weli.writer.presentation.match.MatchFragment"
+        android:name="com.szoldapps.weli.writer.presentation.match.MatchListFragment"
         android:label="fragment_match"
-        tools:layout="@layout/fragment_match">
+        tools:layout="@layout/fragment_match_list">
         <action
             android:id="@+id/action_matchFragment_to_gameFragment"
             app:destination="@id/gameFragment" />
