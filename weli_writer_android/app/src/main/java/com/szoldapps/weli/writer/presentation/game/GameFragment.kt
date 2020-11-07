@@ -13,11 +13,16 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.szoldapps.weli.writer.R
 import com.szoldapps.weli.writer.databinding.FragmentGameBinding
+import com.szoldapps.weli.writer.domain.Game
+import com.szoldapps.weli.writer.domain.Round
 import com.szoldapps.weli.writer.presentation.common.helper.viewBinding
 import com.szoldapps.weli.writer.presentation.game.GameViewState.*
 import com.szoldapps.weli.writer.presentation.game.adapter.GameRvAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * Shows a [Game], including a list of its [Round]s.
+ */
 @AndroidEntryPoint
 class GameFragment : Fragment(R.layout.fragment_game) {
 

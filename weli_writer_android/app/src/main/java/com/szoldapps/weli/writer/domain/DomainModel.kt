@@ -12,3 +12,8 @@ data class Game(
     val id: Int = -1,
     val date: OffsetDateTime,
 )
+
+data class Round(
+    val id: Int = -1,
+    val date: OffsetDateTime,
+)

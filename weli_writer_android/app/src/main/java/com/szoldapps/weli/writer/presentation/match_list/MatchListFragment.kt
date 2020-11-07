@@ -14,11 +14,15 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.szoldapps.weli.writer.R
 import com.szoldapps.weli.writer.databinding.FragmentMatchListBinding
+import com.szoldapps.weli.writer.domain.Match
 import com.szoldapps.weli.writer.presentation.common.helper.viewBinding
 import com.szoldapps.weli.writer.presentation.match_list.MatchViewState.*
 import com.szoldapps.weli.writer.presentation.match_list.adapter.MatchListRvAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * Shows a list of [Match]es
+ */
 @AndroidEntryPoint
 class MatchListFragment : Fragment(R.layout.fragment_match_list) {
 

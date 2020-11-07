@@ -13,11 +13,16 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.szoldapps.weli.writer.R
 import com.szoldapps.weli.writer.databinding.FragmentMatchBinding
+import com.szoldapps.weli.writer.domain.Game
+import com.szoldapps.weli.writer.domain.Match
 import com.szoldapps.weli.writer.presentation.common.helper.viewBinding
 import com.szoldapps.weli.writer.presentation.match.MatchViewState.*
 import com.szoldapps.weli.writer.presentation.match.adapter.MatchRvAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * Shows a [Match], including a list of its [Game]s.
+ */
 @AndroidEntryPoint
 class MatchFragment : Fragment(R.layout.fragment_match) {
 
