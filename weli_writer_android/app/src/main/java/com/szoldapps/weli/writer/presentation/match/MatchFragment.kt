@@ -9,41 +9,42 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.szoldapps.weli.writer.R
-import com.szoldapps.weli.writer.databinding.FragmentMatchListBinding
+import com.szoldapps.weli.writer.databinding.FragmentMatchBinding
 import com.szoldapps.weli.writer.presentation.common.helper.viewBinding
 import com.szoldapps.weli.writer.presentation.match.MatchViewState.*
-import com.szoldapps.weli.writer.presentation.match.adapter.MatchListRvAdapter
+import com.szoldapps.weli.writer.presentation.match.adapter.MatchRvAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MatchListFragment : Fragment(R.layout.fragment_match_list) {
+class MatchFragment : Fragment(R.layout.fragment_match) {
 
-    private val binding by viewBinding(FragmentMatchListBinding::bind)
+    private val binding by viewBinding(FragmentMatchBinding::bind)
 
-    private val listViewModel: MatchListViewModel by viewModels()
+    private val args: MatchFragmentArgs by navArgs()
 
-    private val matchRvAdapter = MatchListRvAdapter { matchId ->
-        findNavController().navigate(MatchListFragmentDirections.actionMatchFragmentToGameFragment(matchId))
-    }
+    private val viewModel: MatchViewModel by viewModels()
+
+    private val gameRvAdapter = MatchRvAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
         setupToolbarAndRv()
-        listViewModel.viewState.observe(viewLifecycleOwner, ::handleViewState)
+        viewModel.viewState.observe(viewLifecycleOwner, ::handleViewState)
     }
 
     private fun setupToolbarAndRv() {
-        (activity as AppCompatActivity).setSupportActionBar(binding.matchToolbar)
+        with(binding) {
+            (activity as AppCompatActivity).setSupportActionBar(matchToolbar)
+            matchToolbar.title = "Games of Match: ${args.matchId}"
+        }
         binding.matchRv.apply {
             layoutManager = LinearLayoutManager(activity)
-            adapter = matchRvAdapter
-            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+            adapter = gameRvAdapter
         }
     }
 
@@ -51,7 +52,7 @@ class MatchListFragment : Fragment(R.layout.fragment_match_list) {
         when (viewState) {
             Loading,
             Error -> Unit
-            is Content -> matchRvAdapter.refresh(viewState.matches)
+            is Content -> gameRvAdapter.refresh(viewState.games)
         }
         updateVisibility(viewState)
     }
@@ -71,7 +72,7 @@ class MatchListFragment : Fragment(R.layout.fragment_match_list) {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menu_match_add) {
-            listViewModel.addRandomMatch()
+            viewModel.addRandomGame()
         }
         return super.onOptionsItemSelected(item)
     }

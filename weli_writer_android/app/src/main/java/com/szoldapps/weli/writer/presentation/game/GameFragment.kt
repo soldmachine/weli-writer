@@ -40,7 +40,7 @@ class GameFragment : Fragment(R.layout.fragment_game) {
     private fun setupToolbarAndRv() {
         with(binding) {
             (activity as AppCompatActivity).setSupportActionBar(gameToolbar)
-            gameToolbar.title = "Games of Match: ${args.matchId}"
+            gameToolbar.title = "Rounds of Game: ${args.gameId}"
         }
         binding.gameRv.apply {
             layoutManager = LinearLayoutManager(activity)

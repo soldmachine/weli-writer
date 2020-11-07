@@ -1,4 +1,4 @@
-package com.szoldapps.weli.writer.presentation.match
+package com.szoldapps.weli.writer.presentation.match_list
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.szoldapps.weli.writer.domain.Match
 import com.szoldapps.weli.writer.domain.WeliRepository
-import com.szoldapps.weli.writer.presentation.match.MatchViewState.Content
+import com.szoldapps.weli.writer.presentation.match_list.MatchViewState.Content
 import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime
 

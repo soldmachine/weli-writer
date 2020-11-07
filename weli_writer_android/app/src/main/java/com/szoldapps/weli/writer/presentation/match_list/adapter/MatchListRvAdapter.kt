@@ -1,4 +1,4 @@
-package com.szoldapps.weli.writer.presentation.match.adapter
+package com.szoldapps.weli.writer.presentation.match_list.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

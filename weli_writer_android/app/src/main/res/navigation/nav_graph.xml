@@ -3,16 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/matchFragment">
+    app:startDestination="@id/matchListFragment">
 
     <fragment
-        android:id="@+id/matchFragment"
-        android:name="com.szoldapps.weli.writer.presentation.match.MatchListFragment"
-        android:label="fragment_match"
+        android:id="@+id/matchListFragment"
+        android:name="com.szoldapps.weli.writer.presentation.match_list.MatchListFragment"
+        android:label="fragment_match_list"
         tools:layout="@layout/fragment_match_list">
         <action
             android:id="@+id/action_matchFragment_to_gameFragment"
-            app:destination="@id/gameFragment" />
+            app:destination="@id/matchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/matchFragment"
+        android:name="com.szoldapps.weli.writer.presentation.match.MatchFragment"
+        android:label="fragment_match"
+        tools:layout="@layout/fragment_game">
+        <argument
+            android:name="matchId"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/gameFragment"
@@ -20,7 +29,7 @@
         android:label="fragment_game"
         tools:layout="@layout/fragment_game">
         <argument
-            android:name="matchId"
+            android:name="gameId"
             app:argType="integer" />
     </fragment>
 </navigation>
