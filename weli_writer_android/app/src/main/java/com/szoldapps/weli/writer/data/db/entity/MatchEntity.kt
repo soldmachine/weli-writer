@@ -9,7 +9,7 @@ import org.threeten.bp.OffsetDateTime
 data class MatchEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "match_id")
-    val matchId: Int = 0,
+    val matchId: Long = 0,
     @ColumnInfo(name = "date_time")
     val dateTime: OffsetDateTime,
     @ColumnInfo(name = "location")

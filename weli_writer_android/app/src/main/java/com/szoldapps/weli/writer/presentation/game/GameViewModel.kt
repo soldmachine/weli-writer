@@ -14,8 +14,8 @@ class GameViewModel @ViewModelInject constructor(
     @Assisted private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val gameId: Int =
-        savedStateHandle.get<Int>("gameId") ?: throw kotlin.IllegalStateException("Mandatory gameId is missing!")
+    private val gameId: Long =
+        savedStateHandle.get<Long>("gameId") ?: throw kotlin.IllegalStateException("Mandatory gameId is missing!")
 
     val viewState: LiveData<GameViewState> = Transformations.map(weliRepository.roundsByGameId(gameId)) { rounds ->
         Content(rounds)

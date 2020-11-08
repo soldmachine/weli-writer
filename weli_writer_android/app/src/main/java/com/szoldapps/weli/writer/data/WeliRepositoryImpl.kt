@@ -2,12 +2,8 @@ package com.szoldapps.weli.writer.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import com.szoldapps.weli.writer.data.db.dao.GameDao
-import com.szoldapps.weli.writer.data.db.dao.MatchDao
-import com.szoldapps.weli.writer.data.db.dao.RoundDao
-import com.szoldapps.weli.writer.data.db.dao.RoundValueDao
+import com.szoldapps.weli.writer.data.db.dao.*
 import com.szoldapps.weli.writer.data.db.mapper.*
-import com.szoldapps.weli.writer.data.mapper.*
 import com.szoldapps.weli.writer.domain.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -15,6 +11,7 @@ import javax.inject.Inject
 
 class WeliRepositoryImpl @Inject constructor(
     private val matchDao: MatchDao,
+    private val playerDao: PlayerDao,
     private val gameDao: GameDao,
     private val roundDao: RoundDao,
     private val roundValueDao: RoundValueDao,
@@ -24,12 +21,12 @@ class WeliRepositoryImpl @Inject constructor(
         it.mapToMatch()
     }
 
-    override fun gamesByMatchId(matchId: Int): LiveData<List<Game>> =
-        Transformations.map(gameDao.getGamesByMatchById(matchId)) { gameEntities ->
-            gameEntities.mapToGames()
+    override fun gamesByMatchId(matchId: Long): LiveData<List<Game>> =
+        Transformations.map(gameDao.getGamesWithPlayersEntities(matchId.toLong())) { gamesWithPlayers ->
+            gamesWithPlayers.mapToGames()
         }
 
-    override fun roundsByGameId(gameId: Int): LiveData<List<Round>> =
+    override fun roundsByGameId(gameId: Long): LiveData<List<Round>> =
         Transformations.map(roundDao.getRoundsByGameById(gameId)) { roundEntities ->
             roundEntities.mapToRounds()
         }
@@ -43,11 +40,11 @@ class WeliRepositoryImpl @Inject constructor(
         matchDao.insertAll(match.mapToMatchDb())
     }
 
-    override suspend fun addGame(game: Game, matchId: Int) = withContext(Dispatchers.IO) {
-        gameDao.insertAll(game.mapToGameEntity(matchId))
+    override suspend fun addGame(game: Game, matchId: Long) = withContext(Dispatchers.IO) {
+        gameDao.insert(game.mapToGameEntity(matchId), game.players.mapToPlayerEntities())
     }
 
-    override suspend fun addRound(round: Round, gameId: Int) = withContext(Dispatchers.IO) {
+    override suspend fun addRound(round: Round, gameId: Long) = withContext(Dispatchers.IO) {
         roundDao.insertAll(round.mapToRoundEntity(gameId))
     }
 

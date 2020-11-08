@@ -21,7 +21,7 @@
         tools:layout="@layout/fragment_game">
         <argument
             android:name="matchId"
-            app:argType="integer" />
+            app:argType="long" />
         <action
             android:id="@+id/action_matchFragment_to_gameFragment"
             app:destination="@id/gameFragment" />
@@ -33,7 +33,7 @@
         tools:layout="@layout/fragment_game">
         <argument
             android:name="gameId"
-            app:argType="integer" />
+            app:argType="long" />
         <action
             android:id="@+id/action_gameFragment_to_roundFragment"
             app:destination="@id/roundFragment" />

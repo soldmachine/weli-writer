@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.szoldapps.weli.writer.data.db.entity.GameEntity
 import com.szoldapps.weli.writer.data.db.entity.RoundEntity
 
 @Dao
@@ -14,7 +13,7 @@ interface RoundDao {
     fun getAll(): LiveData<List<RoundEntity>>
 
     @Query("SELECT * FROM `round` WHERE round_game_id=:gameId")
-    fun getRoundsByGameById(gameId: Int): LiveData<List<RoundEntity>>
+    fun getRoundsByGameById(gameId: Long): LiveData<List<RoundEntity>>
 
     @Insert
     fun insertAll(vararg roundEntity: RoundEntity)

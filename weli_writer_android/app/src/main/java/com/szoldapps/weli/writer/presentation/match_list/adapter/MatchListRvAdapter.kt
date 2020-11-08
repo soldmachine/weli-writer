@@ -8,7 +8,7 @@ import com.szoldapps.weli.writer.R
 import com.szoldapps.weli.writer.domain.Match
 
 class MatchListRvAdapter(
-    private val onItemClickListener: (Int) -> (Unit)
+    private val onItemClickListener: (Long) -> (Unit)
 ) : RecyclerView.Adapter<MatchListRvAdapter.MatchViewHolder>() {
 
     private val list: MutableList<Match> = mutableListOf()
@@ -35,7 +35,7 @@ class MatchListRvAdapter(
 
         private var titleTv = itemView.findViewById<TextView>(R.id.matchTitleTv)
 
-        fun bind(match: Match, onItemClickListener: (Int) -> Unit) {
+        fun bind(match: Match, onItemClickListener: (Long) -> Unit) {
             titleTv.text = "${match.date}, ${match.location}"
             titleTv.setOnClickListener {
                 onItemClickListener.invoke(match.id)

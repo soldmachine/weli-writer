@@ -13,5 +13,5 @@ data class RoundEntity(
     @ColumnInfo(name = "date_time")
     val dateTime: OffsetDateTime,
     @ColumnInfo(name = "round_game_id")
-    val gameId: Int
+    val gameId: Long
 )

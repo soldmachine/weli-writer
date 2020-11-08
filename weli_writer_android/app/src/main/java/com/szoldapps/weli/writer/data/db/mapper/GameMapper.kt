@@ -1,17 +1,20 @@
 package com.szoldapps.weli.writer.data.db.mapper
 
 import com.szoldapps.weli.writer.data.db.entity.GameEntity
+import com.szoldapps.weli.writer.data.db.entity.GameWithPlayersEntity
 import com.szoldapps.weli.writer.domain.Game
 
-fun GameEntity.mapToGame(): Game =
+fun List<GameWithPlayersEntity>.mapToGames(): List<Game> =
+    this.map { gameWithPlayersEntity -> gameWithPlayersEntity.mapToGame() }
+
+fun GameWithPlayersEntity.mapToGame() =
     Game(
-        id = gameId,
-        date = dateTime,
+        id = game.gameId,
+        date = game.dateTime,
+        players = players.mapToPlayers()
     )
 
-fun List<GameEntity>.mapToGames(): List<Game> = this.map { gameEntity -> gameEntity.mapToGame() }
-
-fun Game.mapToGameEntity(matchId: Int): GameEntity =
+fun Game.mapToGameEntity(matchId: Long): GameEntity =
     GameEntity(
         dateTime = date,
         matchId = matchId

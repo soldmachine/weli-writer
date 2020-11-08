@@ -11,7 +11,7 @@ fun RoundEntity.mapToRound(): Round =
 
 fun List<RoundEntity>.mapToRounds(): List<Round> = this.map { gameEntity -> gameEntity.mapToRound() }
 
-fun Round.mapToRoundEntity(gameId: Int): RoundEntity =
+fun Round.mapToRoundEntity(gameId: Long): RoundEntity =
     RoundEntity(
         dateTime = date,
         gameId = gameId

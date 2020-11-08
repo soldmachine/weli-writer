@@ -1,19 +1,21 @@
 package com.szoldapps.weli.writer.data.db.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.szoldapps.weli.writer.data.db.entity.PlayerEntity
+import com.szoldapps.weli.writer.data.db.entity.PlayerWithGamesEntity
 
 @Dao
 interface PlayerDao {
+
+    @Transaction
+    @Query("SELECT * FROM player")
+    fun getPlayersWithGamesEntities(): List<PlayerWithGamesEntity>
 
     @Query("SELECT * FROM player")
     fun getAll(): List<PlayerEntity>
 
     @Query("SELECT * FROM player WHERE player_id IN (:playerIds)")
-    fun loadAllByIds(playerIds: IntArray): List<PlayerEntity>
+    fun loadAllByIds(playerIds: LongArray): List<PlayerEntity>
 
     @Query(
         "SELECT * FROM player WHERE first_name LIKE :first AND " +

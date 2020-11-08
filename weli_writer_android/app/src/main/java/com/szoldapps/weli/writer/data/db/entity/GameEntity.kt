@@ -9,9 +9,9 @@ import org.threeten.bp.OffsetDateTime
 data class GameEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "game_id")
-    val gameId: Int = 0,
+    val gameId: Long = 0,
     @ColumnInfo(name = "date_time")
     val dateTime: OffsetDateTime,
     @ColumnInfo(name = "game_match_id")
-    val matchId: Int
+    val matchId: Long
 )

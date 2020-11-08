@@ -8,7 +8,7 @@ import com.szoldapps.weli.writer.R
 import com.szoldapps.weli.writer.domain.Game
 
 class MatchRvAdapter(
-    private val onItemClickListener: (Int) -> (Unit)
+    private val onItemClickListener: (Long) -> (Unit)
 ) : RecyclerView.Adapter<MatchRvAdapter.MatchViewHolder>() {
 
     private val list: MutableList<Game> = mutableListOf()
@@ -35,8 +35,8 @@ class MatchRvAdapter(
 
         private var titleTv = itemView.findViewById<TextView>(R.id.matchTitleTv)
 
-        fun bind(game: Game, onItemClickListener: (Int) -> (Unit)) {
-            titleTv.text = "${game.date}"
+        fun bind(game: Game, onItemClickListener: (Long) -> (Unit)) {
+            titleTv.text = "${game.players}"
             titleTv.setOnClickListener {
                 onItemClickListener.invoke(game.id)
             }
