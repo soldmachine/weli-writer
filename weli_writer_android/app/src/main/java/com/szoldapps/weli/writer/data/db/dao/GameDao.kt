@@ -16,9 +16,6 @@ interface GameDao {
     @Query("SELECT * FROM game WHERE game_match_id=:matchId")
     fun getGamesWithPlayersEntities(matchId: Long): LiveData<List<GameWithPlayersEntity>>
 
-    @Insert
-    fun insert(gameEntity: GameEntity, playerEntities: List<PlayerEntity>)
-
     @Query("SELECT * FROM `game`")
     fun getAll(): LiveData<List<GameEntity>>
 

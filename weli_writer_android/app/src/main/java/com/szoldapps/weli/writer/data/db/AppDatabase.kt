@@ -12,7 +12,7 @@ import com.szoldapps.weli.writer.data.db.entity.*
 @Database(
     entities = [
         PlayerEntity::class,
-        PlayerGameCrossRef::class,
+        PlayerGameEntity::class,
         MatchEntity::class,
         GameEntity::class,
         RoundEntity::class,
@@ -24,6 +24,8 @@ import com.szoldapps.weli.writer.data.db.entity.*
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun playerDao(): PlayerDao
+
+    abstract fun playerGameDao(): PlayerGameDao
 
     abstract fun matchDao(): MatchDao
 

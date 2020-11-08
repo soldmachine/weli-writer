@@ -21,6 +21,9 @@ object DataModule {
     fun providePlayerDao(appDatabase: AppDatabase): PlayerDao = appDatabase.playerDao()
 
     @Provides
+    fun providePlayerGameDao(appDatabase: AppDatabase): PlayerGameDao = appDatabase.playerGameDao()
+
+    @Provides
     fun provideMatchDao(appDatabase: AppDatabase): MatchDao = appDatabase.matchDao()
 
     @Provides

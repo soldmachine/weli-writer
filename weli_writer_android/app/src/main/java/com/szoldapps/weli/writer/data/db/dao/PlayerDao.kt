@@ -2,6 +2,7 @@ package com.szoldapps.weli.writer.data.db.dao
 
 import androidx.room.*
 import com.szoldapps.weli.writer.data.db.entity.PlayerEntity
+import com.szoldapps.weli.writer.data.db.entity.PlayerGameEntity
 import com.szoldapps.weli.writer.data.db.entity.PlayerWithGamesEntity
 
 @Dao
@@ -25,6 +26,12 @@ interface PlayerDao {
 
     @Insert
     fun insertAll(vararg playerEntities: PlayerEntity)
+
+    @Insert
+    fun insert(playerEntities: List<PlayerEntity>): List<Long>
+
+    @Insert
+    fun insertX(playerGameEntity: List<PlayerGameEntity>)
 
     @Delete
     fun delete(playerEntity: PlayerEntity)

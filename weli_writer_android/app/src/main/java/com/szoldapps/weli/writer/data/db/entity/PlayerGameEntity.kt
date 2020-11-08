@@ -7,7 +7,7 @@ import androidx.room.Entity
     tableName = "player_game",
     primaryKeys = ["player_id", "game_id"]
 )
-data class PlayerGameCrossRef(
+data class PlayerGameEntity(
     @ColumnInfo(name = "player_id")
     val playerId: Long = 0,
     @ColumnInfo(name = "game_id")
