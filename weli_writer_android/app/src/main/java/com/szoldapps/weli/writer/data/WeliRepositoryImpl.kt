@@ -3,7 +3,6 @@ package com.szoldapps.weli.writer.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.szoldapps.weli.writer.data.db.dao.*
-import com.szoldapps.weli.writer.data.db.entity.PlayerGameEntity
 import com.szoldapps.weli.writer.data.db.mapper.*
 import com.szoldapps.weli.writer.domain.*
 import kotlinx.coroutines.Dispatchers
@@ -24,7 +23,7 @@ class WeliRepositoryImpl @Inject constructor(
     }
 
     override fun gamesByMatchId(matchId: Long): LiveData<List<Game>> =
-        Transformations.map(gameDao.getGamesWithPlayersEntities(matchId.toLong())) { gamesWithPlayers ->
+        Transformations.map(playerGameDao.getGamesWithPlayersEntities(matchId)) { gamesWithPlayers ->
             gamesWithPlayers.mapToGames()
         }
 
@@ -43,15 +42,7 @@ class WeliRepositoryImpl @Inject constructor(
     }
 
     override suspend fun addGame(game: Game, matchId: Long) = withContext(Dispatchers.IO) {
-        val gameId = gameDao.insert(game.mapToGameEntity(matchId))
-        val playerIds = playerDao.insert(game.players.mapToPlayerEntities())
-        val playerGameCrossRefs = playerIds.map { playerId ->
-            PlayerGameEntity(
-                playerId = playerId,
-                gameId = gameId
-            )
-        }
-        playerGameDao.insert(playerGameCrossRefs)
+        playerGameDao.insert(game, matchId)
     }
 
     override suspend fun addRound(round: Round, gameId: Long) = withContext(Dispatchers.IO) {
