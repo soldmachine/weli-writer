@@ -77,7 +77,7 @@ class RoundFragment : Fragment(R.layout.fragment_round) {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menu_match_add) {
-            viewModel.addRandomRound()
+            viewModel.addRandomRoundValues()
         }
         return super.onOptionsItemSelected(item)
     }

@@ -23,15 +23,20 @@ class RoundViewModel @ViewModelInject constructor(
             Content(roundValues)
         }
 
-    fun addRandomRound() = viewModelScope.launch {
-        weliRepository.addRoundValue(
-            RoundValue(
-                date = OffsetDateTime.now(),
-                number = Random.nextInt(),
-                value = Random.nextInt(),
-            ),
-            roundId,
-        )
+    fun addRandomRoundValues() = viewModelScope.launch {
+        val playersOfRound = weliRepository.getPlayersOfRound(roundId)
+        playersOfRound.forEach { player ->
+            weliRepository.addRoundValue(
+                RoundValue(
+                    date = OffsetDateTime.now(),
+                    number = Random.nextInt(0, 25),
+                    value = Random.nextInt(0, 25),
+                ),
+                roundId,
+                player
+            )
+        }
+
     }
 }
 

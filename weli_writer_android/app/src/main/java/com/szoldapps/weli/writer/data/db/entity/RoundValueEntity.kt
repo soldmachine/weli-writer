@@ -17,5 +17,7 @@ data class RoundValueEntity(
     @ColumnInfo(name = "value")
     val value: Int,
     @ColumnInfo(name = "round_value_round_id")
-    val roundId: Long
+    val roundId: Long,
+    @ColumnInfo(name = "round_value_player_id")
+    val playerId: Long
 )

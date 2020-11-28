@@ -14,10 +14,11 @@ fun RoundValueEntity.mapToRoundValue(): RoundValue =
 fun List<RoundValueEntity>.mapToRoundValues(): List<RoundValue> =
     this.map { roundValueEntity -> roundValueEntity.mapToRoundValue() }
 
-fun RoundValue.mapToRoundValueEntity(roundId: Long): RoundValueEntity =
+fun RoundValue.mapToRoundValueEntity(roundId: Long, playerId: Long): RoundValueEntity =
     RoundValueEntity(
         dateTime = date,
         number = number,
         value = value,
-        roundId = roundId
+        roundId = roundId,
+        playerId = playerId
     )
