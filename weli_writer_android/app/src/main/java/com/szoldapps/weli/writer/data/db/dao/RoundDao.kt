@@ -21,14 +21,11 @@ interface RoundDao {
 
     @Query(
         """
-        SELECT * FROM player 
-            WHERE player_id IN (
-                SELECT player_id FROM player_game WHERE game_id = (
-                    SELECT game_match_id FROM game WHERE game_id = (
-                        SELECT round_game_id FROM round WHERE round_id=:roundId
-                    )
-                )
-            )
+        SELECT player.* FROM round 
+        JOIN game ON round.round_game_id = game.game_id 
+        JOIN player_game ON game.game_id = player_game.game_id
+        JOIN player ON player_game.player_id = player.player_id
+        AND round.round_id = :roundId
     """
     )
     fun getPlayersOfRound(roundId: Long): List<PlayerEntity>
