@@ -5,4 +5,5 @@
     <string name="match_menu_title">Add</string>
 
     <string name="game_toolbar_title">Games</string>
+    <string name="new_game_toolbar_title">New Game (matchId: %1$d)</string>
 </resources>

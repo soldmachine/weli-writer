@@ -5,21 +5,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.match.overview.MatchFragment">
+    tools:context=".presentation.match.new_game.NewGameFragment">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/roundToolbar"
+        android:id="@+id/newGameToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:titleTextColor="@android:color/white"
-        tools:title="RoundValues of Round: #" />
+        app:title="@string/new_game_toolbar_title"
+        app:titleTextColor="@android:color/white" />
 
     <androidx.core.widget.ContentLoadingProgressBar
-        android:id="@+id/roundLoadingSpinner"
+        android:id="@+id/newGameLoadingSpinner"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/roundErrorTv"
+        android:id="@+id/newGameErrorTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ERROR!"
@@ -42,8 +42,21 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText" />
 
+    <TextView
+        android:id="@+id/newGameHeadlineTv"
+        style="@style/TextAppearance.MaterialComponents.Headline4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Players"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newGameToolbar"
+        tools:ignore="HardcodedText" />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/roundRv"
+        android:id="@+id/newGameRv"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"
@@ -52,7 +65,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/roundToolbar"
+        app:layout_constraintTop_toBottomOf="@+id/newGameHeadlineTv"
         tools:listitem="@layout/item_match" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

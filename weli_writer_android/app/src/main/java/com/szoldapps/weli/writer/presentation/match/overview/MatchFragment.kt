@@ -1,4 +1,4 @@
-package com.szoldapps.weli.writer.presentation.match
+package com.szoldapps.weli.writer.presentation.match.overview
 
 import android.os.Bundle
 import android.view.Menu
@@ -18,8 +18,8 @@ import com.szoldapps.weli.writer.databinding.FragmentMatchBinding
 import com.szoldapps.weli.writer.domain.Game
 import com.szoldapps.weli.writer.domain.Match
 import com.szoldapps.weli.writer.presentation.common.helper.viewBinding
-import com.szoldapps.weli.writer.presentation.match.MatchViewState.*
-import com.szoldapps.weli.writer.presentation.match.adapter.MatchRvAdapter
+import com.szoldapps.weli.writer.presentation.match.overview.MatchViewState.*
+import com.szoldapps.weli.writer.presentation.match.overview.adapter.MatchRvAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -82,7 +82,7 @@ class MatchFragment : Fragment(R.layout.fragment_match) {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menu_match_add) {
-            viewModel.addRandomGame()
+            findNavController().navigate(MatchFragmentDirections.actionMatchFragmentToNewGameFragment(args.matchId))
         }
         return super.onOptionsItemSelected(item)
     }

@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/matchFragment"
-        android:name="com.szoldapps.weli.writer.presentation.match.MatchFragment"
+        android:name="com.szoldapps.weli.writer.presentation.match.overview.MatchFragment"
         android:label="fragment_match"
         tools:layout="@layout/fragment_game">
         <argument
@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_matchFragment_to_gameFragment"
             app:destination="@id/gameFragment" />
+        <action
+            android:id="@+id/action_matchFragment_to_newGameFragment"
+            app:destination="@id/newGameFragment" />
     </fragment>
     <fragment
         android:id="@+id/gameFragment"
@@ -45,6 +48,15 @@
         tools:layout="@layout/fragment_round">
         <argument
             android:name="roundId"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/newGameFragment"
+        android:name="com.szoldapps.weli.writer.presentation.match.new_game.NewGameFragment"
+        android:label="fragment_new_game"
+        tools:layout="@layout/fragment_new_game" >
+        <argument
+            android:name="matchId"
             app:argType="long" />
     </fragment>
 </navigation>

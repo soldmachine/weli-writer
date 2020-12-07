@@ -1,4 +1,4 @@
-package com.szoldapps.weli.writer.presentation.match
+package com.szoldapps.weli.writer.presentation.match.overview
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
@@ -6,7 +6,7 @@ import androidx.lifecycle.*
 import com.szoldapps.weli.writer.domain.Game
 import com.szoldapps.weli.writer.domain.Player
 import com.szoldapps.weli.writer.domain.WeliRepository
-import com.szoldapps.weli.writer.presentation.match.MatchViewState.Content
+import com.szoldapps.weli.writer.presentation.match.overview.MatchViewState.Content
 import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime
 
