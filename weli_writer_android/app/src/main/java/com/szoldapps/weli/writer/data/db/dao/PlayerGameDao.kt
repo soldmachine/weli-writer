@@ -10,7 +10,6 @@ import com.szoldapps.weli.writer.data.db.entity.GameWithPlayersEntity
 import com.szoldapps.weli.writer.data.db.entity.PlayerEntity
 import com.szoldapps.weli.writer.data.db.entity.PlayerGameEntity
 import com.szoldapps.weli.writer.data.db.mapper.mapToGameEntity
-import com.szoldapps.weli.writer.data.db.mapper.mapToPlayerEntities
 import com.szoldapps.weli.writer.domain.Game
 
 @Dao
@@ -30,9 +29,9 @@ interface PlayerGameDao {
     fun insert(playerGameEntity: List<PlayerGameEntity>)
 
     @Transaction
-    fun insert(game: Game, matchId: Long) {
+    fun insert(game: Game, matchId: Long): Long {
         val gameId = insertGameEntity(game.mapToGameEntity(matchId))
-        val playerIds = insertPlayerEntities(game.players.mapToPlayerEntities())
+        val playerIds = game.players.map { player -> player.id }
         val playerGameCrossRefs = playerIds.map { playerId ->
             PlayerGameEntity(
                 playerId = playerId,
@@ -40,5 +39,6 @@ interface PlayerGameDao {
             )
         }
         insert(playerGameCrossRefs)
+        return gameId
     }
 }

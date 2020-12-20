@@ -54,19 +54,23 @@
         android:id="@+id/newGameFragment"
         android:name="com.szoldapps.weli.writer.presentation.match.new_game.NewGameFragment"
         android:label="fragment_new_game"
-        tools:layout="@layout/fragment_new_game" >
+        tools:layout="@layout/fragment_new_game">
         <argument
             android:name="matchId"
             app:argType="long" />
         <action
             android:id="@+id/action_newGameFragment_to_selectPlayerFragment"
             app:destination="@id/selectPlayerFragment" />
+        <action
+            android:id="@+id/action_newGameFragment_to_gameFragment"
+            app:destination="@id/gameFragment"
+            app:popUpTo="@id/matchFragment" />
     </fragment>
     <fragment
         android:id="@+id/selectPlayerFragment"
         android:name="com.szoldapps.weli.writer.presentation.match.select_player.SelectPlayerFragment"
         android:label="fragment_select_player"
-        tools:layout="@layout/fragment_select_player" >
+        tools:layout="@layout/fragment_select_player">
         <argument
             android:name="playerIndex"
             app:argType="integer" />

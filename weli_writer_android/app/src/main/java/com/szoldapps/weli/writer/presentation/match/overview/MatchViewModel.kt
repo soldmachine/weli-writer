@@ -2,13 +2,13 @@ package com.szoldapps.weli.writer.presentation.match.overview
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModel
 import com.szoldapps.weli.writer.domain.Game
-import com.szoldapps.weli.writer.domain.Player
 import com.szoldapps.weli.writer.domain.WeliRepository
 import com.szoldapps.weli.writer.presentation.match.overview.MatchViewState.Content
-import kotlinx.coroutines.launch
-import org.threeten.bp.OffsetDateTime
 
 class MatchViewModel @ViewModelInject constructor(
     private val weliRepository: WeliRepository,
@@ -20,21 +20,6 @@ class MatchViewModel @ViewModelInject constructor(
 
     val viewState: LiveData<MatchViewState> = Transformations.map(weliRepository.gamesByMatchId(matchId)) { games ->
         Content(games)
-    }
-
-    fun addRandomGame() = viewModelScope.launch {
-        weliRepository.addGame(
-            game = Game(
-                date = OffsetDateTime.now(),
-                players = listOf(
-                    Player(firstName = "A", lastName = "B"),
-                    Player(firstName = "C", lastName = "D"),
-                    Player(firstName = "E", lastName = "F"),
-                    Player(firstName = "G", lastName = "H"),
-                )
-            ),
-            matchId = matchId
-        )
     }
 }
 

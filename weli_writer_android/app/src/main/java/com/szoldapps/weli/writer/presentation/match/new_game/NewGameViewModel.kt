@@ -1,30 +1,55 @@
 package com.szoldapps.weli.writer.presentation.match.new_game
 
-import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.szoldapps.weli.writer.domain.Game
 import com.szoldapps.weli.writer.domain.Player
 import com.szoldapps.weli.writer.domain.WeliRepository
+import com.szoldapps.weli.writer.presentation.match.new_game.NewGameViewEvent.OpenGameFragment
 import com.szoldapps.weli.writer.presentation.match.new_game.NewGameViewState.Content
+import com.szoldapps.weli.writer.presentation.match.new_game.NewGameViewState.Loading
+import kotlinx.coroutines.launch
+import org.threeten.bp.OffsetDateTime
 
 class NewGameViewModel @ViewModelInject constructor(
     private val weliRepository: WeliRepository,
-    @Assisted private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val matchId: Long =
-        savedStateHandle.get<Long>("matchId") ?: throw kotlin.IllegalStateException("Mandatory matchId is missing!")
+    private val selectedPlayers: MutableList<Player?> = mutableListOf(null, null, null, null)
 
-    val viewState: LiveData<NewGameViewState> = Transformations.map(weliRepository.gamesByMatchId(matchId)) { games ->
-        Content(emptyList())
+    private val _viewState = MutableLiveData<NewGameViewState>(Content(selectedPlayers))
+    val viewState: LiveData<NewGameViewState> = _viewState
+
+    private val _viewEvent = MutableLiveData<NewGameViewEvent>()
+    val viewEvent: LiveData<NewGameViewEvent> = _viewEvent
+
+    fun selectPlayer(index: Int, player: Player) {
+        selectedPlayers[index] = player
+        _viewState.value = Content(selectedPlayers)
+    }
+
+    fun createGame(matchId: Long) = viewModelScope.launch {
+        _viewState.value = Loading
+        val gameId = weliRepository.addGame(
+            game = Game(
+                date = OffsetDateTime.now(),
+                players = selectedPlayers.filterNotNull()
+            ),
+            matchId = matchId
+        )
+        _viewEvent.value = OpenGameFragment(gameId)
     }
 }
 
 sealed class NewGameViewState {
     object Loading : NewGameViewState()
     object Error : NewGameViewState()
-    data class Content(val players: List<Player>) : NewGameViewState()
+    data class Content(val players: List<Player?>) : NewGameViewState()
+}
+
+sealed class NewGameViewEvent {
+    data class OpenGameFragment(val gameId: Long) : NewGameViewEvent()
 }

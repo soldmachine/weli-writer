@@ -18,7 +18,7 @@ import com.szoldapps.weli.writer.databinding.FragmentSelectPlayerBinding
 import com.szoldapps.weli.writer.domain.Game
 import com.szoldapps.weli.writer.domain.Round
 import com.szoldapps.weli.writer.presentation.common.helper.viewBinding
-import com.szoldapps.weli.writer.presentation.match.new_game.SharedNewGameViewModel
+import com.szoldapps.weli.writer.presentation.match.new_game.NewGameViewModel
 import com.szoldapps.weli.writer.presentation.match.select_player.SelectPlayerViewState.*
 import com.szoldapps.weli.writer.presentation.match.select_player.adapter.PlayerRvAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,7 +36,7 @@ class SelectPlayerFragment : Fragment(R.layout.fragment_select_player) {
 
     private val viewModel: SelectPlayerViewModel by viewModels()
 
-    private val sharedViewModel: SharedNewGameViewModel by activityViewModels()
+    private val sharedViewModel: NewGameViewModel by activityViewModels()
 
     private val playerRvAdapter = PlayerRvAdapter { player ->
         sharedViewModel.selectPlayer(navArgs.playerIndex, player)

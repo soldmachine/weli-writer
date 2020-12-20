@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.szoldapps.weli.writer.R
 import com.szoldapps.weli.writer.databinding.FragmentNewGameBinding
 import com.szoldapps.weli.writer.domain.Game
-import com.szoldapps.weli.writer.domain.Player
 import com.szoldapps.weli.writer.domain.Round
 import com.szoldapps.weli.writer.presentation.common.helper.viewBinding
 import com.szoldapps.weli.writer.presentation.match.new_game.NewGameViewState.*
@@ -31,9 +29,7 @@ class NewGameFragment : Fragment(R.layout.fragment_new_game) {
 
     private val args: NewGameFragmentArgs by navArgs()
 
-    private val viewModel: NewGameViewModel by viewModels()
-
-    private val sharedViewModel: SharedNewGameViewModel by activityViewModels()
+    private val sharedViewModel: NewGameViewModel by activityViewModels()
 
     private val playerRvAdapter = PlayerRvAdapter { index ->
         findNavController().navigate(
@@ -45,12 +41,18 @@ class NewGameFragment : Fragment(R.layout.fragment_new_game) {
         super.onViewCreated(view, savedInstanceState)
 
         setupToolbarAndRv()
-        viewModel.viewState.observe(viewLifecycleOwner, ::handleViewState)
-        sharedViewModel.selectedPlayers.observe(viewLifecycleOwner, ::handleSelectedPlayers)
+        sharedViewModel.viewState.observe(viewLifecycleOwner, ::handleViewState)
+        sharedViewModel.viewEvent.observe(viewLifecycleOwner, ::handleViewEvent)
     }
 
-    private fun handleSelectedPlayers(list: List<Player?>) {
-        playerRvAdapter.refresh(list)
+    private fun handleViewEvent(viewEvent: NewGameViewEvent) {
+        when (viewEvent) {
+            is NewGameViewEvent.OpenGameFragment -> {
+                findNavController().navigate(
+                    NewGameFragmentDirections.actionNewGameFragmentToGameFragment(viewEvent.gameId)
+                )
+            }
+        }
     }
 
     private fun setupToolbarAndRv() {
@@ -63,15 +65,21 @@ class NewGameFragment : Fragment(R.layout.fragment_new_game) {
             adapter = playerRvAdapter
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
+        binding.newGameButton.setOnClickListener { sharedViewModel.createGame(args.matchId) }
     }
 
     private fun handleViewState(viewState: NewGameViewState) {
         when (viewState) {
             Loading,
             Error -> Unit
-            is Content -> Unit
+            is Content -> handleContent(viewState)
         }
         updateVisibility(viewState)
+    }
+
+    private fun handleContent(content: Content) {
+        playerRvAdapter.refresh(content.players)
+        binding.newGameButton.isEnabled = content.players.none { it == null }
     }
 
     private fun updateVisibility(viewState: NewGameViewState) {
