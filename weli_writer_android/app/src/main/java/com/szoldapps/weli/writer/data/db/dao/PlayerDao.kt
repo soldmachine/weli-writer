@@ -1,5 +1,6 @@
 package com.szoldapps.weli.writer.data.db.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.szoldapps.weli.writer.data.db.entity.PlayerEntity
 import com.szoldapps.weli.writer.data.db.entity.PlayerGameEntity
@@ -13,7 +14,7 @@ interface PlayerDao {
     fun getPlayersWithGamesEntities(): List<PlayerWithGamesEntity>
 
     @Query("SELECT * FROM player")
-    fun getAll(): List<PlayerEntity>
+    fun getAll(): LiveData<List<PlayerEntity>>
 
     @Query("SELECT * FROM player WHERE player_id IN (:playerIds)")
     fun loadAllByIds(playerIds: LongArray): List<PlayerEntity>

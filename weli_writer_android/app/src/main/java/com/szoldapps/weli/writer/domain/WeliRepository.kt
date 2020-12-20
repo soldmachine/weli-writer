@@ -6,6 +6,8 @@ interface WeliRepository {
 
     val matches: LiveData<List<Match>>
 
+    val players: LiveData<List<Player>>
+
     fun gamesByMatchId(matchId: Long): LiveData<List<Game>>
 
     fun roundsByGameId(gameId: Long): LiveData<List<Round>>

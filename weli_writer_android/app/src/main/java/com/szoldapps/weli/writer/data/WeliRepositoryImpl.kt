@@ -18,9 +18,9 @@ class WeliRepositoryImpl @Inject constructor(
     private val roundValueDao: RoundValueDao,
 ) : WeliRepository {
 
-    override val matches: LiveData<List<Match>> = Transformations.map(matchDao.getAll()) {
-        it.mapToMatch()
-    }
+    override val matches: LiveData<List<Match>> = Transformations.map(matchDao.getAll()) { it.mapToMatch() }
+
+    override val players: LiveData<List<Player>> = Transformations.map(playerDao.getAll()) { it.mapToPlayers() }
 
     override fun gamesByMatchId(matchId: Long): LiveData<List<Game>> =
         Transformations.map(playerGameDao.getGamesWithPlayersEntities(matchId)) { gamesWithPlayers ->

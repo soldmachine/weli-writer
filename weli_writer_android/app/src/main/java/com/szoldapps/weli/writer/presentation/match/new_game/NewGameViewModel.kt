@@ -21,8 +21,6 @@ class NewGameViewModel @ViewModelInject constructor(
     val viewState: LiveData<NewGameViewState> = Transformations.map(weliRepository.gamesByMatchId(matchId)) { games ->
         Content(emptyList())
     }
-
-
 }
 
 sealed class NewGameViewState {
