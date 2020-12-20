@@ -1,7 +1,8 @@
 package com.szoldapps.weli.writer.presentation.match.select_player
 
 import android.os.Bundle
-import android.view.View
+import android.view.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -11,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.textfield.TextInputEditText
 import com.szoldapps.weli.writer.R
 import com.szoldapps.weli.writer.databinding.FragmentSelectPlayerBinding
 import com.szoldapps.weli.writer.domain.Game
@@ -20,6 +22,7 @@ import com.szoldapps.weli.writer.presentation.match.new_game.SharedNewGameViewMo
 import com.szoldapps.weli.writer.presentation.match.select_player.SelectPlayerViewState.*
 import com.szoldapps.weli.writer.presentation.match.select_player.adapter.PlayerRvAdapter
 import dagger.hilt.android.AndroidEntryPoint
+
 
 /**
  * Shows a [Game], including a list of its [Round]s.
@@ -42,6 +45,7 @@ class SelectPlayerFragment : Fragment(R.layout.fragment_select_player) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
 
         setupToolbarAndRv()
         viewModel.viewState.observe(viewLifecycleOwner, ::handleViewState)
@@ -79,6 +83,36 @@ class SelectPlayerFragment : Fragment(R.layout.fragment_select_player) {
             selectPlayerErrorTv.isVisible = viewState is Error
             selectPlayerRv.isVisible = viewState is Content
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_match, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menu_match_add) {
+            showDialog()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun showDialog() {
+        val inflatedView = LayoutInflater.from(requireContext())
+            .inflate(R.layout.item_text_input, view as ViewGroup, false)
+        val inputFirstName = inflatedView.findViewById<TextInputEditText>(R.id.inputFirstName)
+        val inputLastName = inflatedView.findViewById<TextInputEditText>(R.id.inputLastName)
+        AlertDialog.Builder(requireContext())
+            .setTitle("Name")
+            .setView(inflatedView)
+            .setPositiveButton("ADD") { _, _ ->
+                viewModel.addPlayer(
+                    inputFirstName.text.toString(),
+                    inputLastName.text.toString()
+                )
+            }
+            .setNegativeButton("Cancel") { dialog, _ -> dialog.cancel() }
+            .show()
     }
 
 }

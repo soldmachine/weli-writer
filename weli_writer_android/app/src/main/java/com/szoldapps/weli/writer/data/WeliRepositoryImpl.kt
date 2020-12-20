@@ -57,6 +57,10 @@ class WeliRepositoryImpl @Inject constructor(
         roundValueDao.insertAll(roundValue.mapToRoundValueEntity(roundId, player.id))
     }
 
+    override suspend fun addPlayer(player: Player) = withContext(Dispatchers.IO) {
+        playerDao.insertAll(player.mapToPlayerEntity())
+    }
+
     override suspend fun getPlayersOfRound(roundId: Long): List<Player> = withContext(Dispatchers.IO) {
         roundDao.getPlayersOfRound(roundId).mapToPlayers()
     }
