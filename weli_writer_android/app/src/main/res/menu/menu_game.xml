@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu_match_add"
+        android:id="@+id/menu_game_add_round"
         android:icon="@drawable/ic_add"
-        android:title="@string/match_menu_title"
+        android:title="@string/menu_game_add_round"
         app:showAsAction="ifRoom" />
 </menu>

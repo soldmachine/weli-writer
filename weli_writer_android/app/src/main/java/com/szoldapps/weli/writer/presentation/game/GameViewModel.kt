@@ -6,6 +6,7 @@ import androidx.lifecycle.*
 import com.szoldapps.weli.writer.domain.Round
 import com.szoldapps.weli.writer.domain.WeliRepository
 import com.szoldapps.weli.writer.presentation.game.GameViewState.Content
+import com.szoldapps.weli.writer.presentation.match.new_game.NewGameViewEvent
 import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime
 
@@ -21,8 +22,12 @@ class GameViewModel @ViewModelInject constructor(
         Content(rounds)
     }
 
+    private val _viewEvent = MutableLiveData<GameViewEvent>()
+    val viewEvent: LiveData<GameViewEvent> = _viewEvent
+
     fun addRandomRound() = viewModelScope.launch {
-        weliRepository.addRound(Round(date = OffsetDateTime.now()), gameId)
+        val roundId = weliRepository.addRound(Round(date = OffsetDateTime.now()), gameId)
+        _viewEvent.value = GameViewEvent.OpenRoundFragment(roundId)
     }
 
 }
@@ -31,4 +36,8 @@ sealed class GameViewState {
     object Loading : GameViewState()
     object Error : GameViewState()
     data class Content(val rounds: List<Round>) : GameViewState()
+}
+
+sealed class GameViewEvent {
+    data class OpenRoundFragment(val roundId: Long) : GameViewEvent()
 }

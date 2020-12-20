@@ -45,8 +45,8 @@ class WeliRepositoryImpl @Inject constructor(
         playerGameDao.insert(game, matchId)
     }
 
-    override suspend fun addRound(round: Round, gameId: Long) = withContext(Dispatchers.IO) {
-        roundDao.insertAll(round.mapToRoundEntity(gameId))
+    override suspend fun addRound(round: Round, gameId: Long): Long = withContext(Dispatchers.IO) {
+        roundDao.insert(round.mapToRoundEntity(gameId))
     }
 
     override suspend fun addRoundValue(

@@ -17,7 +17,7 @@ interface RoundDao {
     fun getRoundsByGameById(gameId: Long): LiveData<List<RoundEntity>>
 
     @Insert
-    fun insertAll(vararg roundEntity: RoundEntity)
+    fun insert(roundEntity: RoundEntity): Long
 
     @Query(
         """

@@ -34,9 +34,7 @@ class GameFragment : Fragment(R.layout.fragment_game) {
 
     private val viewModel: GameViewModel by viewModels()
 
-    private val roundRvAdapter = RoundRvAdapter { roundId ->
-        findNavController().navigate(GameFragmentDirections.actionGameFragmentToRoundFragment(roundId))
-    }
+    private val roundRvAdapter = RoundRvAdapter { roundId -> openRoundFragment(roundId) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,6 +42,16 @@ class GameFragment : Fragment(R.layout.fragment_game) {
 
         setupToolbarAndRv()
         viewModel.viewState.observe(viewLifecycleOwner, ::handleViewState)
+        viewModel.viewEvent.observe(viewLifecycleOwner, ::handleViewEvent)
+    }
+
+    private fun handleViewEvent(viewEvent: GameViewEvent) =
+        when (viewEvent) {
+            is GameViewEvent.OpenRoundFragment -> openRoundFragment(viewEvent.roundId)
+        }
+
+    private fun openRoundFragment(roundId: Long) {
+        findNavController().navigate(GameFragmentDirections.actionGameFragmentToRoundFragment(roundId))
     }
 
     private fun setupToolbarAndRv() {
@@ -77,11 +85,11 @@ class GameFragment : Fragment(R.layout.fragment_game) {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_match, menu)
+        inflater.inflate(R.menu.menu_game, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.menu_match_add) {
+        if (item.itemId == R.id.menu_game_add_round) {
             viewModel.addRandomRound()
         }
         return super.onOptionsItemSelected(item)

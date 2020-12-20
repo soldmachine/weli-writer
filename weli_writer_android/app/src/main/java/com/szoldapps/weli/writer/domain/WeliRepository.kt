@@ -18,7 +18,7 @@ interface WeliRepository {
 
     suspend fun addGame(game: Game, matchId: Long): Long
 
-    suspend fun addRound(round: Round, gameId: Long)
+    suspend fun addRound(round: Round, gameId: Long): Long
 
     suspend fun addRoundValue(roundValue: RoundValue, roundId: Long, player: Player)
 
