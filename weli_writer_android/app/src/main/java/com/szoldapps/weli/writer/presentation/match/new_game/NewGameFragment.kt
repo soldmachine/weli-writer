@@ -54,7 +54,7 @@ class NewGameFragment : Fragment(R.layout.fragment_new_game) {
         with(binding) {
             newGameLoadingSpinner.isVisible = viewState is Loading
             newGameErrorTv.isVisible = viewState is Error
-            newGameRv.isVisible = viewState is Content
+            newGameContentGroup.isVisible = viewState is Content
         }
     }
 
