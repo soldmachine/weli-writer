@@ -57,7 +57,6 @@ internal class RoundValueRvAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-
     class RoundValueViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
         RecyclerView.ViewHolder(inflater.inflate(R.layout.item_match, parent, false)) {
 
