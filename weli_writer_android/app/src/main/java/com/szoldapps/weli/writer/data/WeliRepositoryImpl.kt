@@ -5,6 +5,7 @@ import androidx.lifecycle.Transformations
 import com.szoldapps.weli.writer.data.db.dao.*
 import com.szoldapps.weli.writer.data.db.mapper.*
 import com.szoldapps.weli.writer.domain.*
+import com.szoldapps.weli.writer.domain.RoundRvAdapterValue.RoundValue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

@@ -1,9 +1,6 @@
 package com.szoldapps.weli.writer.presentation.round
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -14,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.szoldapps.weli.writer.R
 import com.szoldapps.weli.writer.databinding.FragmentRoundBinding
 import com.szoldapps.weli.writer.domain.Round
-import com.szoldapps.weli.writer.domain.RoundValue
+import com.szoldapps.weli.writer.domain.RoundRvAdapterValue.RoundValue
 import com.szoldapps.weli.writer.presentation.common.helper.viewBinding
 import com.szoldapps.weli.writer.presentation.round.RoundViewState.*
 import com.szoldapps.weli.writer.presentation.round.adapter.RoundValueRvAdapter
@@ -36,7 +33,6 @@ class RoundFragment : Fragment(R.layout.fragment_round) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setHasOptionsMenu(true)
 
         setupToolbarAndRv()
         viewModel.viewState.observe(viewLifecycleOwner, ::handleViewState)
@@ -69,17 +65,4 @@ class RoundFragment : Fragment(R.layout.fragment_round) {
             roundRv.isVisible = viewState is Content
         }
     }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_match, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.menu_match_add) {
-            viewModel.addRandomRoundValues()
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
 }

@@ -3,7 +3,9 @@ package com.szoldapps.weli.writer.presentation.round
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
-import com.szoldapps.weli.writer.domain.RoundValue
+import com.szoldapps.weli.writer.domain.RoundRvAdapterValue
+import com.szoldapps.weli.writer.domain.RoundRvAdapterValue.RoundHeader
+import com.szoldapps.weli.writer.domain.RoundRvAdapterValue.RoundValue
 import com.szoldapps.weli.writer.domain.WeliRepository
 import com.szoldapps.weli.writer.presentation.round.RoundViewState.Content
 import kotlinx.coroutines.launch
@@ -20,7 +22,9 @@ class RoundViewModel @ViewModelInject constructor(
 
     val viewState: LiveData<RoundViewState> =
         Transformations.map(weliRepository.roundValuesByRoundId(roundId)) { roundValues ->
-            Content(roundValues)
+            Content(
+                listOf(RoundHeader(listOf("AK", "TM", "TE", "TS"))) + roundValues
+            )
         }
 
     fun addRandomRoundValues() = viewModelScope.launch {
@@ -43,5 +47,5 @@ class RoundViewModel @ViewModelInject constructor(
 sealed class RoundViewState {
     object Loading : RoundViewState()
     object Error : RoundViewState()
-    data class Content(val rounds: List<RoundValue>) : RoundViewState()
+    data class Content(val rounds: List<RoundRvAdapterValue>) : RoundViewState()
 }

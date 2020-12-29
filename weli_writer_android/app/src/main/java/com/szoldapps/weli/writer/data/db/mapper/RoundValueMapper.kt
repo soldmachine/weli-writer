@@ -1,7 +1,7 @@
 package com.szoldapps.weli.writer.data.db.mapper
 
 import com.szoldapps.weli.writer.data.db.entity.RoundValueEntity
-import com.szoldapps.weli.writer.domain.RoundValue
+import com.szoldapps.weli.writer.domain.RoundRvAdapterValue.RoundValue
 
 fun RoundValueEntity.mapToRoundValue(): RoundValue =
     RoundValue(

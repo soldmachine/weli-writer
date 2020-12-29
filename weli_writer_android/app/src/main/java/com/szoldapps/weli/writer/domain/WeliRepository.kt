@@ -1,6 +1,7 @@
 package com.szoldapps.weli.writer.domain
 
 import androidx.lifecycle.LiveData
+import com.szoldapps.weli.writer.domain.RoundRvAdapterValue.RoundValue
 
 interface WeliRepository {
 
