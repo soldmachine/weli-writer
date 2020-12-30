@@ -6,8 +6,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.szoldapps.weli.writer.R
 import com.szoldapps.weli.writer.domain.RoundRvAdapterValue
-import com.szoldapps.weli.writer.domain.RoundRvAdapterValue.RoundHeader
-import com.szoldapps.weli.writer.domain.RoundRvAdapterValue.RoundValue
+import com.szoldapps.weli.writer.domain.RoundRvAdapterValue.RoundRowHeader
+import com.szoldapps.weli.writer.domain.RoundRvAdapterValue.RoundRowValues
 
 internal class RoundValueRvAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -16,8 +16,8 @@ internal class RoundValueRvAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
-            ROUND_HEADER -> RoundHeaderViewHolder(inflater, parent)
-            ROUND_VALUE -> RoundValueViewHolder(inflater, parent)
+            ROUND_ROW_HEADER -> RoundHeaderViewHolder(inflater, parent)
+            ROUND_ROW_VALUES -> RoundValueViewHolder(inflater, parent)
             else -> throw IllegalStateException("Unknown viewType!")
         }
     }
@@ -25,8 +25,8 @@ internal class RoundValueRvAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = list[position]
         when (item.viewType) {
-            ROUND_HEADER -> (holder as RoundHeaderViewHolder).bind(item as RoundHeader)
-            ROUND_VALUE -> (holder as RoundValueViewHolder).bind(item as RoundValue)
+            ROUND_ROW_HEADER -> (holder as RoundHeaderViewHolder).bind(item as RoundRowHeader)
+            ROUND_ROW_VALUES -> (holder as RoundValueViewHolder).bind(item as RoundRowValues)
             else -> throw IllegalStateException("Unknown viewType!")
         }
     }
@@ -49,25 +49,35 @@ internal class RoundValueRvAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         private var roundHeader2 = itemView.findViewById<TextView>(R.id.roundHeader2)
         private var roundHeader3 = itemView.findViewById<TextView>(R.id.roundHeader3)
 
-        fun bind(header: RoundHeader) {
-            roundHeader0.text = header.titles[0]
-            roundHeader1.text = header.titles[1]
-            roundHeader2.text = header.titles[2]
-            roundHeader3.text = header.titles[3]
+        fun bind(rowHeader: RoundRowHeader) {
+            roundHeader0.text = rowHeader.titles[0]
+            roundHeader1.text = rowHeader.titles[1]
+            roundHeader2.text = rowHeader.titles[2]
+            roundHeader3.text = rowHeader.titles[3]
         }
     }
 
     class RoundValueViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
-        RecyclerView.ViewHolder(inflater.inflate(R.layout.item_match, parent, false)) {
+        RecyclerView.ViewHolder(inflater.inflate(R.layout.item_round_row, parent, false)) {
 
-        private var titleTv = itemView.findViewById<TextView>(R.id.matchTitleTv)
-        fun bind(round: RoundValue) {
-            titleTv.text = "${round.number}: ${round.value}"
+        private var numberTv = itemView.findViewById<TextView>(R.id.numberTv)
+        private var roundRow0 = itemView.findViewById<TextView>(R.id.roundRow0)
+        private var roundRow1 = itemView.findViewById<TextView>(R.id.roundRow1)
+        private var roundRow2 = itemView.findViewById<TextView>(R.id.roundRow2)
+        private var roundRow3 = itemView.findViewById<TextView>(R.id.roundRow3)
+
+        fun bind(rowValues: RoundRowValues) {
+            numberTv.text = rowValues.number.plus(1).toString()
+            roundRow0.text = rowValues.values[0].toString()
+            roundRow1.text = rowValues.values[1].toString()
+            roundRow2.text = rowValues.values[2].toString()
+            roundRow3.text = rowValues.values[3].toString()
         }
     }
 
     companion object {
-        const val ROUND_HEADER = 0
+        const val ROUND_ROW_HEADER = 0
+        const val ROUND_ROW_VALUES = 2
         const val ROUND_VALUE = 1
     }
 }

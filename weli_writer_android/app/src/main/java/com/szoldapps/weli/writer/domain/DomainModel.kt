@@ -1,6 +1,7 @@
 package com.szoldapps.weli.writer.domain
 
-import com.szoldapps.weli.writer.presentation.round.adapter.RoundValueRvAdapter.Companion.ROUND_HEADER
+import com.szoldapps.weli.writer.presentation.round.adapter.RoundValueRvAdapter.Companion.ROUND_ROW_HEADER
+import com.szoldapps.weli.writer.presentation.round.adapter.RoundValueRvAdapter.Companion.ROUND_ROW_VALUES
 import com.szoldapps.weli.writer.presentation.round.adapter.RoundValueRvAdapter.Companion.ROUND_VALUE
 import org.threeten.bp.OffsetDateTime
 
@@ -31,9 +32,14 @@ sealed class RoundRvAdapterValue(
     val viewType: Int
 ) {
 
-    data class RoundHeader(
+    data class RoundRowHeader(
         val titles: List<String>
-    ) : RoundRvAdapterValue(ROUND_HEADER)
+    ) : RoundRvAdapterValue(ROUND_ROW_HEADER)
+
+    data class RoundRowValues(
+        val number: Int,
+        val values: List<Int>
+    ) : RoundRvAdapterValue(ROUND_ROW_VALUES)
 
     data class RoundValue(
         val id: Long = -1,

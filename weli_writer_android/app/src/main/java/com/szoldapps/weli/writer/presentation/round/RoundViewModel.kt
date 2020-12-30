@@ -4,7 +4,7 @@ import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.szoldapps.weli.writer.domain.RoundRvAdapterValue
-import com.szoldapps.weli.writer.domain.RoundRvAdapterValue.RoundHeader
+import com.szoldapps.weli.writer.domain.RoundRvAdapterValue.RoundRowHeader
 import com.szoldapps.weli.writer.domain.RoundRvAdapterValue.RoundValue
 import com.szoldapps.weli.writer.domain.WeliRepository
 import com.szoldapps.weli.writer.presentation.round.RoundViewState.Content
@@ -21,9 +21,9 @@ class RoundViewModel @ViewModelInject constructor(
         savedStateHandle.get<Long>("roundId") ?: throw kotlin.IllegalStateException("Mandatory roundId is missing!")
 
     val viewState: LiveData<RoundViewState> =
-        Transformations.map(weliRepository.roundValuesByRoundId(roundId)) { roundValues ->
+        Transformations.map(weliRepository.roundRowValuesByRoundId(roundId)) { roundRowValues ->
             Content(
-                listOf(RoundHeader(listOf("AK", "TM", "TE", "TS"))) + roundValues
+                listOf(RoundRowHeader(listOf("AK", "TM", "TE", "TS"))) + roundRowValues
             )
         }
 

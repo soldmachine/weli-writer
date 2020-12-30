@@ -5,6 +5,7 @@ import androidx.lifecycle.Transformations
 import com.szoldapps.weli.writer.data.db.dao.*
 import com.szoldapps.weli.writer.data.db.mapper.*
 import com.szoldapps.weli.writer.domain.*
+import com.szoldapps.weli.writer.domain.RoundRvAdapterValue.RoundRowValues
 import com.szoldapps.weli.writer.domain.RoundRvAdapterValue.RoundValue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -33,9 +34,9 @@ class WeliRepositoryImpl @Inject constructor(
             roundEntities.mapToRounds()
         }
 
-    override fun roundValuesByRoundId(roundId: Long): LiveData<List<RoundValue>> =
+    override fun roundRowValuesByRoundId(roundId: Long): LiveData<List<RoundRowValues>> =
         Transformations.map(roundValueDao.getRoundValueByRoundId(roundId)) { roundValueEntities ->
-            roundValueEntities.mapToRoundValues()
+            roundValueEntities.mapToRoundRowValues()
         }
 
     override suspend fun addMatch(match: Match) = withContext(Dispatchers.IO) {

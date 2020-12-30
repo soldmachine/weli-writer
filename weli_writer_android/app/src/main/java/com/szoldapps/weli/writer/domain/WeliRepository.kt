@@ -13,7 +13,7 @@ interface WeliRepository {
 
     fun roundsByGameId(gameId: Long): LiveData<List<Round>>
 
-    fun roundValuesByRoundId(roundId: Long): LiveData<List<RoundValue>>
+    fun roundRowValuesByRoundId(roundId: Long): LiveData<List<RoundRvAdapterValue.RoundRowValues>>
 
     suspend fun addMatch(match: Match)
 
