@@ -11,11 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.szoldapps.weli.writer.R
 import com.szoldapps.weli.writer.databinding.FragmentRoundBinding
 import com.szoldapps.weli.writer.domain.Round
-import com.szoldapps.weli.writer.domain.RoundRvAdapterValue.RoundValue
+import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.RoundValue
 import com.szoldapps.weli.writer.presentation.common.helper.viewBinding
+import com.szoldapps.weli.writer.presentation.round.RoundViewEvent.OpenBottomSheet
 import com.szoldapps.weli.writer.presentation.round.RoundViewState.*
 import com.szoldapps.weli.writer.presentation.round.adapter.RoundValueRvAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 /**
  * Shows a [Round], including a list of its [RoundValue]s.
@@ -36,6 +38,7 @@ class RoundFragment : Fragment(R.layout.fragment_round) {
 
         setupToolbarAndRv()
         viewModel.viewState.observe(viewLifecycleOwner, ::handleViewState)
+        viewModel.viewEvent.observe(viewLifecycleOwner, ::handleViewEvent)
     }
 
     private fun setupToolbarAndRv() {
@@ -56,6 +59,12 @@ class RoundFragment : Fragment(R.layout.fragment_round) {
             is Content -> roundRvAdapter.refresh(viewState.rounds)
         }
         updateVisibility(viewState)
+    }
+
+    private fun handleViewEvent(viewEvent: RoundViewEvent) {
+        when (viewEvent) {
+            OpenBottomSheet -> Timber.e("logged xxx")
+        }
     }
 
     private fun updateVisibility(viewState: RoundViewState) {

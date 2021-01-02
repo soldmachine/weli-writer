@@ -3,16 +3,16 @@ package com.szoldapps.weli.writer.presentation.round
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
-import com.szoldapps.weli.writer.domain.RoundRvAdapterValue
-import com.szoldapps.weli.writer.domain.RoundRvAdapterValue.RoundRowHeader
-import com.szoldapps.weli.writer.domain.RoundRvAdapterValue.RoundValue
+import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem
+import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.*
 import com.szoldapps.weli.writer.domain.WeliRepository
+import com.szoldapps.weli.writer.presentation.round.RoundViewEvent.OpenBottomSheet
 import com.szoldapps.weli.writer.presentation.round.RoundViewState.Content
 import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime
 import kotlin.random.Random
 
-class RoundViewModel @ViewModelInject constructor(
+internal class RoundViewModel @ViewModelInject constructor(
     private val weliRepository: WeliRepository,
     @Assisted private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
@@ -23,9 +23,14 @@ class RoundViewModel @ViewModelInject constructor(
     val viewState: LiveData<RoundViewState> =
         Transformations.map(weliRepository.roundRowValuesByRoundId(roundId)) { roundRowValues ->
             Content(
-                listOf(RoundRowHeader(listOf("AK", "TM", "TE", "TS"))) + roundRowValues
+                listOf(RoundRowHeader(listOf("AK", "TM", "TE", "TS")))
+                        + roundRowValues
+                        + RoundRowButton(label = "Add round result", action = { _viewEvent.value = OpenBottomSheet })
             )
         }
+
+    private val _viewEvent = MutableLiveData<RoundViewEvent>()
+    val viewEvent: LiveData<RoundViewEvent> = _viewEvent
 
     fun addRandomRoundValues() = viewModelScope.launch {
         val playersOfRound = weliRepository.getPlayersOfRound(roundId)
@@ -44,8 +49,12 @@ class RoundViewModel @ViewModelInject constructor(
     }
 }
 
-sealed class RoundViewState {
+internal sealed class RoundViewState {
     object Loading : RoundViewState()
     object Error : RoundViewState()
-    data class Content(val rounds: List<RoundRvAdapterValue>) : RoundViewState()
+    data class Content(val rounds: List<RoundValueRvAdapterItem>) : RoundViewState()
+}
+
+internal sealed class RoundViewEvent {
+    object OpenBottomSheet : RoundViewEvent()
 }

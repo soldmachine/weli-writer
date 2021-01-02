@@ -1,7 +1,7 @@
 package com.szoldapps.weli.writer.domain
 
 import androidx.lifecycle.LiveData
-import com.szoldapps.weli.writer.domain.RoundRvAdapterValue.RoundValue
+import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.RoundValue
 
 interface WeliRepository {
 
@@ -13,7 +13,7 @@ interface WeliRepository {
 
     fun roundsByGameId(gameId: Long): LiveData<List<Round>>
 
-    fun roundRowValuesByRoundId(roundId: Long): LiveData<List<RoundRvAdapterValue.RoundRowValues>>
+    fun roundRowValuesByRoundId(roundId: Long): LiveData<List<RoundValueRvAdapterItem.RoundRowValues>>
 
     suspend fun addMatch(match: Match)
 

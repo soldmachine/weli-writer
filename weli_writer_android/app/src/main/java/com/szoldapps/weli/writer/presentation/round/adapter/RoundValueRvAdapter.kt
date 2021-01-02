@@ -2,22 +2,23 @@ package com.szoldapps.weli.writer.presentation.round.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.szoldapps.weli.writer.R
-import com.szoldapps.weli.writer.domain.RoundRvAdapterValue
-import com.szoldapps.weli.writer.domain.RoundRvAdapterValue.RoundRowHeader
-import com.szoldapps.weli.writer.domain.RoundRvAdapterValue.RoundRowValues
+import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem
+import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.*
 
 internal class RoundValueRvAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val list: MutableList<RoundRvAdapterValue> = mutableListOf()
+    private val list: MutableList<RoundValueRvAdapterItem> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
             ROUND_ROW_HEADER -> RoundHeaderViewHolder(inflater, parent)
             ROUND_ROW_VALUES -> RoundValueViewHolder(inflater, parent)
+            ROUND_ROW_BUTTON -> RoundRowButtonViewHolder(inflater, parent)
             else -> throw IllegalStateException("Unknown viewType!")
         }
     }
@@ -27,6 +28,7 @@ internal class RoundValueRvAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         when (item.viewType) {
             ROUND_ROW_HEADER -> (holder as RoundHeaderViewHolder).bind(item as RoundRowHeader)
             ROUND_ROW_VALUES -> (holder as RoundValueViewHolder).bind(item as RoundRowValues)
+            ROUND_ROW_BUTTON -> (holder as RoundRowButtonViewHolder).bind(item as RoundRowButton)
             else -> throw IllegalStateException("Unknown viewType!")
         }
     }
@@ -35,7 +37,7 @@ internal class RoundValueRvAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
 
     override fun getItemCount(): Int = list.size
 
-    fun refresh(list: List<RoundRvAdapterValue>) {
+    fun refresh(list: List<RoundValueRvAdapterItem>) {
         this.list.clear()
         this.list.addAll(list)
         notifyDataSetChanged()
@@ -75,9 +77,21 @@ internal class RoundValueRvAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
+    class RoundRowButtonViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
+        RecyclerView.ViewHolder(inflater.inflate(R.layout.item_round_button, parent, false)) {
+
+        private var addRoundBtn = itemView.findViewById<Button>(R.id.itemRoundBtn)
+
+        fun bind(roundRowButton: RoundRowButton) {
+            addRoundBtn.text = roundRowButton.label
+            addRoundBtn.setOnClickListener { roundRowButton.action.invoke() }
+        }
+    }
+
     companion object {
         const val ROUND_ROW_HEADER = 0
-        const val ROUND_ROW_VALUES = 2
-        const val ROUND_VALUE = 1
+        const val ROUND_ROW_VALUES = 1
+        const val ROUND_ROW_BUTTON = 2
+        const val ROUND_VALUE = 10
     }
 }

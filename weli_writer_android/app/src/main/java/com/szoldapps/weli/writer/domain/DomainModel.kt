@@ -1,5 +1,6 @@
 package com.szoldapps.weli.writer.domain
 
+import com.szoldapps.weli.writer.presentation.round.adapter.RoundValueRvAdapter.Companion.ROUND_ROW_BUTTON
 import com.szoldapps.weli.writer.presentation.round.adapter.RoundValueRvAdapter.Companion.ROUND_ROW_HEADER
 import com.szoldapps.weli.writer.presentation.round.adapter.RoundValueRvAdapter.Companion.ROUND_ROW_VALUES
 import com.szoldapps.weli.writer.presentation.round.adapter.RoundValueRvAdapter.Companion.ROUND_VALUE
@@ -28,23 +29,28 @@ data class Round(
     val date: OffsetDateTime,
 )
 
-sealed class RoundRvAdapterValue(
+sealed class RoundValueRvAdapterItem(
     val viewType: Int
 ) {
 
     data class RoundRowHeader(
         val titles: List<String>
-    ) : RoundRvAdapterValue(ROUND_ROW_HEADER)
+    ) : RoundValueRvAdapterItem(ROUND_ROW_HEADER)
 
     data class RoundRowValues(
         val number: Int,
         val values: List<Int>
-    ) : RoundRvAdapterValue(ROUND_ROW_VALUES)
+    ) : RoundValueRvAdapterItem(ROUND_ROW_VALUES)
+
+    data class RoundRowButton(
+        val label: String,
+        val action: () -> (Unit)
+    ) : RoundValueRvAdapterItem(ROUND_ROW_BUTTON)
 
     data class RoundValue(
         val id: Long = -1,
         val date: OffsetDateTime,
         val number: Int,
         val value: Int
-    ) : RoundRvAdapterValue(ROUND_VALUE)
+    ) : RoundValueRvAdapterItem(ROUND_VALUE)
 }
