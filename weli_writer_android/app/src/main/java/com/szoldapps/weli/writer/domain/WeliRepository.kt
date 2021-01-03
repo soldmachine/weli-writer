@@ -15,6 +15,8 @@ interface WeliRepository {
 
     fun roundRowValuesByRoundId(roundId: Long): LiveData<List<RoundValueRvAdapterItem.RoundRowValues>>
 
+    suspend fun roundValueCountByRoundId(roundId: Long): Int
+
     suspend fun addMatch(match: Match)
 
     suspend fun addGame(game: Game, matchId: Long): Long

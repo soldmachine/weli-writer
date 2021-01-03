@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.szoldapps.weli.writer.R
@@ -17,7 +18,6 @@ import com.szoldapps.weli.writer.presentation.round.RoundViewEvent.OpenBottomShe
 import com.szoldapps.weli.writer.presentation.round.RoundViewState.*
 import com.szoldapps.weli.writer.presentation.round.adapter.RoundValueRvAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 /**
  * Shows a [Round], including a list of its [RoundValue]s.
@@ -63,7 +63,11 @@ class RoundFragment : Fragment(R.layout.fragment_round) {
 
     private fun handleViewEvent(viewEvent: RoundViewEvent) {
         when (viewEvent) {
-            OpenBottomSheet -> Timber.e("logged xxx")
+            OpenBottomSheet -> {
+                findNavController().navigate(
+                    RoundFragmentDirections.actionRoundFragmentToAddRoundValueBottomSheet(args.roundId)
+                )
+            }
         }
     }
 

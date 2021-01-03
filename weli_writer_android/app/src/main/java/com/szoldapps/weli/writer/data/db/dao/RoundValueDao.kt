@@ -15,6 +15,9 @@ interface RoundValueDao {
     @Query("SELECT * FROM `round_value` WHERE round_value_round_id=:roundId")
     fun getRoundValueByRoundId(roundId: Long): LiveData<List<RoundValueEntity>>
 
+    @Query("SELECT COUNT(*) FROM `round_value` WHERE round_value_round_id=:roundId")
+    fun getRoundValueCountByRoundId(roundId: Long): Int
+
     @Insert
     fun insertAll(vararg roundValueEntity: RoundValueEntity)
 }

@@ -39,6 +39,10 @@ class WeliRepositoryImpl @Inject constructor(
             roundValueEntities.mapToRoundRowValues()
         }
 
+    override suspend fun roundValueCountByRoundId(roundId: Long): Int = withContext(Dispatchers.IO) {
+        roundValueDao.getRoundValueCountByRoundId(roundId) / 4
+    }
+
     override suspend fun addMatch(match: Match) = withContext(Dispatchers.IO) {
         matchDao.insertAll(match.mapToMatchDb())
     }

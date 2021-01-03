@@ -49,6 +49,9 @@
         <argument
             android:name="roundId"
             app:argType="long" />
+        <action
+            android:id="@+id/action_roundFragment_to_addRoundValueBottomSheet"
+            app:destination="@id/addRoundValueBottomSheet" />
     </fragment>
     <fragment
         android:id="@+id/newGameFragment"
@@ -75,4 +78,12 @@
             android:name="playerIndex"
             app:argType="integer" />
     </fragment>
+    <dialog
+        android:id="@+id/addRoundValueBottomSheet"
+        android:name="com.szoldapps.weli.writer.presentation.round.AddRoundValueBottomSheet"
+        android:label="AddRoundValueBottomSheet" >
+        <argument
+            android:name="roundId"
+            app:argType="long" />
+    </dialog>
 </navigation>
