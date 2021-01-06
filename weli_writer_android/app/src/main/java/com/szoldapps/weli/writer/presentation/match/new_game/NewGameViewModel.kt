@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.szoldapps.weli.writer.domain.Game
 import com.szoldapps.weli.writer.domain.Player
 import com.szoldapps.weli.writer.domain.WeliRepository
+import com.szoldapps.weli.writer.presentation.common.helper.SingleLiveEvent
 import com.szoldapps.weli.writer.presentation.match.new_game.NewGameViewEvent.OpenGameFragment
 import com.szoldapps.weli.writer.presentation.match.new_game.NewGameViewState.Content
 import com.szoldapps.weli.writer.presentation.match.new_game.NewGameViewState.Loading
@@ -23,7 +24,7 @@ class NewGameViewModel @ViewModelInject constructor(
     private val _viewState = MutableLiveData<NewGameViewState>(Content(selectedPlayers))
     val viewState: LiveData<NewGameViewState> = _viewState
 
-    private val _viewEvent = MutableLiveData<NewGameViewEvent>()
+    private val _viewEvent = SingleLiveEvent<NewGameViewEvent>()
     val viewEvent: LiveData<NewGameViewEvent> = _viewEvent
 
     fun selectPlayer(index: Int, player: Player) {

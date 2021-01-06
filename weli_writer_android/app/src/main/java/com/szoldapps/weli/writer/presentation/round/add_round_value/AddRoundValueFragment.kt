@@ -12,7 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class AddRoundValueFragment : Fragment(R.layout.fragment_add_round_value) {
+class AddRoundValueFragmentOld : Fragment(R.layout.fragment_add_round_value) {
 
     private val viewModel: AddRoundValueViewModel by viewModels()
 

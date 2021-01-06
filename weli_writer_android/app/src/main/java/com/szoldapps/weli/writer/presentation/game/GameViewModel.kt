@@ -2,11 +2,15 @@ package com.szoldapps.weli.writer.presentation.game
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.szoldapps.weli.writer.domain.Round
 import com.szoldapps.weli.writer.domain.WeliRepository
+import com.szoldapps.weli.writer.presentation.common.helper.SingleLiveEvent
 import com.szoldapps.weli.writer.presentation.game.GameViewState.Content
-import com.szoldapps.weli.writer.presentation.match.new_game.NewGameViewEvent
 import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime
 
@@ -22,7 +26,7 @@ class GameViewModel @ViewModelInject constructor(
         Content(rounds)
     }
 
-    private val _viewEvent = MutableLiveData<GameViewEvent>()
+    private val _viewEvent = SingleLiveEvent<GameViewEvent>()
     val viewEvent: LiveData<GameViewEvent> = _viewEvent
 
     fun addRandomRound() = viewModelScope.launch {

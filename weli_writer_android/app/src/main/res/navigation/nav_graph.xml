@@ -80,7 +80,7 @@
     </fragment>
     <fragment
         android:id="@+id/addRoundValueBottomSheet"
-        android:name="com.szoldapps.weli.writer.presentation.round.add_round_value.AddRoundValueFragment"
+        android:name="com.szoldapps.weli.writer.presentation.round.add_round_value.AddRoundValueFragmentOld"
         android:label="AddRoundValueBottomSheet">
         <argument
             android:name="roundId"
