@@ -9,6 +9,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.RoundValue
 import com.szoldapps.weli.writer.domain.WeliRepository
+import com.szoldapps.weli.writer.presentation.common.helper.SingleLiveEvent
+import com.szoldapps.weli.writer.presentation.round.add_round_value.AddRoundValueViewEvent.CloseFragment
+import com.szoldapps.weli.writer.presentation.round.overview.RoundViewEvent
 import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime
 
@@ -22,6 +25,9 @@ internal class AddRoundValueViewModel @ViewModelInject constructor(
 
     private val _values = MutableLiveData(listOf(0, 0, 0, 0))
     val values: LiveData<List<Int>> = _values
+
+    private val _viewEvent = SingleLiveEvent<AddRoundValueViewEvent>()
+    val viewEvent: LiveData<AddRoundValueViewEvent> = _viewEvent
 
     fun updateValue(index: Int, value: Int) {
         val list = _values.value ?: throw IllegalStateException("")
@@ -44,6 +50,11 @@ internal class AddRoundValueViewModel @ViewModelInject constructor(
                 player
             )
         }
+        _viewEvent.value = CloseFragment
     }
 
+}
+
+internal sealed class AddRoundValueViewEvent {
+    object CloseFragment : AddRoundValueViewEvent()
 }

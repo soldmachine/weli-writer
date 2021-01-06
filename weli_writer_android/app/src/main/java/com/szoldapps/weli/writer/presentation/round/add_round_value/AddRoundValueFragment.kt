@@ -7,6 +7,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.szoldapps.weli.writer.R
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -16,8 +18,20 @@ class AddRoundValueFragmentOld : Fragment(R.layout.fragment_add_round_value) {
 
     private val viewModel: AddRoundValueViewModel by viewModels()
 
+    private val args: AddRoundValueFragmentOldArgs by navArgs()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.viewEvent.observe(viewLifecycleOwner) { event ->
+            when (event) {
+                AddRoundValueViewEvent.CloseFragment ->
+                    // this is a workaround as with popBackStack the roundFragment didn't refresh the data
+                    findNavController().navigate(
+                        AddRoundValueFragmentOldDirections.actionAddRoundValueBottomSheetToRoundFragment(args.roundId)
+                    )
+            }
+        }
 
         val player1TricksLl = view.findViewById<LinearLayout>(R.id.player1TricksLl)
         val player2TricksLl = view.findViewById<LinearLayout>(R.id.player2TricksLl)

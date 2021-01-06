@@ -52,7 +52,6 @@ internal class RoundViewModel @ViewModelInject constructor(
                 player
             )
         }
-
     }
 }
 

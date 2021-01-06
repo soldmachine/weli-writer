@@ -85,5 +85,10 @@
         <argument
             android:name="roundId"
             app:argType="long" />
+        <action
+            android:id="@+id/action_addRoundValueBottomSheet_to_roundFragment"
+            app:destination="@id/roundFragment"
+            app:popUpTo="@id/roundFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>
