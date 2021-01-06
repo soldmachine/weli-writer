@@ -6,8 +6,18 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.szoldapps.weli.writer.data.db.converter.DateTypeConverter
-import com.szoldapps.weli.writer.data.db.dao.*
-import com.szoldapps.weli.writer.data.db.entity.*
+import com.szoldapps.weli.writer.data.db.dao.GameDao
+import com.szoldapps.weli.writer.data.db.dao.MatchDao
+import com.szoldapps.weli.writer.data.db.dao.PlayerDao
+import com.szoldapps.weli.writer.data.db.dao.PlayerGameDao
+import com.szoldapps.weli.writer.data.db.dao.RoundDao
+import com.szoldapps.weli.writer.data.db.dao.RoundValueDao
+import com.szoldapps.weli.writer.data.db.entity.GameEntity
+import com.szoldapps.weli.writer.data.db.entity.MatchEntity
+import com.szoldapps.weli.writer.data.db.entity.PlayerEntity
+import com.szoldapps.weli.writer.data.db.entity.PlayerGameEntity
+import com.szoldapps.weli.writer.data.db.entity.RoundEntity
+import com.szoldapps.weli.writer.data.db.entity.RoundValueEntity
 
 @Database(
     entities = [

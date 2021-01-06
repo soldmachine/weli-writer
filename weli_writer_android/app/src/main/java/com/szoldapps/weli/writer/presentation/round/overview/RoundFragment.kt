@@ -14,13 +14,8 @@ import com.szoldapps.weli.writer.databinding.FragmentRoundBinding
 import com.szoldapps.weli.writer.domain.Round
 import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.RoundValue
 import com.szoldapps.weli.writer.presentation.common.helper.viewBinding
-import com.szoldapps.weli.writer.presentation.round.overview.RoundFragmentArgs
-import com.szoldapps.weli.writer.presentation.round.overview.RoundFragmentDirections
-import com.szoldapps.weli.writer.presentation.round.RoundViewEvent
-import com.szoldapps.weli.writer.presentation.round.RoundViewEvent.OpenBottomSheet
-import com.szoldapps.weli.writer.presentation.round.RoundViewModel
-import com.szoldapps.weli.writer.presentation.round.RoundViewState
-import com.szoldapps.weli.writer.presentation.round.RoundViewState.*
+import com.szoldapps.weli.writer.presentation.round.overview.RoundViewEvent.OpenBottomSheet
+import com.szoldapps.weli.writer.presentation.round.overview.RoundViewState.*
 import com.szoldapps.weli.writer.presentation.round.overview.adapter.RoundValueRvAdapter
 import dagger.hilt.android.AndroidEntryPoint
 

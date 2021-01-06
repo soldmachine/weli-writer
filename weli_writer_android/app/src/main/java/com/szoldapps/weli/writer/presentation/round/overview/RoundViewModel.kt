@@ -1,4 +1,4 @@
-package com.szoldapps.weli.writer.presentation.round
+package com.szoldapps.weli.writer.presentation.round.overview
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
@@ -6,8 +6,8 @@ import androidx.lifecycle.*
 import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem
 import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.*
 import com.szoldapps.weli.writer.domain.WeliRepository
-import com.szoldapps.weli.writer.presentation.round.RoundViewEvent.OpenBottomSheet
-import com.szoldapps.weli.writer.presentation.round.RoundViewState.Content
+import com.szoldapps.weli.writer.presentation.round.overview.RoundViewEvent.OpenBottomSheet
+import com.szoldapps.weli.writer.presentation.round.overview.RoundViewState.Content
 import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime
 import kotlin.random.Random
