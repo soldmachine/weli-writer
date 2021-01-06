@@ -1,9 +1,9 @@
 package com.szoldapps.weli.writer.domain
 
-import com.szoldapps.weli.writer.presentation.round.adapter.RoundValueRvAdapter.Companion.ROUND_ROW_BUTTON
-import com.szoldapps.weli.writer.presentation.round.adapter.RoundValueRvAdapter.Companion.ROUND_ROW_HEADER
-import com.szoldapps.weli.writer.presentation.round.adapter.RoundValueRvAdapter.Companion.ROUND_ROW_VALUES
-import com.szoldapps.weli.writer.presentation.round.adapter.RoundValueRvAdapter.Companion.ROUND_VALUE
+import com.szoldapps.weli.writer.presentation.round.overview.adapter.RoundValueRvAdapter.Companion.ROUND_ROW_BUTTON
+import com.szoldapps.weli.writer.presentation.round.overview.adapter.RoundValueRvAdapter.Companion.ROUND_ROW_HEADER
+import com.szoldapps.weli.writer.presentation.round.overview.adapter.RoundValueRvAdapter.Companion.ROUND_ROW_VALUES
+import com.szoldapps.weli.writer.presentation.round.overview.adapter.RoundValueRvAdapter.Companion.ROUND_VALUE
 import org.threeten.bp.OffsetDateTime
 
 data class Match(

@@ -1,30 +1,20 @@
-package com.szoldapps.weli.writer.presentation.round
+package com.szoldapps.weli.writer.presentation.round.add_round_value
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.szoldapps.weli.writer.R
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class AddRoundValueBottomSheet : BottomSheetDialogFragment() {
+class AddRoundValueFragment : Fragment(R.layout.fragment_add_round_value) {
 
     private val viewModel: AddRoundValueViewModel by viewModels()
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.bs_add_round_value, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

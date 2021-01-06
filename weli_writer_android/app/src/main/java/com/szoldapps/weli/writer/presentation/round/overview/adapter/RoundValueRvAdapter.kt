@@ -1,4 +1,4 @@
-package com.szoldapps.weli.writer.presentation.round.adapter
+package com.szoldapps.weli.writer.presentation.round.overview.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -1,7 +1,9 @@
-package com.szoldapps.weli.writer.presentation.round
+package com.szoldapps.weli.writer.presentation.round.add_round_value
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,10 +20,14 @@ internal class AddRoundValueViewModel @ViewModelInject constructor(
     private val roundId: Long =
         savedStateHandle.get<Long>("roundId") ?: throw IllegalStateException("Mandatory roundId is missing!")
 
-    private val _values: MutableList<Int> = mutableListOf(0, 0, 0, 0)
+    private val _values = MutableLiveData(listOf(0, 0, 0, 0))
+    val values: LiveData<List<Int>> = _values
 
     fun updateValue(index: Int, value: Int) {
-        _values.add(index, value)
+        val list = _values.value ?: throw IllegalStateException("")
+        _values.value = list.toMutableList().apply {
+            set(index, value)
+        }
     }
 
     fun addRoundValue() = viewModelScope.launch {
@@ -32,7 +38,7 @@ internal class AddRoundValueViewModel @ViewModelInject constructor(
                 RoundValue(
                     date = OffsetDateTime.now(),
                     number = number,
-                    value = _values[index],
+                    value = _values.value?.get(index) ?: 0,
                 ),
                 roundId,
                 player

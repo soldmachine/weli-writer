@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/roundFragment"
-        android:name="com.szoldapps.weli.writer.presentation.round.RoundFragment"
+        android:name="com.szoldapps.weli.writer.presentation.round.overview.RoundFragment"
         android:label="fragment_round"
         tools:layout="@layout/fragment_round">
         <argument
@@ -78,12 +78,12 @@
             android:name="playerIndex"
             app:argType="integer" />
     </fragment>
-    <dialog
+    <fragment
         android:id="@+id/addRoundValueBottomSheet"
-        android:name="com.szoldapps.weli.writer.presentation.round.AddRoundValueBottomSheet"
-        android:label="AddRoundValueBottomSheet" >
+        android:name="com.szoldapps.weli.writer.presentation.round.add_round_value.AddRoundValueFragment"
+        android:label="AddRoundValueBottomSheet">
         <argument
             android:name="roundId"
             app:argType="long" />
-    </dialog>
+    </fragment>
 </navigation>
