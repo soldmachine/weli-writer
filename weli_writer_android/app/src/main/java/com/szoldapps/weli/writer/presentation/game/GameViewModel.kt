@@ -8,7 +8,9 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.szoldapps.weli.writer.domain.Round
+import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem
 import com.szoldapps.weli.writer.domain.WeliRepository
+import com.szoldapps.weli.writer.presentation.common.WeliConstants.WELI_ROUND_START_VALUE
 import com.szoldapps.weli.writer.presentation.common.helper.SingleLiveEvent
 import com.szoldapps.weli.writer.presentation.game.GameViewState.Content
 import kotlinx.coroutines.launch
@@ -31,6 +33,18 @@ class GameViewModel @ViewModelInject constructor(
 
     fun addRandomRound() = viewModelScope.launch {
         val roundId = weliRepository.addRound(Round(date = OffsetDateTime.now()), gameId)
+        val players = weliRepository.getPlayersOfRound(roundId)
+        players.forEach { player ->
+            weliRepository.addRoundValue(
+                RoundValueRvAdapterItem.RoundValue(
+                    date = OffsetDateTime.now(),
+                    number = 0,
+                    value = WELI_ROUND_START_VALUE,
+                ),
+                roundId,
+                player
+            )
+        }
         _viewEvent.value = GameViewEvent.OpenRoundFragment(roundId)
     }
 

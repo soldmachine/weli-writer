@@ -6,18 +6,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem
 import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.RoundRowButton
 import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.RoundRowHeader
-import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.RoundValue
 import com.szoldapps.weli.writer.domain.WeliRepository
 import com.szoldapps.weli.writer.presentation.common.helper.SingleLiveEvent
 import com.szoldapps.weli.writer.presentation.round.overview.RoundViewEvent.OpenBottomSheet
 import com.szoldapps.weli.writer.presentation.round.overview.RoundViewState.Content
-import kotlinx.coroutines.launch
-import org.threeten.bp.OffsetDateTime
-import kotlin.random.Random
 
 internal class RoundViewModel @ViewModelInject constructor(
     private val weliRepository: WeliRepository,
@@ -38,21 +33,6 @@ internal class RoundViewModel @ViewModelInject constructor(
 
     private val _viewEvent = SingleLiveEvent<RoundViewEvent>()
     val viewEvent: LiveData<RoundViewEvent> = _viewEvent
-
-    fun addRandomRoundValues() = viewModelScope.launch {
-        val playersOfRound = weliRepository.getPlayersOfRound(roundId)
-        playersOfRound.forEach { player ->
-            weliRepository.addRoundValue(
-                RoundValue(
-                    date = OffsetDateTime.now(),
-                    number = Random.nextInt(0, 25),
-                    value = Random.nextInt(0, 25),
-                ),
-                roundId,
-                player
-            )
-        }
-    }
 }
 
 internal sealed class RoundViewState {
