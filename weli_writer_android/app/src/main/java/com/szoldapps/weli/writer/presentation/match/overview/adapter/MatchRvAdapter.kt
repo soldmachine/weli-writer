@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.szoldapps.weli.writer.R
 import com.szoldapps.weli.writer.domain.Game
+import com.szoldapps.weli.writer.domain.Player
 
 class MatchRvAdapter(
     private val onItemClickListener: (Long) -> (Unit)
@@ -36,11 +37,17 @@ class MatchRvAdapter(
         private var titleTv = itemView.findViewById<TextView>(R.id.matchTitleTv)
 
         fun bind(game: Game, onItemClickListener: (Long) -> (Unit)) {
-            titleTv.text = "${game.players}"
+            titleTv.text = "Game ${game.id} (${game.players.getInitials()})"
             titleTv.setOnClickListener {
                 onItemClickListener.invoke(game.id)
             }
         }
+
+        private fun List<Player>.getInitials(): String =
+            this.joinToString(separator = " | ") { player ->
+                player.firstName.first().toUpperCase().toString() + player.lastName.first().toUpperCase().toString()
+            }
+
 
     }
 }

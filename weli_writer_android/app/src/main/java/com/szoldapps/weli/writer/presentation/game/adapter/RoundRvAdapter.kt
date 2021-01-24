@@ -6,6 +6,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.szoldapps.weli.writer.R
 import com.szoldapps.weli.writer.domain.Round
+import org.threeten.bp.OffsetDateTime
+import org.threeten.bp.format.DateTimeFormatter
 
 class RoundRvAdapter(
     private val onItemClickListener: (Long) -> (Unit)
@@ -19,7 +21,7 @@ class RoundRvAdapter(
     }
 
     override fun onBindViewHolder(holder: RoundViewHolder, position: Int) {
-        holder.bind(list[position], onItemClickListener)
+        holder.bind(position, list[position], onItemClickListener)
     }
 
     override fun getItemCount(): Int = list.size
@@ -35,12 +37,14 @@ class RoundRvAdapter(
 
         private var titleTv = itemView.findViewById<TextView>(R.id.matchTitleTv)
 
-        fun bind(round: Round, onItemClickListener: (Long) -> Unit) {
-            titleTv.text = "${round.date}"
+        fun bind(position: Int, round: Round, onItemClickListener: (Long) -> Unit) {
+            titleTv.text = "Round ${position + 1} (${round.date.formatted()})"
             titleTv.setOnClickListener {
                 onItemClickListener.invoke(round.id)
             }
         }
 
+        private fun OffsetDateTime.formatted(): String =
+            this.format(DateTimeFormatter.ofPattern("HH:mm"))
     }
 }
