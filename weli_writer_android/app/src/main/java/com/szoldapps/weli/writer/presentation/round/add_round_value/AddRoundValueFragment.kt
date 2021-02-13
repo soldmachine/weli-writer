@@ -10,7 +10,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.szoldapps.weli.writer.R
+import com.szoldapps.weli.writer.presentation.round.add_round_value.AddRoundValueViewState.Content
+import com.szoldapps.weli.writer.presentation.round.add_round_value.AddRoundValueViewState.Error
+import com.szoldapps.weli.writer.presentation.round.add_round_value.AddRoundValueViewState.Loading
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_add_round_value.heartsToggleButton
+import kotlinx.android.synthetic.main.fragment_add_round_value.multiplierTv
+import kotlinx.android.synthetic.main.fragment_add_round_value.redealButton
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -20,9 +26,20 @@ class AddRoundValueFragmentOld : Fragment(R.layout.fragment_add_round_value) {
 
     private val args: AddRoundValueFragmentOldArgs by navArgs()
 
+    private val player1TricksLl by lazy { requireView().findViewById<LinearLayout>(R.id.player1TricksLl) }
+    private val player2TricksLl by lazy { requireView().findViewById<LinearLayout>(R.id.player2TricksLl) }
+    private val player3TricksLl by lazy { requireView().findViewById<LinearLayout>(R.id.player3TricksLl) }
+    private val player4TricksLl by lazy { requireView().findViewById<LinearLayout>(R.id.player4TricksLl) }
+
+    private val value1Tv by lazy { player1TricksLl.findViewById<TextView>(R.id.valueTv) }
+    private val value2Tv by lazy { player2TricksLl.findViewById<TextView>(R.id.valueTv) }
+    private val value3Tv by lazy { player3TricksLl.findViewById<TextView>(R.id.valueTv) }
+    private val value4Tv by lazy { player4TricksLl.findViewById<TextView>(R.id.valueTv) }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.viewState.observe(viewLifecycleOwner, ::handleViewState)
         viewModel.viewEvent.observe(viewLifecycleOwner) { event ->
             when (event) {
                 AddRoundValueViewEvent.CloseFragment ->
@@ -33,10 +50,6 @@ class AddRoundValueFragmentOld : Fragment(R.layout.fragment_add_round_value) {
             }
         }
 
-        val player1TricksLl = view.findViewById<LinearLayout>(R.id.player1TricksLl)
-        val player2TricksLl = view.findViewById<LinearLayout>(R.id.player2TricksLl)
-        val player3TricksLl = view.findViewById<LinearLayout>(R.id.player3TricksLl)
-        val player4TricksLl = view.findViewById<LinearLayout>(R.id.player4TricksLl)
         val addRoundValueBt = view.findViewById<Button>(R.id.addRoundValueBt)
 
         setButtonClickListeners(0, player1TricksLl)
@@ -46,6 +59,28 @@ class AddRoundValueFragmentOld : Fragment(R.layout.fragment_add_round_value) {
         addRoundValueBt.setOnClickListener {
             viewModel.addRoundValue()
         }
+        heartsToggleButton.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.updateHeartsRound(isChecked)
+        }
+        redealButton.setOnClickListener { _ ->
+            viewModel.updateRedealState()
+        }
+    }
+
+    private fun handleViewState(viewState: AddRoundValueViewState) {
+        when (viewState) {
+            Loading -> TODO()
+            Error -> TODO()
+            is Content -> handleContentState(viewState)
+        }
+    }
+
+    private fun handleContentState(content: Content) = with(content) {
+        value1Tv.text = (values[0] * multiplier).toString()
+        value2Tv.text = (values[1] * multiplier).toString()
+        value3Tv.text = (values[2] * multiplier).toString()
+        value4Tv.text = (values[3] * multiplier).toString()
+        multiplierTv.text = "${multiplier}x (heartMultiplier=${heartsMultiplier}, redealMultiplier=${redealMultiplier})"
     }
 
     private fun setButtonClickListeners(playerNumber: Int, linearLayout: LinearLayout) {
@@ -68,7 +103,6 @@ class AddRoundValueFragmentOld : Fragment(R.layout.fragment_add_round_value) {
     private fun buttonOnClickListener(playerNumber: Int, valueTv: TextView) = View.OnClickListener { view ->
         val tagAsInt = (view.tag as String).toInt()
         Timber.i("playerNumber = $playerNumber, buttonTag=$tagAsInt")
-        valueTv.text = tagAsInt.toString()
         viewModel.updateValue(playerNumber, tagAsInt)
     }
 }
