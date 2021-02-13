@@ -36,9 +36,6 @@ internal class AddRoundValueViewModel @ViewModelInject constructor(
     private val _viewEvent = SingleLiveEvent<AddRoundValueViewEvent>()
     val viewEvent: LiveData<AddRoundValueViewEvent> = _viewEvent
 
-    private var isHeartsRound = false
-    private var redealMultiplier = 1
-
     fun updateValue(index: Int, value: Int) {
         val content = _viewState.value as Content
         _viewState.value = content.copy(
@@ -66,30 +63,28 @@ internal class AddRoundValueViewModel @ViewModelInject constructor(
     }
 
     fun updateHeartsRound(isChecked: Boolean) {
-        isHeartsRound = isChecked
-        refreshValuesWithNewMultiplier()
+        refreshValuesWithNewMultiplier(heartsMultiplierArg = heartsMultiplier(isChecked))
     }
 
-    private fun refreshValuesWithNewMultiplier() {
+    private fun refreshValuesWithNewMultiplier(heartsMultiplierArg: Int? = null, redealMultiplierArg: Int? = null) {
         val content = _viewState.value as Content
-        val multiplier = getMultiplier()
+        val heartsMultiplier = heartsMultiplierArg ?: content.heartsMultiplier
+        val redealMultiplier = redealMultiplierArg ?: content.redealMultiplier
+        val multiplier = heartsMultiplier * redealMultiplier
         _viewState.value = content.copy(
-            heartsMultiplier = heartsMultiplier(),
+            heartsMultiplier = heartsMultiplier,
             redealMultiplier = redealMultiplier,
             multiplier = multiplier,
         )
     }
 
-    private fun getMultiplier(): Int = heartsMultiplier() * redealMultiplier
-
-    private fun heartsMultiplier() = if (isHeartsRound) 2 else 1
+    private fun heartsMultiplier(isHeartsRound: Boolean) = if (isHeartsRound) 2 else 1
 
     fun updateRedealState() {
-        redealMultiplier *= 2
-        if (redealMultiplier > MAX_REDEAL_MULTIPLIER) {
-            redealMultiplier = 1
-        }
-        refreshValuesWithNewMultiplier()
+        val content = _viewState.value as Content
+        val newRedealMultiplier = content.redealMultiplier * 2
+        val redealMultiplier = if (newRedealMultiplier > MAX_REDEAL_MULTIPLIER) 1 else newRedealMultiplier
+        refreshValuesWithNewMultiplier(redealMultiplierArg = redealMultiplier)
     }
 
     companion object {
