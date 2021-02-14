@@ -14,6 +14,7 @@ import com.szoldapps.weli.writer.presentation.round.add_round_value.AddRoundValu
 import com.szoldapps.weli.writer.presentation.round.add_round_value.AddRoundValueViewState.Error
 import com.szoldapps.weli.writer.presentation.round.add_round_value.AddRoundValueViewState.Loading
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_add_round_value.addRoundValueBt
 import kotlinx.android.synthetic.main.fragment_add_round_value.heartsToggleButton
 import kotlinx.android.synthetic.main.fragment_add_round_value.multiplierTv
 import kotlinx.android.synthetic.main.fragment_add_round_value.redealButton
@@ -76,11 +77,12 @@ class AddRoundValueFragmentOld : Fragment(R.layout.fragment_add_round_value) {
     }
 
     private fun handleContentState(content: Content) = with(content) {
-        value1Tv.text = (values[0] * multiplier).toString()
-        value2Tv.text = (values[1] * multiplier).toString()
-        value3Tv.text = (values[2] * multiplier).toString()
-        value4Tv.text = (values[3] * multiplier).toString()
+        value1Tv.text = (tricks[0] * multiplier).toString()
+        value2Tv.text = (tricks[1] * multiplier).toString()
+        value3Tv.text = (tricks[2] * multiplier).toString()
+        value4Tv.text = (tricks[3] * multiplier).toString()
         multiplierTv.text = "${multiplier}x (heartMultiplier=${heartsMultiplier}, redealMultiplier=${redealMultiplier})"
+        addRoundValueBt.isEnabled = isAddValuesButtonEnabled
     }
 
     private fun setButtonClickListeners(playerNumber: Int, linearLayout: LinearLayout) {
@@ -103,6 +105,6 @@ class AddRoundValueFragmentOld : Fragment(R.layout.fragment_add_round_value) {
     private fun buttonOnClickListener(playerNumber: Int, valueTv: TextView) = View.OnClickListener { view ->
         val tagAsInt = (view.tag as String).toInt()
         Timber.i("playerNumber = $playerNumber, buttonTag=$tagAsInt")
-        viewModel.updateValue(playerNumber, tagAsInt)
+        viewModel.updateTrick(playerNumber, tagAsInt)
     }
 }

@@ -28,7 +28,8 @@ internal class AddRoundValueViewModel @ViewModelInject constructor(
             heartsMultiplier = 1,
             redealMultiplier = 1,
             multiplier = 1,
-            values = listOf(0, 0, 0, 0),
+            tricks = listOf(0, 0, 0, 0),
+            isAddValuesButtonEnabled = false,
         )
     )
     val viewState: LiveData<AddRoundValueViewState> = _viewState
@@ -36,13 +37,21 @@ internal class AddRoundValueViewModel @ViewModelInject constructor(
     private val _viewEvent = SingleLiveEvent<AddRoundValueViewEvent>()
     val viewEvent: LiveData<AddRoundValueViewEvent> = _viewEvent
 
-    fun updateValue(index: Int, value: Int) {
+    fun updateTrick(index: Int, value: Int) {
         val content = _viewState.value as Content
+        val tricks = content.tricks.toMutableList().apply {
+            set(index, value)
+        }
         _viewState.value = content.copy(
-            values = content.values.toMutableList().apply {
-                set(index, value)
-            }
+            tricks = tricks,
+            isAddValuesButtonEnabled = isAddValuesButtonEnabled(tricks)
         )
+    }
+
+    private fun isAddValuesButtonEnabled(tricks: List<Int>): Boolean {
+        val fiveTricksDistributed = tricks.filter { it < 0 }.sum() == -5
+        val noUnchangedPlayers = tricks.count { it == 0 } == 0
+        return fiveTricksDistributed && noUnchangedPlayers
     }
 
     fun addRoundValue() = viewModelScope.launch {
@@ -53,7 +62,7 @@ internal class AddRoundValueViewModel @ViewModelInject constructor(
                 RoundValue(
                     date = OffsetDateTime.now(),
                     number = number,
-                    value = (_viewState.value as Content).values[index],
+                    value = (_viewState.value as Content).tricks[index],
                 ),
                 roundId,
                 player
@@ -100,7 +109,8 @@ internal sealed class AddRoundValueViewState {
         val heartsMultiplier: Int,
         val redealMultiplier: Int,
         val multiplier: Int,
-        val values: List<Int>,
+        val tricks: List<Int>,
+        val isAddValuesButtonEnabled: Boolean,
     ) : AddRoundValueViewState()
 }
 
