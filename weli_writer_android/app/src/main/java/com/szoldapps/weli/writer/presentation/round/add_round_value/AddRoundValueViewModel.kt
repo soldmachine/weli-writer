@@ -58,11 +58,12 @@ internal class AddRoundValueViewModel @ViewModelInject constructor(
         val playersOfRound = weliRepository.getPlayersOfRound(roundId)
         val number = weliRepository.roundValueCountByRoundId(roundId)
         playersOfRound.forEachIndexed { index, player ->
+            val content = _viewState.value as Content
             weliRepository.addRoundValue(
                 RoundValue(
                     date = OffsetDateTime.now(),
                     number = number,
-                    value = (_viewState.value as Content).tricks[index],
+                    value = content.tricks[index] * content.multiplier,
                 ),
                 roundId,
                 player
