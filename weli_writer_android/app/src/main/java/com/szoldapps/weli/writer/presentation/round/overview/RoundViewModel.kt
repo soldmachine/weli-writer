@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem
 import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.RoundRowButton
 import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.RoundRowHeader
+import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.RoundRowValues
 import com.szoldapps.weli.writer.domain.WeliRepository
 import com.szoldapps.weli.writer.presentation.common.helper.SingleLiveEvent
 import com.szoldapps.weli.writer.presentation.round.overview.RoundViewEvent.OpenBottomSheet
@@ -24,15 +25,18 @@ internal class RoundViewModel @ViewModelInject constructor(
 
     val viewState: LiveData<RoundViewState> =
         Transformations.map(weliRepository.roundRowValuesByRoundId(roundId)) { roundRowValues ->
-            Content(
-                listOf(RoundRowHeader(listOf("AK", "TM", "TE", "TS")))
-                        + roundRowValues
-                        + RoundRowButton(label = "Add round result", action = { _viewEvent.postValue(OpenBottomSheet) })
-            )
+            val list = mutableListOf<RoundValueRvAdapterItem>(RoundRowHeader(listOf("AK", "TM", "TE", "TS")))
+            list.addAll(roundRowValues)
+            if (roundRowValues.doNotContainWinner()) {
+                list.add(RoundRowButton(label = "Add round result", action = { _viewEvent.postValue(OpenBottomSheet) }))
+            }
+            Content(list.toList())
         }
 
     private val _viewEvent = SingleLiveEvent<RoundViewEvent>()
     val viewEvent: LiveData<RoundViewEvent> = _viewEvent
+
+    private fun List<RoundRowValues>.doNotContainWinner(): Boolean = !last().values.contains(0)
 }
 
 internal sealed class RoundViewState {
