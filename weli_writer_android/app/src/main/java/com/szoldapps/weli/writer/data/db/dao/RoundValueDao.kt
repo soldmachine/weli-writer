@@ -18,6 +18,9 @@ interface RoundValueDao {
     @Query("SELECT COUNT(*) FROM `round_value` WHERE round_value_round_id=:roundId")
     fun getRoundValueCountByRoundId(roundId: Long): Int
 
+    @Query("SELECT SUM(value) FROM round_value WHERE round_value_round_id = :roundId AND round_value_player_id = :playerId")
+    fun sumValueOfPlayer(roundId: Long, playerId: Long): Int
+
     @Insert
     fun insertAll(vararg roundValueEntity: RoundValueEntity)
 }

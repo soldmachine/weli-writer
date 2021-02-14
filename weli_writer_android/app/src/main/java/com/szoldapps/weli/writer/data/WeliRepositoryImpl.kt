@@ -2,11 +2,28 @@ package com.szoldapps.weli.writer.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import com.szoldapps.weli.writer.data.db.dao.*
-import com.szoldapps.weli.writer.data.db.mapper.*
-import com.szoldapps.weli.writer.domain.*
+import com.szoldapps.weli.writer.data.db.dao.GameDao
+import com.szoldapps.weli.writer.data.db.dao.MatchDao
+import com.szoldapps.weli.writer.data.db.dao.PlayerDao
+import com.szoldapps.weli.writer.data.db.dao.PlayerGameDao
+import com.szoldapps.weli.writer.data.db.dao.RoundDao
+import com.szoldapps.weli.writer.data.db.dao.RoundValueDao
+import com.szoldapps.weli.writer.data.db.mapper.mapToGames
+import com.szoldapps.weli.writer.data.db.mapper.mapToMatch
+import com.szoldapps.weli.writer.data.db.mapper.mapToMatchDb
+import com.szoldapps.weli.writer.data.db.mapper.mapToPlayerEntity
+import com.szoldapps.weli.writer.data.db.mapper.mapToPlayers
+import com.szoldapps.weli.writer.data.db.mapper.mapToRoundEntity
+import com.szoldapps.weli.writer.data.db.mapper.mapToRoundRowValues
+import com.szoldapps.weli.writer.data.db.mapper.mapToRoundValueEntity
+import com.szoldapps.weli.writer.data.db.mapper.mapToRounds
+import com.szoldapps.weli.writer.domain.Game
+import com.szoldapps.weli.writer.domain.Match
+import com.szoldapps.weli.writer.domain.Player
+import com.szoldapps.weli.writer.domain.Round
 import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.RoundRowValues
 import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.RoundValue
+import com.szoldapps.weli.writer.domain.WeliRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -55,12 +72,22 @@ class WeliRepositoryImpl @Inject constructor(
         roundDao.insert(round.mapToRoundEntity(gameId))
     }
 
+    /**
+     * Adds a RoundValue but makes sure that the minimum value is 0, i.e. the sum of a player can't become negative
+     */
     override suspend fun addRoundValue(
         roundValue: RoundValue,
         roundId: Long,
         player: Player
     ) = withContext(Dispatchers.IO) {
-        roundValueDao.insertAll(roundValue.mapToRoundValueEntity(roundId, player.id))
+        val sumValueOfPlayerBeforeInsert = roundValueDao.sumValueOfPlayer(roundId = roundId, playerId = player.id)
+        val sumValueAfterInsert = sumValueOfPlayerBeforeInsert + roundValue.value
+        val roundValueToInsert = if (sumValueAfterInsert < 0) {
+            roundValue.copy(value = -sumValueOfPlayerBeforeInsert)
+        } else {
+            roundValue
+        }
+        roundValueDao.insertAll(roundValueToInsert.mapToRoundValueEntity(roundId, player.id))
     }
 
     override suspend fun addPlayer(player: Player) = withContext(Dispatchers.IO) {
