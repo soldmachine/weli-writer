@@ -93,13 +93,12 @@ class AddRoundValueFragmentOld : Fragment(R.layout.fragment_add_round_value) {
         val trick4Bt = linearLayout.findViewById<Button>(R.id.trick4Bt)
         val trick5Bt = linearLayout.findViewById<Button>(R.id.trick5Bt)
         val homeBt = linearLayout.findViewById<Button>(R.id.homeBt)
+        val fallenBt = linearLayout.findViewById<Button>(R.id.fallenBt)
 
-        trick1Bt.setOnClickListener(buttonOnClickListener(playerNumber, valueTv))
-        trick2Bt.setOnClickListener(buttonOnClickListener(playerNumber, valueTv))
-        trick3Bt.setOnClickListener(buttonOnClickListener(playerNumber, valueTv))
-        trick4Bt.setOnClickListener(buttonOnClickListener(playerNumber, valueTv))
-        trick5Bt.setOnClickListener(buttonOnClickListener(playerNumber, valueTv))
-        homeBt.setOnClickListener(buttonOnClickListener(playerNumber, valueTv))
+        val buttonList = listOf(trick1Bt, trick2Bt, trick3Bt, trick4Bt, trick5Bt, homeBt, fallenBt)
+        buttonList.forEach { button ->
+            button.setOnClickListener(buttonOnClickListener(playerNumber, valueTv))
+        }
     }
 
     private fun buttonOnClickListener(playerNumber: Int, valueTv: TextView) = View.OnClickListener { view ->

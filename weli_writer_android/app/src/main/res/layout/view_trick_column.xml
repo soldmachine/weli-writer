@@ -54,4 +54,11 @@
         android:tag="1"
         android:text="FOLD" />
 
+    <Button
+        android:id="@+id/fallenBt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tag="5"
+        android:text="FALLEN" />
+
 </LinearLayout>
