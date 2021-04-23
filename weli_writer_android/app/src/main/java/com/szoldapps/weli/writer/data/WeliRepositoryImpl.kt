@@ -25,6 +25,8 @@ import com.szoldapps.weli.writer.domain.Match
 import com.szoldapps.weli.writer.domain.Player
 import com.szoldapps.weli.writer.domain.Round
 import com.szoldapps.weli.writer.domain.RoundValue
+import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem
+import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.RoundRowHeader
 import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.RoundRowValues
 import com.szoldapps.weli.writer.domain.WeliRepository
 import kotlinx.coroutines.Dispatchers
@@ -73,10 +75,30 @@ class WeliRepositoryImpl @Inject constructor(
             .mapToRoundRowValues()
             .last()
 
-    override fun roundRowValuesByRoundId(roundId: Long): LiveData<List<RoundRowValues>> =
-        Transformations.map(roundValueDao.getRoundValueByRoundIdLiveData(roundId)) { roundValueEntities ->
-            roundValueEntities.mapToRoundRowValues()
+    override suspend fun roundValueRvAdapterItemsByRoundId(
+        roundId: Long,
+        onButtonClickListener: () -> (Unit)
+    ): List<RoundValueRvAdapterItem> = withContext(Dispatchers.IO) {
+        val roundRowValues = roundValueDao.getRoundValueByRoundIdLiveData(roundId).mapToRoundRowValues()
+
+        val playersOfGame = roundDao.getPlayersOfRound(roundId)
+            .mapToPlayers()
+            .map { player -> "${player.firstName.first()}${player.lastName.first()}" }
+
+        val list = mutableListOf<RoundValueRvAdapterItem>(RoundRowHeader(playersOfGame))
+        list.addAll(roundRowValues)
+        if (roundRowValues.doNotContainWinner()) {
+            list.add(
+                RoundValueRvAdapterItem.RoundRowButton(
+                    label = "Add round result",
+                    action = { onButtonClickListener.invoke() }
+                )
+            )
         }
+        return@withContext list
+    }
+
+    private fun List<RoundRowValues>.doNotContainWinner(): Boolean = !last().values.contains(0)
 
     override suspend fun roundValueCountByRoundId(roundId: Long): Int = withContext(Dispatchers.IO) {
         roundValueDao.getRoundValueCountByRoundId(roundId) / 4

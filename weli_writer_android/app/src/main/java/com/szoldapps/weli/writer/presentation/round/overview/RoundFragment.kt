@@ -41,6 +41,7 @@ class RoundFragment : Fragment(R.layout.fragment_round) {
         setupToolbarAndRv()
         viewModel.viewState.observe(viewLifecycleOwner, ::handleViewState)
         viewModel.viewEvent.observe(viewLifecycleOwner, ::handleViewEvent)
+        viewModel.loadContent(args.roundId)
     }
 
     private fun setupToolbarAndRv() {

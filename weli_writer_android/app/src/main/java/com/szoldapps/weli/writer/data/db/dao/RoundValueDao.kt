@@ -13,7 +13,7 @@ interface RoundValueDao {
     fun getAll(): LiveData<List<RoundValueEntity>>
 
     @Query("SELECT * FROM `round_value` WHERE round_value_round_id=:roundId")
-    fun getRoundValueByRoundIdLiveData(roundId: Long): LiveData<List<RoundValueEntity>>
+    fun getRoundValueByRoundIdLiveData(roundId: Long): List<RoundValueEntity>
 
     @Query("SELECT * FROM `round_value` WHERE round_value_round_id=:roundId")
     fun getRoundValueByRoundId(roundId: Long): List<RoundValueEntity>

@@ -12,7 +12,10 @@ interface WeliRepository {
 
     suspend fun gameRvAdapterItemsByGameId(gameId: Long): List<GameRvAdapterItem>
 
-    fun roundRowValuesByRoundId(roundId: Long): LiveData<List<RoundValueRvAdapterItem.RoundRowValues>>
+    suspend fun roundValueRvAdapterItemsByRoundId(
+        roundId: Long,
+        onButtonClickListener: () -> (Unit),
+    ): List<RoundValueRvAdapterItem>
 
     suspend fun roundValueCountByRoundId(roundId: Long): Int
 
