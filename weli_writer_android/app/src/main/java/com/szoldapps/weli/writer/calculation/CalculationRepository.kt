@@ -126,7 +126,17 @@ data class PlayerX(
 
 data class CalculationResultX(
     val payments: List<PaymentX>
-)
+) {
+    override fun toString(): String {
+        val strBuilder = StringBuilder()
+        payments.forEach { paymentX ->
+            strBuilder.appendLine(
+                "${paymentX.payer.name} ows ${paymentX.receiver.name} ${paymentX.value / 10} €"
+            )
+        }
+        return strBuilder.toString()
+    }
+}
 
 data class PaymentX(
     val payer: PlayerX,

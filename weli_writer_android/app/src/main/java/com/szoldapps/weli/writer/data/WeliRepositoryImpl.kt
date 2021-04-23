@@ -2,6 +2,11 @@ package com.szoldapps.weli.writer.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import com.szoldapps.weli.writer.calculation.CalculationRepository
+import com.szoldapps.weli.writer.calculation.GameX
+import com.szoldapps.weli.writer.calculation.PlayerX
+import com.szoldapps.weli.writer.calculation.RoundValueX
+import com.szoldapps.weli.writer.calculation.RoundX
 import com.szoldapps.weli.writer.data.db.dao.GameDao
 import com.szoldapps.weli.writer.data.db.dao.MatchDao
 import com.szoldapps.weli.writer.data.db.dao.PlayerDao
@@ -41,6 +46,7 @@ class WeliRepositoryImpl @Inject constructor(
     private val gameDao: GameDao,
     private val roundDao: RoundDao,
     private val roundValueDao: RoundValueDao,
+    private val calculationRepository: CalculationRepository,
 ) : WeliRepository {
 
     override val matches: LiveData<List<Match>> = Transformations.map(matchDao.getAll()) { it.mapToMatch() }
@@ -64,12 +70,13 @@ class WeliRepositoryImpl @Inject constructor(
                     values = lastRoundRowValues.values
                 )
             }
-            val playersOfGame = gameDao.getPlayersOfGame(gameId)
-                .mapToPlayers()
-                .map { player -> "${player.firstName.first()}${player.lastName.first()}" }
-            val header = mutableListOf<GameRvAdapterItem>(GameRowHeader(playersOfGame))
+            val playersOfGame = gameDao.getPlayersOfGame(gameId).mapToPlayers()
 
-            val summation = GameRowSummation("test 123")
+            val header = mutableListOf<GameRvAdapterItem>(
+                GameRowHeader(playersOfGame.map { player -> "${player.firstName.first()}${player.lastName.first()}" })
+            )
+
+            val summation = calculateGameRowSummation(playersOfGame, gameRowValues)
 
             return@withContext header + gameRowValues + summation
         }
@@ -78,6 +85,26 @@ class WeliRepositoryImpl @Inject constructor(
         roundValueDao.getRoundValueByRoundId(roundId)
             .mapToRoundRowValues()
             .last()
+
+    private fun calculateGameRowSummation(
+        playersOfGame: List<Player>,
+        gameRowValues: List<GameRowValues>
+    ): GameRowSummation {
+        val roundsX = gameRowValues.map { gameRowValue ->
+            RoundX(number = gameRowValue.number, values = gameRowValue.values.mapToRoundValueX(playersOfGame))
+        }
+        val gameX = GameX(roundsX)
+        val result = calculationRepository.calculateResult(gameX)
+        return GameRowSummation(result.toString())
+    }
+
+    private fun List<Int>.mapToRoundValueX(playersOfGame: List<Player>): List<RoundValueX> =
+        this.mapIndexed { index, value ->
+            RoundValueX(
+                player = PlayerX(playersOfGame[index].firstName + " " + playersOfGame[index].lastName),
+                points = value,
+            )
+        }
 
     override suspend fun roundValueRvAdapterItemsByRoundId(
         roundId: Long,
