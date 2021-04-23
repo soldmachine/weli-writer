@@ -9,9 +9,9 @@ import com.szoldapps.weli.writer.domain.Round
 import org.threeten.bp.OffsetDateTime
 import org.threeten.bp.format.DateTimeFormatter
 
-class RoundRvAdapter(
+class GameRvAdapter(
     private val onItemClickListener: (Long) -> (Unit)
-) : RecyclerView.Adapter<RoundRvAdapter.RoundViewHolder>() {
+) : RecyclerView.Adapter<GameRvAdapter.RoundViewHolder>() {
 
     private val list: MutableList<Round> = mutableListOf()
 
@@ -46,5 +46,11 @@ class RoundRvAdapter(
 
         private fun OffsetDateTime.formatted(): String =
             this.format(DateTimeFormatter.ofPattern("HH:mm"))
+    }
+
+    companion object {
+        const val GAME_ROW_HEADER = 0
+        const val GAME_ROW_VALUES = 1
+        const val GAME_ROW_BUTTON = 2
     }
 }

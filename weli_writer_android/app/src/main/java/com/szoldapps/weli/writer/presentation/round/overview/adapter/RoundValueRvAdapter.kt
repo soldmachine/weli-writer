@@ -7,7 +7,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.szoldapps.weli.writer.R
 import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem
-import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.*
+import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.RoundRowButton
+import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.RoundRowHeader
+import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.RoundRowValues
 
 internal class RoundValueRvAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -92,6 +94,5 @@ internal class RoundValueRvAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         const val ROUND_ROW_HEADER = 0
         const val ROUND_ROW_VALUES = 1
         const val ROUND_ROW_BUTTON = 2
-        const val ROUND_VALUE = 10
     }
 }

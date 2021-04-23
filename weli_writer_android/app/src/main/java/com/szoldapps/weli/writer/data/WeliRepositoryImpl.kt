@@ -22,7 +22,7 @@ import com.szoldapps.weli.writer.domain.Match
 import com.szoldapps.weli.writer.domain.Player
 import com.szoldapps.weli.writer.domain.Round
 import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.RoundRowValues
-import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.RoundValue
+import com.szoldapps.weli.writer.domain.RoundValue
 import com.szoldapps.weli.writer.domain.WeliRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

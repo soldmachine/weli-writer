@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.szoldapps.weli.writer.R
 import com.szoldapps.weli.writer.databinding.FragmentRoundBinding
 import com.szoldapps.weli.writer.domain.Round
-import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.RoundValue
+import com.szoldapps.weli.writer.domain.RoundValue
 import com.szoldapps.weli.writer.presentation.common.helper.viewBinding
 import com.szoldapps.weli.writer.presentation.round.overview.RoundViewEvent.OpenBottomSheet
 import com.szoldapps.weli.writer.presentation.round.overview.RoundViewState.Content

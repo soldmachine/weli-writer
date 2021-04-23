@@ -19,7 +19,7 @@ import com.szoldapps.weli.writer.domain.Game
 import com.szoldapps.weli.writer.domain.Round
 import com.szoldapps.weli.writer.presentation.common.helper.viewBinding
 import com.szoldapps.weli.writer.presentation.game.GameViewState.*
-import com.szoldapps.weli.writer.presentation.game.adapter.RoundRvAdapter
+import com.szoldapps.weli.writer.presentation.game.adapter.GameRvAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -34,7 +34,7 @@ class GameFragment : Fragment(R.layout.fragment_game) {
 
     private val viewModel: GameViewModel by viewModels()
 
-    private val roundRvAdapter = RoundRvAdapter { roundId -> openRoundFragment(roundId) }
+    private val roundRvAdapter = GameRvAdapter { roundId -> openRoundFragment(roundId) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

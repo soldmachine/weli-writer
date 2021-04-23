@@ -3,7 +3,6 @@ package com.szoldapps.weli.writer.domain
 import com.szoldapps.weli.writer.presentation.round.overview.adapter.RoundValueRvAdapter.Companion.ROUND_ROW_BUTTON
 import com.szoldapps.weli.writer.presentation.round.overview.adapter.RoundValueRvAdapter.Companion.ROUND_ROW_HEADER
 import com.szoldapps.weli.writer.presentation.round.overview.adapter.RoundValueRvAdapter.Companion.ROUND_ROW_VALUES
-import com.szoldapps.weli.writer.presentation.round.overview.adapter.RoundValueRvAdapter.Companion.ROUND_VALUE
 import org.threeten.bp.OffsetDateTime
 
 data class Match(
@@ -29,6 +28,13 @@ data class Round(
     val date: OffsetDateTime,
 )
 
+data class RoundValue(
+    val id: Long = -1,
+    val date: OffsetDateTime,
+    val number: Int,
+    val value: Int
+)
+
 sealed class RoundValueRvAdapterItem(
     val viewType: Int
 ) {
@@ -47,10 +53,4 @@ sealed class RoundValueRvAdapterItem(
         val action: () -> (Unit)
     ) : RoundValueRvAdapterItem(ROUND_ROW_BUTTON)
 
-    data class RoundValue(
-        val id: Long = -1,
-        val date: OffsetDateTime,
-        val number: Int,
-        val value: Int
-    ) : RoundValueRvAdapterItem(ROUND_VALUE)
 }

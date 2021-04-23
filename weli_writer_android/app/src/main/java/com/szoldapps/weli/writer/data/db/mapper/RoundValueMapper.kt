@@ -2,7 +2,7 @@ package com.szoldapps.weli.writer.data.db.mapper
 
 import com.szoldapps.weli.writer.data.db.entity.RoundValueEntity
 import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.RoundRowValues
-import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.RoundValue
+import com.szoldapps.weli.writer.domain.RoundValue
 
 fun List<RoundValueEntity>.mapToRoundRowValues(): List<RoundRowValues> {
     val roundRowValues = mutableListOf<RoundRowValues>()

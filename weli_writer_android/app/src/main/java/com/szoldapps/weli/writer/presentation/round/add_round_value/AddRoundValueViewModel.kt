@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.RoundValue
+import com.szoldapps.weli.writer.domain.RoundValue
 import com.szoldapps.weli.writer.domain.WeliRepository
 import com.szoldapps.weli.writer.presentation.common.helper.SingleLiveEvent
 import com.szoldapps.weli.writer.presentation.round.add_round_value.AddRoundValueViewEvent.CloseFragment
