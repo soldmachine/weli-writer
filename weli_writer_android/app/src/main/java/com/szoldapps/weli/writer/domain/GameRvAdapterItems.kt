@@ -20,8 +20,13 @@ sealed class GameRvAdapterItem(
         val action: () -> (Unit)
     ) : GameRvAdapterItem(GAME_ROW_BUTTON)
 
+    data class GameRowSummation(
+        val label: String,
+    ) : GameRvAdapterItem(GAME_ROW_SUMMATION)
+
 }
 
 const val GAME_ROW_HEADER = 0
 const val GAME_ROW_VALUES = 1
 const val GAME_ROW_BUTTON = 2
+const val GAME_ROW_SUMMATION = 3

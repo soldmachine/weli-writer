@@ -20,6 +20,7 @@ import com.szoldapps.weli.writer.data.db.mapper.mapToRounds
 import com.szoldapps.weli.writer.domain.Game
 import com.szoldapps.weli.writer.domain.GameRvAdapterItem
 import com.szoldapps.weli.writer.domain.GameRvAdapterItem.GameRowHeader
+import com.szoldapps.weli.writer.domain.GameRvAdapterItem.GameRowSummation
 import com.szoldapps.weli.writer.domain.GameRvAdapterItem.GameRowValues
 import com.szoldapps.weli.writer.domain.Match
 import com.szoldapps.weli.writer.domain.Player
@@ -66,8 +67,11 @@ class WeliRepositoryImpl @Inject constructor(
             val playersOfGame = gameDao.getPlayersOfGame(gameId)
                 .mapToPlayers()
                 .map { player -> "${player.firstName.first()}${player.lastName.first()}" }
-            val list = mutableListOf<GameRvAdapterItem>(GameRowHeader(playersOfGame))
-            return@withContext list + gameRowValues
+            val header = mutableListOf<GameRvAdapterItem>(GameRowHeader(playersOfGame))
+
+            val summation = GameRowSummation("test 123")
+
+            return@withContext header + gameRowValues + summation
         }
 
     private fun lastRoundRowValuesByRoundId(roundId: Long): RoundRowValues =

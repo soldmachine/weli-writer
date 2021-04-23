@@ -8,14 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.szoldapps.weli.writer.R
 import com.szoldapps.weli.writer.domain.GAME_ROW_BUTTON
 import com.szoldapps.weli.writer.domain.GAME_ROW_HEADER
+import com.szoldapps.weli.writer.domain.GAME_ROW_SUMMATION
 import com.szoldapps.weli.writer.domain.GAME_ROW_VALUES
 import com.szoldapps.weli.writer.domain.GameRvAdapterItem
 import com.szoldapps.weli.writer.domain.GameRvAdapterItem.GameRowButton
 import com.szoldapps.weli.writer.domain.GameRvAdapterItem.GameRowHeader
+import com.szoldapps.weli.writer.domain.GameRvAdapterItem.GameRowSummation
 import com.szoldapps.weli.writer.domain.GameRvAdapterItem.GameRowValues
-import com.szoldapps.weli.writer.domain.Round
-import org.threeten.bp.OffsetDateTime
-import org.threeten.bp.format.DateTimeFormatter
 
 class GameRvAdapter(
     private val onItemClickListener: (Long) -> (Unit)
@@ -29,6 +28,7 @@ class GameRvAdapter(
             GAME_ROW_HEADER -> GameHeaderViewHolder(inflater, parent)
             GAME_ROW_VALUES -> GameValueViewHolder(inflater, parent)
             GAME_ROW_BUTTON -> GameRowButtonViewHolder(inflater, parent)
+            GAME_ROW_SUMMATION -> GameSummationViewHolder(inflater, parent)
             else -> throw IllegalStateException("Unknown viewType!")
         }
     }
@@ -39,6 +39,7 @@ class GameRvAdapter(
             GAME_ROW_HEADER -> (holder as GameHeaderViewHolder).bind(item as GameRowHeader)
             GAME_ROW_VALUES -> (holder as GameValueViewHolder).bind(item as GameRowValues, onItemClickListener)
             GAME_ROW_BUTTON -> (holder as GameRowButtonViewHolder).bind(item as GameRowButton)
+            GAME_ROW_SUMMATION -> (holder as GameSummationViewHolder).bind(item as GameRowSummation)
             else -> throw IllegalStateException("Unknown viewType!")
         }
     }
@@ -101,19 +102,13 @@ class GameRvAdapter(
         }
     }
 
-    class RoundViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
-        RecyclerView.ViewHolder(inflater.inflate(R.layout.item_match, parent, false)) {
+    class GameSummationViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
+        RecyclerView.ViewHolder(inflater.inflate(R.layout.item_game_summation, parent, false)) {
 
-        private var titleTv = itemView.findViewById<TextView>(R.id.matchTitleTv)
+        private var textView = itemView.findViewById<TextView>(R.id.textView)
 
-        fun bind(position: Int, round: Round, onItemClickListener: (Long) -> Unit) {
-            titleTv.text = "Round ${position + 1} (${round.date.formatted()})"
-            titleTv.setOnClickListener {
-                onItemClickListener.invoke(round.id)
-            }
+        fun bind(roundRowButton: GameRowSummation) {
+            textView.text = roundRowButton.label
         }
-
-        private fun OffsetDateTime.formatted(): String =
-            this.format(DateTimeFormatter.ofPattern("HH:mm"))
     }
 }
