@@ -10,7 +10,7 @@ interface WeliRepository {
 
     fun gamesByMatchId(matchId: Long): LiveData<List<Game>>
 
-    fun roundsByGameId(gameId: Long): LiveData<List<Round>>
+    suspend fun gameRvAdapterItemsByGameId(gameId: Long): List<GameRvAdapterItem>
 
     fun roundRowValuesByRoundId(roundId: Long): LiveData<List<RoundValueRvAdapterItem.RoundRowValues>>
 

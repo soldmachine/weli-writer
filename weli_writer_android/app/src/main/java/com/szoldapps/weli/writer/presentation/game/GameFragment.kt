@@ -18,7 +18,9 @@ import com.szoldapps.weli.writer.databinding.FragmentGameBinding
 import com.szoldapps.weli.writer.domain.Game
 import com.szoldapps.weli.writer.domain.Round
 import com.szoldapps.weli.writer.presentation.common.helper.viewBinding
-import com.szoldapps.weli.writer.presentation.game.GameViewState.*
+import com.szoldapps.weli.writer.presentation.game.GameViewState.Content
+import com.szoldapps.weli.writer.presentation.game.GameViewState.Error
+import com.szoldapps.weli.writer.presentation.game.GameViewState.Loading
 import com.szoldapps.weli.writer.presentation.game.adapter.GameRvAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -43,6 +45,7 @@ class GameFragment : Fragment(R.layout.fragment_game) {
         setupToolbarAndRv()
         viewModel.viewState.observe(viewLifecycleOwner, ::handleViewState)
         viewModel.viewEvent.observe(viewLifecycleOwner, ::handleViewEvent)
+        viewModel.loadContent(args.gameId)
     }
 
     private fun handleViewEvent(viewEvent: GameViewEvent) =
@@ -70,7 +73,7 @@ class GameFragment : Fragment(R.layout.fragment_game) {
         when (viewState) {
             Loading,
             Error -> Unit
-            is Content -> roundRvAdapter.refresh(viewState.rounds)
+            is Content -> roundRvAdapter.refresh(viewState.rvItems)
         }
         updateVisibility(viewState)
     }

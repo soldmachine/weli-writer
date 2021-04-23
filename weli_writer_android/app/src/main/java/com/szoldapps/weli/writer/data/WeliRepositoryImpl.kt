@@ -18,11 +18,14 @@ import com.szoldapps.weli.writer.data.db.mapper.mapToRoundRowValues
 import com.szoldapps.weli.writer.data.db.mapper.mapToRoundValueEntity
 import com.szoldapps.weli.writer.data.db.mapper.mapToRounds
 import com.szoldapps.weli.writer.domain.Game
+import com.szoldapps.weli.writer.domain.GameRvAdapterItem
+import com.szoldapps.weli.writer.domain.GameRvAdapterItem.GameRowHeader
+import com.szoldapps.weli.writer.domain.GameRvAdapterItem.GameRowValues
 import com.szoldapps.weli.writer.domain.Match
 import com.szoldapps.weli.writer.domain.Player
 import com.szoldapps.weli.writer.domain.Round
-import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.RoundRowValues
 import com.szoldapps.weli.writer.domain.RoundValue
+import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.RoundRowValues
 import com.szoldapps.weli.writer.domain.WeliRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -46,13 +49,32 @@ class WeliRepositoryImpl @Inject constructor(
             gamesWithPlayers.mapToGames()
         }
 
-    override fun roundsByGameId(gameId: Long): LiveData<List<Round>> =
-        Transformations.map(roundDao.getRoundsByGameById(gameId)) { roundEntities ->
-            roundEntities.mapToRounds()
+    override suspend fun gameRvAdapterItemsByGameId(gameId: Long): List<GameRvAdapterItem> =
+        withContext(Dispatchers.IO) {
+            val roundEntities = roundDao.getRoundsByGameById(gameId)
+            val rounds = roundEntities.mapToRounds()
+            val gameRowValues = rounds.mapIndexed { index, round ->
+                val lastRoundRowValues = lastRoundRowValuesByRoundId(round.id)
+                GameRowValues(
+                    id = round.id,
+                    number = index,
+                    values = lastRoundRowValues.values
+                )
+            }
+            val playersOfGame = gameDao.getPlayersOfGame(gameId)
+                .mapToPlayers()
+                .map { player -> "${player.firstName.first()}${player.lastName.first()}" }
+            val list = mutableListOf<GameRvAdapterItem>(GameRowHeader(playersOfGame))
+            return@withContext list + gameRowValues
         }
 
+    private fun lastRoundRowValuesByRoundId(roundId: Long): RoundRowValues =
+        roundValueDao.getRoundValueByRoundId(roundId)
+            .mapToRoundRowValues()
+            .last()
+
     override fun roundRowValuesByRoundId(roundId: Long): LiveData<List<RoundRowValues>> =
-        Transformations.map(roundValueDao.getRoundValueByRoundId(roundId)) { roundValueEntities ->
+        Transformations.map(roundValueDao.getRoundValueByRoundIdLiveData(roundId)) { roundValueEntities ->
             roundValueEntities.mapToRoundRowValues()
         }
 

@@ -14,7 +14,7 @@ interface RoundDao {
     fun getAll(): LiveData<List<RoundEntity>>
 
     @Query("SELECT * FROM `round` WHERE round_game_id=:gameId")
-    fun getRoundsByGameById(gameId: Long): LiveData<List<RoundEntity>>
+    fun getRoundsByGameById(gameId: Long): List<RoundEntity>
 
     @Insert
     fun insert(roundEntity: RoundEntity): Long
