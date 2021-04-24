@@ -173,4 +173,19 @@ class WeliRepositoryImpl @Inject constructor(
     override suspend fun getPlayerInitialsOfRound(roundId: Long): List<String> = withContext(Dispatchers.IO) {
         roundDao.getPlayersOfRound(roundId).mapToPlayers().mapToInitials()
     }
+
+    override suspend fun getTricksByRoundIdAndNumber(roundId: Long, roundNumber: Int): List<Int> =
+        withContext(Dispatchers.IO) {
+            roundValueDao.getRoundValueByRoundIdAndNumber(roundId, roundNumber).map { roundValue -> roundValue.value }
+        }
+
+    override suspend fun updateRoundValues(roundId: Long, roundNumber: Int, tricks: List<Int>) {
+        withContext(Dispatchers.IO) {
+            roundValueDao.getRoundValueByRoundIdAndNumber(roundId, roundNumber)
+                .mapIndexed { index, entity -> entity.copy(value = tricks[index]) }
+                .forEach {
+                    roundValueDao.insertAll(it)
+                }
+        }
+    }
 }

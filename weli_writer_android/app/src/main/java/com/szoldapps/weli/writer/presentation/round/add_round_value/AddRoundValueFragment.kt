@@ -59,7 +59,8 @@ class AddRoundValueFragmentOld : Fragment(R.layout.fragment_add_round_value) {
 
         viewModel.viewState.observe(viewLifecycleOwner, ::handleViewState)
         viewModel.viewEvent.observe(viewLifecycleOwner, ::handleEventState)
-        viewModel.loadPlayerInitials()
+        viewModel.loadPlayerInitials(args.roundId, args.roundNumber)
+
         setupUi(view)
     }
 
@@ -88,7 +89,7 @@ class AddRoundValueFragmentOld : Fragment(R.layout.fragment_add_round_value) {
         setButtonClickListeners(2, player3TricksLl)
         setButtonClickListeners(3, player4TricksLl)
         addRoundValueBt.setOnClickListener {
-            viewModel.addRoundValue()
+            viewModel.addRoundValue(args.roundId, args.roundNumber)
         }
         heartsToggleButton.setOnCheckedChangeListener { _, isChecked ->
             viewModel.updateHeartsRound(isChecked)

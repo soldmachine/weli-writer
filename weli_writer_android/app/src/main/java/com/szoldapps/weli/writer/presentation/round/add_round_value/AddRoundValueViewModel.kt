@@ -1,10 +1,8 @@
 package com.szoldapps.weli.writer.presentation.round.add_round_value
 
-import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.szoldapps.weli.writer.domain.RoundValue
@@ -17,13 +15,7 @@ import org.threeten.bp.OffsetDateTime
 
 internal class AddRoundValueViewModel @ViewModelInject constructor(
     private val weliRepository: WeliRepository,
-    @Assisted private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-
-    private val roundId: Long =
-        savedStateHandle.get<Long>("roundId") ?: throw IllegalStateException("Mandatory roundId is missing!")
-
-    private var isMulaRound = false
 
     private val _viewState = MutableLiveData<AddRoundValueViewState>(
         Content(
@@ -34,6 +26,7 @@ internal class AddRoundValueViewModel @ViewModelInject constructor(
             tricks = listOf(0, 0, 0, 0),
             isAddValuesButtonEnabled = false,
             isMulaRound = false,
+            isEditMode = false,
         )
     )
     val viewState: LiveData<AddRoundValueViewState> = _viewState
@@ -73,20 +66,24 @@ internal class AddRoundValueViewModel @ViewModelInject constructor(
         }
     }
 
-    fun addRoundValue() = viewModelScope.launch {
-        val playersOfRound = weliRepository.getPlayersOfRound(roundId)
-        val number = weliRepository.roundValueCountByRoundId(roundId)
-        playersOfRound.forEachIndexed { index, player ->
-            val content = _viewState.value as Content
-            weliRepository.addRoundValue(
-                RoundValue(
-                    date = OffsetDateTime.now(),
-                    number = number,
-                    value = content.tricks[index] * content.multiplier,
-                ),
-                roundId,
-                player
-            )
+    fun addRoundValue(roundId: Long, roundNumber: Int) = viewModelScope.launch {
+        val content = _viewState.value as Content
+        if (content.isEditMode) {
+            weliRepository.updateRoundValues(roundId, roundNumber, content.tricks.map { it * content.multiplier })
+        } else {
+            val playersOfRound = weliRepository.getPlayersOfRound(roundId)
+            val number = weliRepository.roundValueCountByRoundId(roundId)
+            playersOfRound.forEachIndexed { index, player ->
+                weliRepository.addRoundValue(
+                    RoundValue(
+                        date = OffsetDateTime.now(),
+                        number = number,
+                        value = content.tricks[index] * content.multiplier,
+                    ),
+                    roundId,
+                    player
+                )
+            }
         }
         _viewEvent.value = CloseFragment
     }
@@ -116,11 +113,20 @@ internal class AddRoundValueViewModel @ViewModelInject constructor(
         refreshValuesWithNewMultiplier(redealMultiplierArg = redealMultiplier)
     }
 
-    fun loadPlayerInitials() = viewModelScope.launch {
+    fun loadPlayerInitials(roundId: Long, roundNumber: Int) = viewModelScope.launch {
         val playerInitials = weliRepository.getPlayerInitialsOfRound(roundId)
-        val content = (_viewState.value as Content).copy(
-            playerInitials = playerInitials
-        )
+        val content = if (roundNumber != -1) {
+            val tricks = weliRepository.getTricksByRoundIdAndNumber(roundId, roundNumber)
+            (_viewState.value as Content).copy(
+                playerInitials = playerInitials,
+                tricks = tricks,
+                isEditMode = true,
+            )
+        } else {
+            (_viewState.value as Content).copy(
+                playerInitials = playerInitials
+            )
+        }
         _viewState.postValue(content)
     }
 
@@ -152,6 +158,7 @@ internal sealed class AddRoundValueViewState {
         val tricks: List<Int>,
         val isAddValuesButtonEnabled: Boolean,
         val isMulaRound: Boolean,
+        val isEditMode: Boolean,
     ) : AddRoundValueViewState()
 }
 

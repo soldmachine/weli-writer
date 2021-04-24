@@ -11,7 +11,9 @@ import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.RoundRowButton
 import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.RoundRowHeader
 import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.RoundRowValues
 
-internal class RoundValueRvAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+internal class RoundValueRvAdapter(
+    private val onItemClickListener: (Int) -> (Unit)
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val list: MutableList<RoundValueRvAdapterItem> = mutableListOf()
 
@@ -29,7 +31,7 @@ internal class RoundValueRvAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         val item = list[position]
         when (item.viewType) {
             ROUND_ROW_HEADER -> (holder as RoundHeaderViewHolder).bind(item as RoundRowHeader)
-            ROUND_ROW_VALUES -> (holder as RoundValueViewHolder).bind(item as RoundRowValues)
+            ROUND_ROW_VALUES -> (holder as RoundValueViewHolder).bind(item as RoundRowValues, onItemClickListener)
             ROUND_ROW_BUTTON -> (holder as RoundRowButtonViewHolder).bind(item as RoundRowButton)
             else -> throw IllegalStateException("Unknown viewType!")
         }
@@ -70,12 +72,13 @@ internal class RoundValueRvAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         private var roundRow2 = itemView.findViewById<TextView>(R.id.roundRow2)
         private var roundRow3 = itemView.findViewById<TextView>(R.id.roundRow3)
 
-        fun bind(rowValues: RoundRowValues) {
+        fun bind(rowValues: RoundRowValues, onItemClickListener: (Int) -> Unit) {
             numberTv.text = rowValues.number.plus(1).toString()
             roundRow0.text = rowValues.values[0].toString()
             roundRow1.text = rowValues.values[1].toString()
             roundRow2.text = rowValues.values[2].toString()
             roundRow3.text = rowValues.values[3].toString()
+            itemView.setOnClickListener { onItemClickListener.invoke(rowValues.number) }
         }
     }
 

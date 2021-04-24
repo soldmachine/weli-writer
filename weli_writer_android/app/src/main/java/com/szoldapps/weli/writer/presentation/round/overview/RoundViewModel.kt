@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem
 import com.szoldapps.weli.writer.domain.WeliRepository
 import com.szoldapps.weli.writer.presentation.common.helper.SingleLiveEvent
-import com.szoldapps.weli.writer.presentation.round.overview.RoundViewEvent.OpenBottomSheet
+import com.szoldapps.weli.writer.presentation.round.overview.RoundViewEvent.OpenAddRoundValueFragment
 import com.szoldapps.weli.writer.presentation.round.overview.RoundViewState.Content
 import com.szoldapps.weli.writer.presentation.round.overview.RoundViewState.Loading
 import kotlinx.coroutines.launch
@@ -26,7 +26,7 @@ internal class RoundViewModel @ViewModelInject constructor(
     fun loadContent(roundId: Long) = viewModelScope.launch {
         _viewState.postValue(Loading)
         val rvAdapterItems = weliRepository.roundValueRvAdapterItemsByRoundId(roundId) {
-            _viewEvent.postValue(OpenBottomSheet)
+            _viewEvent.postValue(OpenAddRoundValueFragment)
         }
         _viewState.postValue(Content(rvAdapterItems))
     }
@@ -39,5 +39,5 @@ internal sealed class RoundViewState {
 }
 
 internal sealed class RoundViewEvent {
-    object OpenBottomSheet : RoundViewEvent()
+    object OpenAddRoundValueFragment : RoundViewEvent()
 }

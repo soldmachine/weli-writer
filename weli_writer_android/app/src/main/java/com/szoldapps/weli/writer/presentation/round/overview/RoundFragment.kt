@@ -14,7 +14,7 @@ import com.szoldapps.weli.writer.databinding.FragmentRoundBinding
 import com.szoldapps.weli.writer.domain.Round
 import com.szoldapps.weli.writer.domain.RoundValue
 import com.szoldapps.weli.writer.presentation.common.helper.viewBinding
-import com.szoldapps.weli.writer.presentation.round.overview.RoundViewEvent.OpenBottomSheet
+import com.szoldapps.weli.writer.presentation.round.overview.RoundViewEvent.OpenAddRoundValueFragment
 import com.szoldapps.weli.writer.presentation.round.overview.RoundViewState.Content
 import com.szoldapps.weli.writer.presentation.round.overview.RoundViewState.Error
 import com.szoldapps.weli.writer.presentation.round.overview.RoundViewState.Loading
@@ -33,7 +33,7 @@ class RoundFragment : Fragment(R.layout.fragment_round) {
 
     private val viewModel: RoundViewModel by viewModels()
 
-    private val roundRvAdapter = RoundValueRvAdapter()
+    private val roundRvAdapter = RoundValueRvAdapter { roundValueNumber -> openAddRoundValueFragment(roundValueNumber) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -66,11 +66,7 @@ class RoundFragment : Fragment(R.layout.fragment_round) {
 
     private fun handleViewEvent(viewEvent: RoundViewEvent) {
         when (viewEvent) {
-            OpenBottomSheet -> {
-                findNavController().navigate(
-                    RoundFragmentDirections.actionRoundFragmentToAddRoundValueBottomSheet(args.roundId)
-                )
-            }
+            OpenAddRoundValueFragment -> openAddRoundValueFragment()
         }
     }
 
@@ -80,5 +76,11 @@ class RoundFragment : Fragment(R.layout.fragment_round) {
             roundErrorTv.isVisible = viewState is Error
             roundRv.isVisible = viewState is Content
         }
+    }
+
+    private fun openAddRoundValueFragment(roundValueNumber: Int = -1) {
+        findNavController().navigate(
+            RoundFragmentDirections.actionRoundFragmentToAddRoundValueBottomSheet(args.roundId, roundValueNumber)
+        )
     }
 }

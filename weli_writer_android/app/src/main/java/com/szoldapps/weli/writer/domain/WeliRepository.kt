@@ -32,4 +32,8 @@ interface WeliRepository {
     suspend fun addPlayer(player: Player)
 
     suspend fun getPlayerInitialsOfRound(roundId: Long): List<String>
+
+    suspend fun getTricksByRoundIdAndNumber(roundId: Long, roundNumber: Int): List<Int>
+
+    suspend fun updateRoundValues(roundId: Long, roundNumber: Int, tricks: List<Int>)
 }

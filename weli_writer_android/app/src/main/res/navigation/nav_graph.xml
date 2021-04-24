@@ -85,6 +85,10 @@
         <argument
             android:name="roundId"
             app:argType="long" />
+        <argument
+            android:name="roundNumber"
+            android:defaultValue="-1"
+            app:argType="integer" />
         <action
             android:id="@+id/action_addRoundValueBottomSheet_to_roundFragment"
             app:destination="@id/roundFragment"
