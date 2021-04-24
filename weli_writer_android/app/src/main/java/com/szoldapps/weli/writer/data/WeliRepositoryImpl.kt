@@ -22,6 +22,7 @@ import com.szoldapps.weli.writer.data.db.mapper.mapToRoundEntity
 import com.szoldapps.weli.writer.data.db.mapper.mapToRoundRowValues
 import com.szoldapps.weli.writer.data.db.mapper.mapToRoundValueEntity
 import com.szoldapps.weli.writer.data.db.mapper.mapToRounds
+import com.szoldapps.weli.writer.data.extensions.mapToInitials
 import com.szoldapps.weli.writer.domain.Game
 import com.szoldapps.weli.writer.domain.GameRvAdapterItem
 import com.szoldapps.weli.writer.domain.GameRvAdapterItem.GameRowHeader
@@ -73,7 +74,7 @@ class WeliRepositoryImpl @Inject constructor(
             val playersOfGame = gameDao.getPlayersOfGame(gameId).mapToPlayers()
 
             val header = mutableListOf<GameRvAdapterItem>(
-                GameRowHeader(playersOfGame.map { player -> "${player.firstName.first()}${player.lastName.first()}" })
+                GameRowHeader(playersOfGame.mapToInitials())
             )
 
             val summation = calculateGameRowSummation(playersOfGame, gameRowValues)
@@ -112,11 +113,7 @@ class WeliRepositoryImpl @Inject constructor(
     ): List<RoundValueRvAdapterItem> = withContext(Dispatchers.IO) {
         val roundRowValues = roundValueDao.getRoundValueByRoundIdLiveData(roundId).mapToRoundRowValues()
 
-        val playersOfGame = roundDao.getPlayersOfRound(roundId)
-            .mapToPlayers()
-            .map { player -> "${player.firstName.first()}${player.lastName.first()}" }
-
-        val list = mutableListOf<RoundValueRvAdapterItem>(RoundRowHeader(playersOfGame))
+        val list = mutableListOf<RoundValueRvAdapterItem>(RoundRowHeader(getPlayerInitialsOfRound(roundId)))
         list.addAll(roundRowValues)
         if (roundRowValues.doNotContainWinner()) {
             list.add(
@@ -171,5 +168,9 @@ class WeliRepositoryImpl @Inject constructor(
 
     override suspend fun getPlayersOfRound(roundId: Long): List<Player> = withContext(Dispatchers.IO) {
         roundDao.getPlayersOfRound(roundId).mapToPlayers()
+    }
+
+    override suspend fun getPlayerInitialsOfRound(roundId: Long): List<String> = withContext(Dispatchers.IO) {
+        roundDao.getPlayersOfRound(roundId).mapToPlayers().mapToInitials()
     }
 }

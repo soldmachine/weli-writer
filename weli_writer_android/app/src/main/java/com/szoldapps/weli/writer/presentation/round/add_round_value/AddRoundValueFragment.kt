@@ -32,6 +32,11 @@ class AddRoundValueFragmentOld : Fragment(R.layout.fragment_add_round_value) {
     private val player3TricksLl by lazy { requireView().findViewById<LinearLayout>(R.id.player3TricksLl) }
     private val player4TricksLl by lazy { requireView().findViewById<LinearLayout>(R.id.player4TricksLl) }
 
+    private val player1Tv by lazy { player1TricksLl.findViewById<TextView>(R.id.playerTv) }
+    private val player2Tv by lazy { player2TricksLl.findViewById<TextView>(R.id.playerTv) }
+    private val player3Tv by lazy { player3TricksLl.findViewById<TextView>(R.id.playerTv) }
+    private val player4Tv by lazy { player4TricksLl.findViewById<TextView>(R.id.playerTv) }
+
     private val value1Tv by lazy { player1TricksLl.findViewById<TextView>(R.id.valueTv) }
     private val value2Tv by lazy { player2TricksLl.findViewById<TextView>(R.id.valueTv) }
     private val value3Tv by lazy { player3TricksLl.findViewById<TextView>(R.id.valueTv) }
@@ -41,16 +46,29 @@ class AddRoundValueFragmentOld : Fragment(R.layout.fragment_add_round_value) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.viewState.observe(viewLifecycleOwner, ::handleViewState)
-        viewModel.viewEvent.observe(viewLifecycleOwner) { event ->
-            when (event) {
-                AddRoundValueViewEvent.CloseFragment ->
-                    // this is a workaround as with popBackStack the roundFragment didn't refresh the data
-                    findNavController().navigate(
-                        AddRoundValueFragmentOldDirections.actionAddRoundValueBottomSheetToRoundFragment(args.roundId)
-                    )
-            }
+        viewModel.viewEvent.observe(viewLifecycleOwner, ::handleEventState)
+        viewModel.loadPlayerInitials()
+        setupUi(view)
+    }
+
+    private fun handleViewState(viewState: AddRoundValueViewState) {
+        when (viewState) {
+            Loading -> TODO()
+            Error -> TODO()
+            is Content -> handleContentState(viewState)
+        }
+    }
+
+    private fun handleEventState(event: AddRoundValueViewEvent) =
+        when (event) {
+            AddRoundValueViewEvent.CloseFragment ->
+                // this is a workaround as with popBackStack the roundFragment didn't refresh the data
+                findNavController().navigate(
+                    AddRoundValueFragmentOldDirections.actionAddRoundValueBottomSheetToRoundFragment(args.roundId)
+                )
         }
 
+    private fun setupUi(view: View) {
         val addRoundValueBt = view.findViewById<Button>(R.id.addRoundValueBt)
 
         setButtonClickListeners(0, player1TricksLl)
@@ -66,22 +84,24 @@ class AddRoundValueFragmentOld : Fragment(R.layout.fragment_add_round_value) {
         redealButton.setOnClickListener { _ ->
             viewModel.updateRedealState()
         }
-    }
 
-    private fun handleViewState(viewState: AddRoundValueViewState) {
-        when (viewState) {
-            Loading -> TODO()
-            Error -> TODO()
-            is Content -> handleContentState(viewState)
-        }
+        val mulaBt = view.findViewById<Button>(R.id.mulaBt)
+        mulaBt.setOnClickListener { }
     }
 
     private fun handleContentState(content: Content) = with(content) {
+        multiplierTv.text = "${multiplier}x (heartMultiplier=${heartsMultiplier}, redealMultiplier=${redealMultiplier})"
+
+        player1Tv.text = playerInitials[0]
+        player2Tv.text = playerInitials[1]
+        player3Tv.text = playerInitials[2]
+        player4Tv.text = playerInitials[3]
+
         value1Tv.text = (tricks[0] * multiplier).toString()
         value2Tv.text = (tricks[1] * multiplier).toString()
         value3Tv.text = (tricks[2] * multiplier).toString()
         value4Tv.text = (tricks[3] * multiplier).toString()
-        multiplierTv.text = "${multiplier}x (heartMultiplier=${heartsMultiplier}, redealMultiplier=${redealMultiplier})"
+
         addRoundValueBt.isEnabled = isAddValuesButtonEnabled
     }
 

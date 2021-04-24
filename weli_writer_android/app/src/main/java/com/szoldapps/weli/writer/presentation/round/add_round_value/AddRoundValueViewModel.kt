@@ -28,6 +28,7 @@ internal class AddRoundValueViewModel @ViewModelInject constructor(
             heartsMultiplier = 1,
             redealMultiplier = 1,
             multiplier = 1,
+            playerInitials = listOf("-", "-", "-", "-"),
             tricks = listOf(0, 0, 0, 0),
             isAddValuesButtonEnabled = false,
         )
@@ -97,6 +98,14 @@ internal class AddRoundValueViewModel @ViewModelInject constructor(
         refreshValuesWithNewMultiplier(redealMultiplierArg = redealMultiplier)
     }
 
+    fun loadPlayerInitials() = viewModelScope.launch {
+        val playerInitials = weliRepository.getPlayerInitialsOfRound(roundId)
+        val content = (_viewState.value as Content).copy(
+            playerInitials = playerInitials
+        )
+        _viewState.postValue(content)
+    }
+
     companion object {
         private const val MAX_REDEAL_MULTIPLIER = 8
     }
@@ -110,6 +119,7 @@ internal sealed class AddRoundValueViewState {
         val heartsMultiplier: Int,
         val redealMultiplier: Int,
         val multiplier: Int,
+        val playerInitials: List<String>,
         val tricks: List<Int>,
         val isAddValuesButtonEnabled: Boolean,
     ) : AddRoundValueViewState()

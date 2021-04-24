@@ -30,4 +30,6 @@ interface WeliRepository {
     suspend fun getPlayersOfRound(roundId: Long): List<Player>
 
     suspend fun addPlayer(player: Player)
+
+    suspend fun getPlayerInitialsOfRound(roundId: Long): List<String>
 }
