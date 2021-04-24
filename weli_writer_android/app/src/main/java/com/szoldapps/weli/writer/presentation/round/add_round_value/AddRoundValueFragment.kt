@@ -5,6 +5,8 @@ import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.ToggleButton
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -36,6 +38,16 @@ class AddRoundValueFragmentOld : Fragment(R.layout.fragment_add_round_value) {
     private val player2Tv by lazy { player2TricksLl.findViewById<TextView>(R.id.playerTv) }
     private val player3Tv by lazy { player3TricksLl.findViewById<TextView>(R.id.playerTv) }
     private val player4Tv by lazy { player4TricksLl.findViewById<TextView>(R.id.playerTv) }
+
+    private val normalModeButtonsLl1 by lazy { player1TricksLl.findViewById<LinearLayout>(R.id.normalModeButtonsLl) }
+    private val normalModeButtonsLl2 by lazy { player2TricksLl.findViewById<LinearLayout>(R.id.normalModeButtonsLl) }
+    private val normalModeButtonsLl3 by lazy { player3TricksLl.findViewById<LinearLayout>(R.id.normalModeButtonsLl) }
+    private val normalModeButtonsLl4 by lazy { player4TricksLl.findViewById<LinearLayout>(R.id.normalModeButtonsLl) }
+
+    private val mulaModeButtonsLl1 by lazy { player1TricksLl.findViewById<LinearLayout>(R.id.mulaModeButtonsLl) }
+    private val mulaModeButtonsLl2 by lazy { player2TricksLl.findViewById<LinearLayout>(R.id.mulaModeButtonsLl) }
+    private val mulaModeButtonsLl3 by lazy { player3TricksLl.findViewById<LinearLayout>(R.id.mulaModeButtonsLl) }
+    private val mulaModeButtonsLl4 by lazy { player4TricksLl.findViewById<LinearLayout>(R.id.mulaModeButtonsLl) }
 
     private val value1Tv by lazy { player1TricksLl.findViewById<TextView>(R.id.valueTv) }
     private val value2Tv by lazy { player2TricksLl.findViewById<TextView>(R.id.valueTv) }
@@ -85,8 +97,10 @@ class AddRoundValueFragmentOld : Fragment(R.layout.fragment_add_round_value) {
             viewModel.updateRedealState()
         }
 
-        val mulaBt = view.findViewById<Button>(R.id.mulaBt)
-        mulaBt.setOnClickListener { }
+        val mulaBt = view.findViewById<ToggleButton>(R.id.mulaBt)
+        mulaBt.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.updateMulaRound(isChecked)
+        }
     }
 
     private fun handleContentState(content: Content) = with(content) {
@@ -96,6 +110,15 @@ class AddRoundValueFragmentOld : Fragment(R.layout.fragment_add_round_value) {
         player2Tv.text = playerInitials[1]
         player3Tv.text = playerInitials[2]
         player4Tv.text = playerInitials[3]
+
+        normalModeButtonsLl1.isVisible = !isMulaRound
+        normalModeButtonsLl2.isVisible = !isMulaRound
+        normalModeButtonsLl3.isVisible = !isMulaRound
+        normalModeButtonsLl4.isVisible = !isMulaRound
+        mulaModeButtonsLl1.isVisible = isMulaRound
+        mulaModeButtonsLl2.isVisible = isMulaRound
+        mulaModeButtonsLl3.isVisible = isMulaRound
+        mulaModeButtonsLl4.isVisible = isMulaRound
 
         value1Tv.text = (tricks[0] * multiplier).toString()
         value2Tv.text = (tricks[1] * multiplier).toString()
@@ -114,8 +137,17 @@ class AddRoundValueFragmentOld : Fragment(R.layout.fragment_add_round_value) {
         val trick5Bt = linearLayout.findViewById<Button>(R.id.trick5Bt)
         val homeBt = linearLayout.findViewById<Button>(R.id.homeBt)
         val fallenBt = linearLayout.findViewById<Button>(R.id.fallenBt)
+        val mulaSucceededBt = linearLayout.findViewById<Button>(R.id.mulaSucceededBt)
+        val mulaFallenBt = linearLayout.findViewById<Button>(R.id.mulaFallenBt)
+        val mulaHeldBt = linearLayout.findViewById<Button>(R.id.mulaHeldBt)
+        val mulaStayBt = linearLayout.findViewById<Button>(R.id.mulaStayBt)
 
-        val buttonList = listOf(trick1Bt, trick2Bt, trick3Bt, trick4Bt, trick5Bt, homeBt, fallenBt)
+        val buttonList =
+            listOf(
+                trick1Bt, trick2Bt, trick3Bt, trick4Bt, trick5Bt,
+                homeBt, fallenBt,
+                mulaSucceededBt, mulaFallenBt, mulaHeldBt, mulaStayBt
+            )
         buttonList.forEach { button ->
             button.setOnClickListener(buttonOnClickListener(playerNumber, valueTv))
         }

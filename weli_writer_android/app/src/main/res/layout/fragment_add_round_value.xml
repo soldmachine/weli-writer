@@ -92,12 +92,13 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/heartsToggleButton" />
 
-    <Button
+    <ToggleButton
         android:id="@+id/mulaBt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="Mula"
+        android:textOff="Not Mula"
+        android:textOn="Mula"
         app:layout_constraintBottom_toTopOf="@+id/heartsToggleButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

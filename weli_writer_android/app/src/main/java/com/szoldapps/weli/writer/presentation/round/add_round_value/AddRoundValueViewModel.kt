@@ -23,6 +23,8 @@ internal class AddRoundValueViewModel @ViewModelInject constructor(
     private val roundId: Long =
         savedStateHandle.get<Long>("roundId") ?: throw IllegalStateException("Mandatory roundId is missing!")
 
+    private var isMulaRound = false
+
     private val _viewState = MutableLiveData<AddRoundValueViewState>(
         Content(
             heartsMultiplier = 1,
@@ -31,6 +33,7 @@ internal class AddRoundValueViewModel @ViewModelInject constructor(
             playerInitials = listOf("-", "-", "-", "-"),
             tricks = listOf(0, 0, 0, 0),
             isAddValuesButtonEnabled = false,
+            isMulaRound = false,
         )
     )
     val viewState: LiveData<AddRoundValueViewState> = _viewState
@@ -45,14 +48,29 @@ internal class AddRoundValueViewModel @ViewModelInject constructor(
         }
         _viewState.value = content.copy(
             tricks = tricks,
-            isAddValuesButtonEnabled = isAddValuesButtonEnabled(tricks)
+            isAddValuesButtonEnabled = isAddValuesButtonEnabled(content.isMulaRound, tricks)
         )
     }
 
-    private fun isAddValuesButtonEnabled(tricks: List<Int>): Boolean {
-        val fiveTricksDistributed = tricks.filter { it < 0 }.sum() == -5
-        val noUnchangedPlayers = tricks.count { it == 0 } == 0
-        return fiveTricksDistributed && noUnchangedPlayers
+    private fun isAddValuesButtonEnabled(isMulaRound: Boolean, tricks: List<Int>): Boolean {
+        if (isMulaRound) {
+            // success case (winner && playerCount-1 losers)
+            if (tricks.count { it == MULA_SUCCESS_POINTS } == 1 &&
+                tricks.count { it == MULA_FAILURE_POINTS } == tricks.size - 1) {
+                return true
+            }
+            // failure case (1 loser && 1 winner && playerCount-1 neutral)
+            if (tricks.count { it == MULA_FAILURE_POINTS } == 1 &&
+                tricks.count { it == MULA_HELD_POINTS } == 1 &&
+                tricks.count { it == MULA_STAY_POINTS } == tricks.size - 2) {
+                return true
+            }
+            return false
+        } else {
+            val fiveTricksDistributed = tricks.filter { it < 0 }.sum() == -5
+            val noUnchangedPlayers = tricks.count { it == 0 } == 0
+            return fiveTricksDistributed && noUnchangedPlayers
+        }
     }
 
     fun addRoundValue() = viewModelScope.launch {
@@ -106,8 +124,19 @@ internal class AddRoundValueViewModel @ViewModelInject constructor(
         _viewState.postValue(content)
     }
 
+    fun updateMulaRound(isChecked: Boolean) {
+        val content = (_viewState.value as Content).copy(
+            isMulaRound = isChecked
+        )
+        _viewState.postValue(content)
+    }
+
     companion object {
         private const val MAX_REDEAL_MULTIPLIER = 8
+        private const val MULA_SUCCESS_POINTS = -20
+        private const val MULA_FAILURE_POINTS = 20
+        private const val MULA_HELD_POINTS = -1
+        private const val MULA_STAY_POINTS = 0
     }
 
 }
@@ -122,6 +151,7 @@ internal sealed class AddRoundValueViewState {
         val playerInitials: List<String>,
         val tricks: List<Int>,
         val isAddValuesButtonEnabled: Boolean,
+        val isMulaRound: Boolean,
     ) : AddRoundValueViewState()
 }
 
