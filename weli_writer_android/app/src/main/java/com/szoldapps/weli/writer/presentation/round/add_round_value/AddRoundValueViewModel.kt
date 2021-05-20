@@ -60,9 +60,10 @@ internal class AddRoundValueViewModel @ViewModelInject constructor(
             }
             return false
         } else {
+            val selfFaller = tricks.count { it == SELF_FALLEN_POINTS } == 1
             val fiveTricksDistributed = tricks.filter { it < 0 }.sum() == -5
             val noUnchangedPlayers = tricks.count { it == 0 } == 0
-            return fiveTricksDistributed && noUnchangedPlayers
+            return (fiveTricksDistributed || selfFaller) && noUnchangedPlayers
         }
     }
 
@@ -143,6 +144,7 @@ internal class AddRoundValueViewModel @ViewModelInject constructor(
         private const val MULA_FAILURE_POINTS = 20
         private const val MULA_HELD_POINTS = -1
         private const val MULA_STAY_POINTS = 0
+        private const val SELF_FALLEN_POINTS = 10
     }
 
 }

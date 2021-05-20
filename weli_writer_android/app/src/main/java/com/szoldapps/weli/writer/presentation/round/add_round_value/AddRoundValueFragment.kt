@@ -138,6 +138,7 @@ class AddRoundValueFragmentOld : Fragment(R.layout.fragment_add_round_value) {
         val trick5Bt = linearLayout.findViewById<Button>(R.id.trick5Bt)
         val homeBt = linearLayout.findViewById<Button>(R.id.homeBt)
         val fallenBt = linearLayout.findViewById<Button>(R.id.fallenBt)
+        val selfFallenBt = linearLayout.findViewById<Button>(R.id.selfFallenBt)
         val mulaSucceededBt = linearLayout.findViewById<Button>(R.id.mulaSucceededBt)
         val mulaFallenBt = linearLayout.findViewById<Button>(R.id.mulaFallenBt)
         val mulaHeldBt = linearLayout.findViewById<Button>(R.id.mulaHeldBt)
@@ -146,7 +147,7 @@ class AddRoundValueFragmentOld : Fragment(R.layout.fragment_add_round_value) {
         val buttonList =
             listOf(
                 trick1Bt, trick2Bt, trick3Bt, trick4Bt, trick5Bt,
-                homeBt, fallenBt,
+                homeBt, fallenBt, selfFallenBt,
                 mulaSucceededBt, mulaFallenBt, mulaHeldBt, mulaStayBt
             )
         buttonList.forEach { button ->
