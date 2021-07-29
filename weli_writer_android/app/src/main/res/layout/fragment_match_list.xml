@@ -42,6 +42,14 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText" />
 
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/greeting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/matchToolbar" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/matchRv"
         android:layout_width="0dp"
@@ -52,7 +60,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/matchToolbar"
+        app:layout_constraintTop_toBottomOf="@+id/greeting"
         tools:listitem="@layout/item_match" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

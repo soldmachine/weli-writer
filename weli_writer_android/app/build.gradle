@@ -72,7 +72,7 @@ dependencies {
     androidTestImplementation "androidx.navigation:navigation-testing:$navVersion"
 
     // room
-    def roomVersion = "2.2.5"
+    def roomVersion = "2.3.0"
     implementation "androidx.room:room-runtime:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
     implementation "androidx.room:room-ktx:$roomVersion"
@@ -111,6 +111,8 @@ dependencies {
     // Integration with observables
     implementation "androidx.compose.runtime:runtime-livedata:$composeVersion"
     implementation "androidx.compose.runtime:runtime-rxjava2:$composeVersion"
+    // When using a MDC theme
+    implementation "com.google.android.material:compose-theme-adapter:$composeVersion"
     // UI Tests
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$composeVersion"
 }

@@ -89,7 +89,7 @@ class CalculationRepository @Inject constructor() {
             }
         }
 
-        val minimumSum = playerSumMap.minBy { entry ->
+        val minimumSum = playerSumMap.minByOrNull { entry ->
             entry.value
         }?.value ?: 0
 
