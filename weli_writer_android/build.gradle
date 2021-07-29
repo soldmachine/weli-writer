@@ -5,7 +5,7 @@ buildscript {
         kotlinVersion = "1.4.32"
         hiltVersion = "2.29-alpha"
         navVersion = "2.3.1"
-        composeVersion = "1.0.0-beta05"
+        composeVersion = "1.0.0"
     }
     repositories {
         google()
