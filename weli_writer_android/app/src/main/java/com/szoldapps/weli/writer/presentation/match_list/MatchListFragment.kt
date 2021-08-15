@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -35,10 +36,13 @@ import com.szoldapps.weli.writer.presentation.match_list.MatchViewState.Content
 import com.szoldapps.weli.writer.presentation.match_list.MatchViewState.Error
 import com.szoldapps.weli.writer.presentation.match_list.MatchViewState.Loading
 import dagger.hilt.android.AndroidEntryPoint
+import org.threeten.bp.OffsetDateTime
+import org.threeten.bp.format.DateTimeFormatter
 
 /**
  * Shows a list of [Match]es
  */
+@ExperimentalMaterialApi
 @AndroidEntryPoint
 class MatchListFragment : Fragment() {
 
@@ -58,6 +62,7 @@ class MatchListFragment : Fragment() {
         }
 }
 
+@ExperimentalMaterialApi
 @Composable
 fun MatchListScaffold(
     viewModel: MatchListViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
@@ -99,6 +104,7 @@ fun TopBar(
     )
 }
 
+@ExperimentalMaterialApi
 @Composable
 fun MatchList(
     viewModel: MatchListViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
@@ -120,24 +126,30 @@ fun MatchList(
     }
 }
 
+@ExperimentalMaterialApi
 @Composable
 fun MatchRow(
     match: Match,
     onItemClickListener: (Long) -> (Unit),
 ) {
-    Text(
-        text = "${match.date}, ${match.location}",
-        style = MaterialTheme.typography.body1,
+    Card(
+        elevation = 4.dp,
         modifier = Modifier
             .fillMaxWidth()
-            .clickable {
-                onItemClickListener.invoke(match.id)
-            }
-            .padding(horizontal = 16.dp, vertical = 12.dp)
-            .wrapContentWidth(Alignment.CenterHorizontally)
-
-    )
+            .padding(horizontal = 16.dp, vertical = 12.dp),
+        onClick = {
+            onItemClickListener.invoke(match.id)
+        }
+    ) {
+        Text(
+            text = "${match.date.mapToFormattedDateString()}, ${match.location}",
+            style = MaterialTheme.typography.body1,
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
+        )
+    }
 }
+
+fun OffsetDateTime.mapToFormattedDateString(): String = this.format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm"))
 
 @Composable
 fun Loading() {

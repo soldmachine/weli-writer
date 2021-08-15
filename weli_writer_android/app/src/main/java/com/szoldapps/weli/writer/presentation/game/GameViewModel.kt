@@ -1,7 +1,6 @@
 package com.szoldapps.weli.writer.presentation.game
 
-import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -15,13 +14,16 @@ import com.szoldapps.weli.writer.presentation.common.WeliConstants.WELI_ROUND_ST
 import com.szoldapps.weli.writer.presentation.common.helper.SingleLiveEvent
 import com.szoldapps.weli.writer.presentation.game.GameViewState.Content
 import com.szoldapps.weli.writer.presentation.game.GameViewState.Loading
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime
+import javax.inject.Inject
 
-class GameViewModel @ViewModelInject constructor(
+@HiltViewModel
+class GameViewModel @Inject constructor(
     private val weliRepository: WeliRepository,
-    @Assisted private val savedStateHandle: SavedStateHandle
-) : ViewModel() {
+    private val savedStateHandle: SavedStateHandle
+) : ViewModel(), LifecycleObserver {
 
     private val gameId: Long =
         savedStateHandle.get<Long>("gameId") ?: throw kotlin.IllegalStateException("Mandatory gameId is missing!")

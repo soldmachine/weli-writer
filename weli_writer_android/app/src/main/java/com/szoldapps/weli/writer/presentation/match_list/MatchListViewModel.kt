@@ -1,6 +1,5 @@
 package com.szoldapps.weli.writer.presentation.match_list
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
@@ -8,10 +7,13 @@ import androidx.lifecycle.viewModelScope
 import com.szoldapps.weli.writer.domain.Match
 import com.szoldapps.weli.writer.domain.WeliRepository
 import com.szoldapps.weli.writer.presentation.match_list.MatchViewState.Content
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime
+import javax.inject.Inject
 
-class MatchListViewModel @ViewModelInject constructor(
+@HiltViewModel
+class MatchListViewModel @Inject constructor(
     private val weliRepository: WeliRepository
 ) : ViewModel() {
 

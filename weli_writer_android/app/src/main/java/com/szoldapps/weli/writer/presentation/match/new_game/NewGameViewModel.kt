@@ -1,6 +1,5 @@
 package com.szoldapps.weli.writer.presentation.match.new_game
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,10 +11,13 @@ import com.szoldapps.weli.writer.presentation.common.helper.SingleLiveEvent
 import com.szoldapps.weli.writer.presentation.match.new_game.NewGameViewEvent.OpenGameFragment
 import com.szoldapps.weli.writer.presentation.match.new_game.NewGameViewState.Content
 import com.szoldapps.weli.writer.presentation.match.new_game.NewGameViewState.Loading
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime
+import javax.inject.Inject
 
-class NewGameViewModel @ViewModelInject constructor(
+@HiltViewModel
+class NewGameViewModel @Inject constructor(
     private val weliRepository: WeliRepository,
 ) : ViewModel() {
 

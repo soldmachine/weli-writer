@@ -1,6 +1,5 @@
 package com.szoldapps.weli.writer.presentation.round.overview
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,9 +10,12 @@ import com.szoldapps.weli.writer.presentation.common.helper.SingleLiveEvent
 import com.szoldapps.weli.writer.presentation.round.overview.RoundViewEvent.OpenAddRoundValueFragment
 import com.szoldapps.weli.writer.presentation.round.overview.RoundViewState.Content
 import com.szoldapps.weli.writer.presentation.round.overview.RoundViewState.Loading
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-internal class RoundViewModel @ViewModelInject constructor(
+@HiltViewModel
+internal class RoundViewModel @Inject constructor(
     private val weliRepository: WeliRepository,
 ) : ViewModel() {
 

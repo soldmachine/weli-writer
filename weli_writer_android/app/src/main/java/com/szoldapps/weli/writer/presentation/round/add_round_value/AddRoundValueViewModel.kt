@@ -1,6 +1,5 @@
 package com.szoldapps.weli.writer.presentation.round.add_round_value
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,10 +9,13 @@ import com.szoldapps.weli.writer.domain.WeliRepository
 import com.szoldapps.weli.writer.presentation.common.helper.SingleLiveEvent
 import com.szoldapps.weli.writer.presentation.round.add_round_value.AddRoundValueViewEvent.CloseFragment
 import com.szoldapps.weli.writer.presentation.round.add_round_value.AddRoundValueViewState.Content
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime
+import javax.inject.Inject
 
-internal class AddRoundValueViewModel @ViewModelInject constructor(
+@HiltViewModel
+internal class AddRoundValueViewModel @Inject constructor(
     private val weliRepository: WeliRepository,
 ) : ViewModel() {
 

@@ -2,15 +2,20 @@ package com.szoldapps.weli.writer.di
 
 import android.content.Context
 import com.szoldapps.weli.writer.data.db.AppDatabase
-import com.szoldapps.weli.writer.data.db.dao.*
+import com.szoldapps.weli.writer.data.db.dao.GameDao
+import com.szoldapps.weli.writer.data.db.dao.MatchDao
+import com.szoldapps.weli.writer.data.db.dao.PlayerDao
+import com.szoldapps.weli.writer.data.db.dao.PlayerGameDao
+import com.szoldapps.weli.writer.data.db.dao.RoundDao
+import com.szoldapps.weli.writer.data.db.dao.RoundValueDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 object DataModule {
 
     @Provides
