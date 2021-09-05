@@ -28,6 +28,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.composethemeadapter.MdcTheme
 import com.szoldapps.weli.writer.R
@@ -42,7 +43,6 @@ import org.threeten.bp.format.DateTimeFormatter
 /**
  * Shows a list of [Match]es
  */
-@ExperimentalMaterialApi
 @AndroidEntryPoint
 class MatchListFragment : Fragment() {
 
@@ -62,10 +62,9 @@ class MatchListFragment : Fragment() {
         }
 }
 
-@ExperimentalMaterialApi
 @Composable
 fun MatchListScaffold(
-    viewModel: MatchListViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
+    viewModel: MatchListViewModel = viewModel(),
     onItemClickListener: (Long) -> (Unit) = { },
 ) {
     Scaffold(
@@ -104,13 +103,13 @@ fun TopBar(
     )
 }
 
-@ExperimentalMaterialApi
 @Composable
 fun MatchList(
-    viewModel: MatchListViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
+    viewModel: MatchListViewModel = viewModel(),
     onItemClickListener: (Long) -> (Unit) = { },
 ) {
     val viewState by viewModel.viewState.observeAsState()
+    @Suppress("UnnecessaryVariable")
     when (val state = viewState) {
         is Content ->
             Column(
@@ -120,13 +119,13 @@ fun MatchList(
                     MatchRow(message, onItemClickListener)
                 }
             }
-        Loading -> Loading()
-        Error,
-        null -> Error()
+        Error -> Error()
+        Loading,
+        null -> Loading()
     }
 }
 
-@ExperimentalMaterialApi
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun MatchRow(
     match: Match,
