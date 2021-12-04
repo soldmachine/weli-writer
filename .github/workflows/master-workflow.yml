@@ -26,3 +26,5 @@ jobs:
     - name: Build with Gradle
       working-directory: ./weli_writer_android
       run: ./gradlew app:assembleRelease
+        cd app/build/outputs/apk/release 
+        ls -la
