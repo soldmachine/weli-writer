@@ -73,7 +73,7 @@ internal class RoundValueRvAdapter(
         private var roundRow3 = itemView.findViewById<TextView>(R.id.roundRow3)
 
         fun bind(rowValues: RoundRowValues, onItemClickListener: (Int) -> Unit) {
-            numberTv.text = rowValues.number.plus(1).toString()
+            numberTv.text = if (rowValues.number == 0) "-" else rowValues.number.toString()
             roundRow0.text = rowValues.values[0].toString()
             roundRow1.text = rowValues.values[1].toString()
             roundRow2.text = rowValues.values[2].toString()
