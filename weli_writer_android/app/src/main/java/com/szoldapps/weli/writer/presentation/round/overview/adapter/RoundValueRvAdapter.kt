@@ -1,5 +1,6 @@
 package com.szoldapps.weli.writer.presentation.round.overview.adapter
 
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
@@ -73,13 +74,34 @@ internal class RoundValueRvAdapter(
         private var roundRow3 = itemView.findViewById<TextView>(R.id.roundRow3)
 
         fun bind(rowValues: RoundRowValues, onItemClickListener: (Int) -> Unit) {
-            numberTv.text = if (rowValues.number == 0) "-" else rowValues.number.toString()
+            val number = rowValues.number
+            numberTv.text = if (number == 0) "-" else number.toString()
+
+            // roundRow0
+            roundRow0.setTypeface(null, getTypeface(number, 1))
             roundRow0.text = rowValues.values[0].toString()
+
+            // roundRow1
+            roundRow1.setTypeface(null, getTypeface(number, 2))
             roundRow1.text = rowValues.values[1].toString()
+
+            // roundRow2
+            roundRow2.setTypeface(null, getTypeface(number, 3))
             roundRow2.text = rowValues.values[2].toString()
+
+            // roundRow3
+            roundRow3.setTypeface(null, getTypeface(number, 0))
             roundRow3.text = rowValues.values[3].toString()
-            itemView.setOnClickListener { onItemClickListener.invoke(rowValues.number) }
+
+            itemView.setOnClickListener { onItemClickListener.invoke(number) }
         }
+
+        private fun getTypeface(number: Int, rest: Int) =
+            if (number > 0 && number % 4 == rest) {
+                Typeface.BOLD
+            } else {
+                Typeface.NORMAL
+            }
     }
 
     class RoundRowButtonViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
