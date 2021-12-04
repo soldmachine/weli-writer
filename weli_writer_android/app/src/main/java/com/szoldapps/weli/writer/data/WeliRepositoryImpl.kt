@@ -36,6 +36,7 @@ import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem
 import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.RoundRowHeader
 import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.RoundRowValues
 import com.szoldapps.weli.writer.domain.WeliRepository
+import com.szoldapps.weli.writer.presentation.common.WeliConstants.WELI_MAX_ROUNDS
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -115,7 +116,7 @@ class WeliRepositoryImpl @Inject constructor(
 
         val list = mutableListOf<RoundValueRvAdapterItem>(RoundRowHeader(getPlayerInitialsOfRound(roundId)))
         list.addAll(roundRowValues)
-        if (roundRowValues.doNotContainWinner()) {
+        if (roundRowValues.hasRoundsToPlay() && roundRowValues.doNotContainWinner()) {
             list.add(
                 RoundValueRvAdapterItem.RoundRowButton(
                     label = "Add round result",
@@ -125,6 +126,8 @@ class WeliRepositoryImpl @Inject constructor(
         }
         return@withContext list
     }
+
+    private fun List<RoundRowValues>.hasRoundsToPlay(): Boolean = this.count() - 1 < WELI_MAX_ROUNDS
 
     private fun List<RoundRowValues>.doNotContainWinner(): Boolean = !last().values.contains(0)
 
