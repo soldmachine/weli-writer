@@ -25,4 +25,4 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       working-directory: ./weli_writer_android
-      run: ./gradlew build
+      run: ./gradlew app:assembleRelease
