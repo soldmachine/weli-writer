@@ -25,6 +25,10 @@ jobs:
       working-directory: ./weli_writer_android
       run: chmod +x gradlew
 
+    - name: Run unit tests
+      working-directory: ./weli_writer_android
+      run: ./gradlew test
+
     - name: Generate Release APK
       working-directory: ./weli_writer_android
       run: ./gradlew assembleRelease
