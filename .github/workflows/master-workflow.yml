@@ -48,4 +48,4 @@ jobs:
         serviceAccountJsonPlainText: ${{secrets.SERVICE_ACCOUNT}}
         packageName: com.szoldapps.weli.writer
         releaseFiles: weli_writer_android/app/build/outputs/bundle/release/app-release.aab
-        track: alpha
+        track: beta
