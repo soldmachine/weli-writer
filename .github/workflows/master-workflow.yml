@@ -35,9 +35,8 @@ jobs:
 
     - name: Sign AAB
       uses: r0adkll/sign-android-release@v1
-      working-directory: ./weli_writer_android
       with:
-        releaseDirectory: app/build/outputs/bundle/release
+        releaseDirectory: weli_writer_android/app/build/outputs/bundle/release
         signingKeyBase64: ${{ secrets.SIGNING_KEY }}
         alias: ${{ secrets.ALIAS }}
         keyStorePassword: ${{ secrets.STORE_KEY_PASSWORD }}
