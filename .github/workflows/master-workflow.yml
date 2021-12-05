@@ -25,9 +25,9 @@ jobs:
       working-directory: ./weli_writer_android
       run: chmod +x gradlew
 
-    - name: Build Project
-      working-directory: ./weli_writer_android
-      run: ./gradlew build
+    // - name: Build Project
+    //   working-directory: ./weli_writer_android
+    //   run: ./gradlew build
 
     - name: Build Release AAB      // 1
       working-directory: ./weli_writer_android
