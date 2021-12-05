@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">V1 Weli Writer</string>
+    <string name="app_name">Weli Writer</string>
 
     <string name="match_toolbar_title">Matches</string>
     <string name="match_menu_title">Add</string>

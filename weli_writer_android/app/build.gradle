@@ -11,7 +11,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.szoldapps.weli.writer.v1"
+        applicationId "com.szoldapps.weli.writer"
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
