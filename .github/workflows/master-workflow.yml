@@ -34,8 +34,8 @@ jobs:
       run: ./gradlew bundleRelease
 
     - name: Sign AAB               // 2
-      working-directory: ./weli_writer_android
       uses: r0adkll/sign-android-release@v1
+      working-directory: ./weli_writer_android
       with:
         releaseDirectory: app/build/outputs/bundle/release
         signingKeyBase64: ${{ secrets.SIGNING_KEY }}
