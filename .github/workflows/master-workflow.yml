@@ -29,7 +29,7 @@ jobs:
       working-directory: ./weli_writer_android
       run: ./gradlew bundleRelease
 
-    - name: Sign AAB
+    - name: Sign AAB               // 2
       uses: r0adkll/sign-android-release@v1
       with:
         releaseDirectory: weli_writer_android/app/build/outputs/bundle/release
@@ -41,3 +41,11 @@ jobs:
     - name: Check output
       working-directory: ./weli_writer_android/app/build/outputs/bundle/release
       run: ls -la
+
+    - name: Deploy to Play Store   // 3
+      uses: r0adkll/upload-google-play@v1
+      with:
+        serviceAccountJsonPlainText: ${{secrets.SERVICE_ACCOUNT}}
+        packageName: com.szoldapps.weli.writer
+        releaseFiles: weli_writer_android/app/build/outputs/bundle/release/app-release.aab
+        track: alpha
