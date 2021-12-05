@@ -1,4 +1,4 @@
-name: Upload Alpha Draft on Google Play
+name: Upload Alpha to Play Console
 
 on:
   workflow_dispatch:
