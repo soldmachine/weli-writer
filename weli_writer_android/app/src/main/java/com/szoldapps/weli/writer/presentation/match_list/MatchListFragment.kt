@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -150,14 +151,15 @@ fun MatchRow(
 
 fun OffsetDateTime.mapToFormattedDateString(): String = this.format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm"))
 
+@Preview
 @Composable
 fun Loading() {
     Text(
         text = "LOADING ...",
-        style = MaterialTheme.typography.h1,
+        style = MaterialTheme.typography.h6,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
+            .padding(horizontal = 16.dp, vertical = 32.dp)
             .wrapContentWidth(Alignment.CenterHorizontally)
             .wrapContentHeight(Alignment.CenterVertically)
     )
