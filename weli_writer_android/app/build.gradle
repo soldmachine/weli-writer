@@ -9,13 +9,13 @@ apply plugin: "com.google.gms.google-services"
 apply plugin: 'com.google.firebase.crashlytics'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.szoldapps.weli.writer"
         minSdkVersion 23
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 5
         versionName "1.0-alpha.5"
 
