@@ -16,8 +16,8 @@ android {
         applicationId "com.szoldapps.weli.writer"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 4
-        versionName "1.0"
+        versionCode 5
+        versionName "1.0-alpha.5"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
