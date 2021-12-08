@@ -7,6 +7,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -113,10 +114,14 @@ class SelectPlayerFragment : Fragment(R.layout.fragment_select_player) {
             .setTitle("Name")
             .setView(inflatedView)
             .setPositiveButton("ADD") { _, _ ->
-                viewModel.addPlayer(
-                    inputFirstName.text.toString(),
-                    inputLastName.text.toString()
-                )
+                if (inputFirstName.text.isNullOrBlank() || inputLastName.text.isNullOrBlank()) {
+                    Toast.makeText(requireContext(), "Name cannot be blank", Toast.LENGTH_SHORT).show()
+                } else {
+                    viewModel.addPlayer(
+                        inputFirstName.text.toString(),
+                        inputLastName.text.toString()
+                    )
+                }
             }
             .setNegativeButton("Cancel") { dialog, _ -> dialog.cancel() }
             .show()
