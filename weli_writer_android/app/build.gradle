@@ -5,6 +5,8 @@ apply plugin: "de.mannodermaus.android-junit5"
 apply plugin: "kotlin-kapt"
 apply plugin: "dagger.hilt.android.plugin"
 apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: "com.google.gms.google-services"
+apply plugin: 'com.google.firebase.crashlytics'
 
 android {
     compileSdkVersion 30
@@ -116,4 +118,10 @@ dependencies {
     implementation "com.google.android.material:compose-theme-adapter:$composeVersion"
     // UI Tests
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$composeVersion"
+
+    // Firebase
+    implementation platform("com.google.firebase:firebase-bom:29.0.1")
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation "com.google.firebase:firebase-analytics-ktx"
+
 }

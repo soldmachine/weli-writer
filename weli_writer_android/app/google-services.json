@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "719650865961",
+    "project_id": "weli-writer-65b4b",
+    "storage_bucket": "weli-writer-65b4b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:719650865961:android:34b7e4b9575bac779bad38",
+        "android_client_info": {
+          "package_name": "com.szoldapps.weli.writer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "719650865961-m6rai2sgcgu01291qo3b7rf1248aevv6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNDZT6RiaTxghPx8p5fHuFqhwGnSj9jLw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "719650865961-m6rai2sgcgu01291qo3b7rf1248aevv6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -15,10 +15,12 @@ buildscript {
     }
     dependencies {
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navVersion"
-        classpath 'com.android.tools.build:gradle:7.0.3'
+        classpath "com.android.tools.build:gradle:7.0.3"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
         classpath "de.mannodermaus.gradle.plugins:android-junit5:1.6.2.0"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "com.google.gms:google-services:4.3.10"
+        classpath "com.google.firebase:firebase-crashlytics-gradle:2.8.1"
     }
 }
 
