@@ -17,8 +17,6 @@ class App : Application() {
 
         if (BuildConfig.DEBUG) {
             Timber.plant(DebugTree())
-        } else {
-            TODO("add CrashReportingTree")
         }
     }
 }
