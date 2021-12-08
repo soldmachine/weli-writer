@@ -1,6 +1,9 @@
 package com.szoldapps.weli.writer.presentation.match.new_game
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -15,7 +18,9 @@ import com.szoldapps.weli.writer.databinding.FragmentNewGameBinding
 import com.szoldapps.weli.writer.domain.Game
 import com.szoldapps.weli.writer.domain.Round
 import com.szoldapps.weli.writer.presentation.common.helper.viewBinding
-import com.szoldapps.weli.writer.presentation.match.new_game.NewGameViewState.*
+import com.szoldapps.weli.writer.presentation.match.new_game.NewGameViewState.Content
+import com.szoldapps.weli.writer.presentation.match.new_game.NewGameViewState.Error
+import com.szoldapps.weli.writer.presentation.match.new_game.NewGameViewState.Loading
 import com.szoldapps.weli.writer.presentation.match.new_game.adapter.PlayerRvAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,10 +44,23 @@ class NewGameFragment : Fragment(R.layout.fragment_new_game) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
 
         setupToolbarAndRv()
         sharedViewModel.viewState.observe(viewLifecycleOwner, ::handleViewState)
         sharedViewModel.viewEvent.observe(viewLifecycleOwner, ::handleViewEvent)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_new_game, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menu_new_game_reset) {
+            sharedViewModel.resetSelectedPlayers()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun handleViewEvent(viewEvent: NewGameViewEvent) {
@@ -87,11 +105,6 @@ class NewGameFragment : Fragment(R.layout.fragment_new_game) {
             newGameLoadingSpinner.isVisible = viewState is Loading
             newGameErrorTv.isVisible = viewState is Error
             newGameRv.isVisible = viewState is Content
-        }
-        binding.newGameRv.apply {
-            layoutManager = LinearLayoutManager(activity)
-            adapter = playerRvAdapter
-            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
     }
 

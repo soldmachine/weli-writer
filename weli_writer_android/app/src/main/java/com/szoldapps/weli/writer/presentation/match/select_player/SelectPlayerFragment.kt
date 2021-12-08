@@ -1,7 +1,12 @@
 package com.szoldapps.weli.writer.presentation.match.select_player
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -19,7 +24,9 @@ import com.szoldapps.weli.writer.domain.Game
 import com.szoldapps.weli.writer.domain.Round
 import com.szoldapps.weli.writer.presentation.common.helper.viewBinding
 import com.szoldapps.weli.writer.presentation.match.new_game.NewGameViewModel
-import com.szoldapps.weli.writer.presentation.match.select_player.SelectPlayerViewState.*
+import com.szoldapps.weli.writer.presentation.match.select_player.SelectPlayerViewState.Content
+import com.szoldapps.weli.writer.presentation.match.select_player.SelectPlayerViewState.Error
+import com.szoldapps.weli.writer.presentation.match.select_player.SelectPlayerViewState.Loading
 import com.szoldapps.weli.writer.presentation.match.select_player.adapter.PlayerRvAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -74,7 +81,7 @@ class SelectPlayerFragment : Fragment(R.layout.fragment_select_player) {
     }
 
     private fun handleContent(content: Content) {
-        playerRvAdapter.refresh(content.players)
+        playerRvAdapter.refresh(content.players.minus(sharedViewModel.getSelectedPlayers()))
     }
 
     private fun updateVisibility(viewState: SelectPlayerViewState) {

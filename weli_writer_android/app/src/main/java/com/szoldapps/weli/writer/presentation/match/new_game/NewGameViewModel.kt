@@ -21,17 +21,19 @@ class NewGameViewModel @Inject constructor(
     private val weliRepository: WeliRepository,
 ) : ViewModel() {
 
-    private val selectedPlayers: MutableList<Player?> = mutableListOf(null, null, null, null)
+    private val _selectedPlayers: MutableList<Player?> = mutableListOf(null, null, null, null)
 
-    private val _viewState = MutableLiveData<NewGameViewState>(Content(selectedPlayers))
+    private val _viewState = MutableLiveData<NewGameViewState>(Content(_selectedPlayers))
     val viewState: LiveData<NewGameViewState> = _viewState
 
     private val _viewEvent = SingleLiveEvent<NewGameViewEvent>()
     val viewEvent: LiveData<NewGameViewEvent> = _viewEvent
 
+    fun getSelectedPlayers() = _selectedPlayers.filterNotNull()
+
     fun selectPlayer(index: Int, player: Player) {
-        selectedPlayers[index] = player
-        _viewState.value = Content(selectedPlayers)
+        _selectedPlayers[index] = player
+        _viewState.value = Content(_selectedPlayers)
     }
 
     fun createGame(matchId: Long) = viewModelScope.launch {
@@ -39,11 +41,16 @@ class NewGameViewModel @Inject constructor(
         val gameId = weliRepository.addGame(
             game = Game(
                 date = OffsetDateTime.now(),
-                players = selectedPlayers.filterNotNull()
+                players = _selectedPlayers.filterNotNull()
             ),
             matchId = matchId
         )
         _viewEvent.value = OpenGameFragment(gameId)
+    }
+
+    fun resetSelectedPlayers() {
+        _selectedPlayers.forEachIndexed { index, _ -> _selectedPlayers[index] = null }
+        _viewState.value = Content(_selectedPlayers)
     }
 }
 
