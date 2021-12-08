@@ -2,10 +2,10 @@
 
 buildscript {
     ext {
-        kotlinVersion = "1.5.21"
+        kotlinVersion = "1.5.31"
         hiltVersion = "2.38.1"
         navVersion = "2.3.5"
-        composeVersion = "1.0.1"
+        composeVersion = "1.0.5"
     }
     repositories {
         google()
