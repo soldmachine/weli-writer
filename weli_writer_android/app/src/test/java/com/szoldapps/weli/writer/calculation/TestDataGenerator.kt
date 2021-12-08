@@ -107,9 +107,9 @@ internal fun generateGame5(): GameX {
 fun generateCalculationResult3() =
     CalculationResultX(
         payments = listOf(
-            PaymentX(receiver = playerW, payer = playerS, value = 3.0),
-            PaymentX(receiver = playerW, payer = playerM, value = 23.0),
-            PaymentX(receiver = playerW, payer = playerK, value = 75.0)
+            PaymentX(receiver = playerS, payer = playerK, value = 78.0),
+            PaymentX(receiver = playerS, payer = playerW, value = 112.0),
+            PaymentX(receiver = playerM, payer = playerW, value = 62.0)
         )
     )
 
