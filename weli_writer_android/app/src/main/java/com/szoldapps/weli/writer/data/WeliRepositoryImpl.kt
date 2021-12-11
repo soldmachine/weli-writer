@@ -191,4 +191,9 @@ class WeliRepositoryImpl @Inject constructor(
                 }
         }
     }
+
+    override suspend fun getIndexOfRoundInGameByRoundId(roundId: Long): Int = withContext(Dispatchers.IO) {
+        val rounds = roundDao.getListOfRoundIdsByRoundId(roundId)
+        rounds.indexOf(roundId)
+    }
 }

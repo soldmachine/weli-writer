@@ -59,7 +59,7 @@ class RoundFragment : Fragment(R.layout.fragment_round) {
         when (viewState) {
             Loading,
             Error -> Unit
-            is Content -> roundRvAdapter.refresh(viewState.rounds)
+            is Content -> roundRvAdapter.refresh(viewState.indexOfRound, viewState.rounds)
         }
         updateVisibility(viewState)
     }

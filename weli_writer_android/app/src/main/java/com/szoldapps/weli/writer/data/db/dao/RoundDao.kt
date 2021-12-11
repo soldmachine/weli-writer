@@ -16,6 +16,15 @@ interface RoundDao {
     @Query("SELECT * FROM `round` WHERE round_game_id=:gameId")
     fun getRoundsByGameById(gameId: Long): List<RoundEntity>
 
+    @Query(
+        """
+        SELECT round_id FROM round 
+        WHERE round_game_id == (SELECT round_game_id FROM round WHERE round_id = :roundId) 
+        ORDER BY date_time ASC
+        """
+    )
+    fun getListOfRoundIdsByRoundId(roundId: Long): List<Long>
+
     @Insert
     fun insert(roundEntity: RoundEntity): Long
 

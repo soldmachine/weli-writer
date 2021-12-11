@@ -27,17 +27,21 @@ internal class RoundViewModel @Inject constructor(
 
     fun loadContent(roundId: Long) = viewModelScope.launch {
         _viewState.postValue(Loading)
+        val indexOfRound = weliRepository.getIndexOfRoundInGameByRoundId(roundId)
         val rvAdapterItems = weliRepository.roundValueRvAdapterItemsByRoundId(roundId) {
             _viewEvent.postValue(OpenAddRoundValueFragment)
         }
-        _viewState.postValue(Content(rvAdapterItems))
+        _viewState.postValue(Content(indexOfRound, rvAdapterItems))
     }
 }
 
 internal sealed class RoundViewState {
     object Loading : RoundViewState()
     object Error : RoundViewState()
-    data class Content(val rounds: List<RoundValueRvAdapterItem>) : RoundViewState()
+    data class Content(
+        val indexOfRound: Int,
+        val rounds: List<RoundValueRvAdapterItem>
+    ) : RoundViewState()
 }
 
 internal sealed class RoundViewEvent {
