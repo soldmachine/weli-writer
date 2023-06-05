@@ -1,8 +1,8 @@
 package com.szoldapps.weli.writer.presentation.match.select_player
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.szoldapps.weli.writer.domain.Player
 import com.szoldapps.weli.writer.domain.WeliRepository
@@ -16,7 +16,7 @@ class SelectPlayerViewModel @Inject constructor(
     private val weliRepository: WeliRepository,
 ) : ViewModel() {
 
-    val viewState: LiveData<SelectPlayerViewState> = Transformations.map(weliRepository.players) { players ->
+    val viewState: LiveData<SelectPlayerViewState> = weliRepository.players.map { players ->
         Content(players)
     }
 

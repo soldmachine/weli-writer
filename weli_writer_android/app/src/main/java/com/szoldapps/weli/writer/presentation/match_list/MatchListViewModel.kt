@@ -1,8 +1,8 @@
 package com.szoldapps.weli.writer.presentation.match_list
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.szoldapps.weli.writer.domain.Match
 import com.szoldapps.weli.writer.domain.WeliRepository
@@ -17,7 +17,7 @@ class MatchListViewModel @Inject constructor(
     private val weliRepository: WeliRepository
 ) : ViewModel() {
 
-    val viewState: LiveData<MatchViewState> = Transformations.map(weliRepository.matches) { matches ->
+    val viewState: LiveData<MatchViewState> = weliRepository.matches.map { matches ->
         Content(matches)
     }
 

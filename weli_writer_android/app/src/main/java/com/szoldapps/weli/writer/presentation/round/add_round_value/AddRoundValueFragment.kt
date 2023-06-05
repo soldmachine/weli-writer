@@ -16,10 +16,6 @@ import com.szoldapps.weli.writer.presentation.round.add_round_value.AddRoundValu
 import com.szoldapps.weli.writer.presentation.round.add_round_value.AddRoundValueViewState.Error
 import com.szoldapps.weli.writer.presentation.round.add_round_value.AddRoundValueViewState.Loading
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_add_round_value.addRoundValueBt
-import kotlinx.android.synthetic.main.fragment_add_round_value.heartsToggleButton
-import kotlinx.android.synthetic.main.fragment_add_round_value.multiplierTv
-import kotlinx.android.synthetic.main.fragment_add_round_value.redealButton
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -83,6 +79,8 @@ class AddRoundValueFragmentOld : Fragment(R.layout.fragment_add_round_value) {
 
     private fun setupUi(view: View) {
         val addRoundValueBt = view.findViewById<Button>(R.id.addRoundValueBt)
+        val heartsToggleButton = view.findViewById<ToggleButton>(R.id.heartsToggleButton)
+        val redealButton = view.findViewById<Button>(R.id.redealButton)
 
         setButtonClickListeners(0, player1TricksLl)
         setButtonClickListeners(1, player2TricksLl)
@@ -105,7 +103,9 @@ class AddRoundValueFragmentOld : Fragment(R.layout.fragment_add_round_value) {
     }
 
     private fun handleContentState(content: Content) = with(content) {
-        multiplierTv.text = "${multiplier}x (heartMultiplier=${heartsMultiplier}, redealMultiplier=${redealMultiplier})"
+        val multiplierTv = view?.findViewById<TextView>(R.id.multiplierTv)
+        multiplierTv?.text =
+            "${multiplier}x (heartMultiplier=${heartsMultiplier}, redealMultiplier=${redealMultiplier})"
 
         player1Tv.text = playerInitials[0]
         player2Tv.text = playerInitials[1]
@@ -126,7 +126,8 @@ class AddRoundValueFragmentOld : Fragment(R.layout.fragment_add_round_value) {
         value3Tv.text = (tricks[2] * multiplier).toString()
         value4Tv.text = (tricks[3] * multiplier).toString()
 
-        addRoundValueBt.isEnabled = isAddValuesButtonEnabled
+        val addRoundValueBt = view?.findViewById<Button>(R.id.addRoundValueBt)
+        addRoundValueBt?.isEnabled = isAddValuesButtonEnabled
     }
 
     private fun setButtonClickListeners(playerNumber: Int, linearLayout: LinearLayout) {

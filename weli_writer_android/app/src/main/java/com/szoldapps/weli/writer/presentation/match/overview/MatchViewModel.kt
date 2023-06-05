@@ -3,8 +3,8 @@ package com.szoldapps.weli.writer.presentation.match.overview
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
 import com.szoldapps.weli.writer.domain.Game
 import com.szoldapps.weli.writer.domain.WeliRepository
 import com.szoldapps.weli.writer.presentation.match.overview.MatchViewState.Content
@@ -20,7 +20,7 @@ class MatchViewModel @Inject constructor(
     private val matchId: Long =
         savedStateHandle.get<Long>("matchId") ?: throw kotlin.IllegalStateException("Mandatory matchId is missing!")
 
-    val viewState: LiveData<MatchViewState> = Transformations.map(weliRepository.gamesByMatchId(matchId)) { games ->
+    val viewState: LiveData<MatchViewState> = weliRepository.gamesByMatchId(matchId).map { games ->
         Content(games)
     }
 }

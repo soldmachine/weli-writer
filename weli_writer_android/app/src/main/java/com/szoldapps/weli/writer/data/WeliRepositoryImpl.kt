@@ -1,7 +1,7 @@
 package com.szoldapps.weli.writer.data
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import com.szoldapps.weli.writer.calculation.CalculationRepository
 import com.szoldapps.weli.writer.calculation.GameX
 import com.szoldapps.weli.writer.calculation.PlayerX
@@ -51,12 +51,12 @@ class WeliRepositoryImpl @Inject constructor(
     private val calculationRepository: CalculationRepository,
 ) : WeliRepository {
 
-    override val matches: LiveData<List<Match>> = Transformations.map(matchDao.getAll()) { it.mapToMatch() }
+    override val matches: LiveData<List<Match>> = matchDao.getAll().map { it.mapToMatch() }
 
-    override val players: LiveData<List<Player>> = Transformations.map(playerDao.getAll()) { it.mapToPlayers() }
+    override val players: LiveData<List<Player>> = playerDao.getAll().map { it.mapToPlayers() }
 
     override fun gamesByMatchId(matchId: Long): LiveData<List<Game>> =
-        Transformations.map(playerGameDao.getGamesWithPlayersEntities(matchId)) { gamesWithPlayers ->
+        playerGameDao.getGamesWithPlayersEntities(matchId).map { gamesWithPlayers ->
             gamesWithPlayers.mapToGames()
         }
 
