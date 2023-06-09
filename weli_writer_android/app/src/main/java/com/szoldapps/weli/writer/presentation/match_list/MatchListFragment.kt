@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
@@ -20,8 +22,8 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
@@ -74,11 +76,12 @@ fun MatchListScaffold(
                 onAddItemClickListener = { viewModel.addRandomMatch() }
             )
         },
-        content = {
+        content = { paddingValues ->
             MatchList(
                 onItemClickListener = { matchId ->
                     onItemClickListener.invoke(matchId)
-                }
+                },
+                modifier = Modifier.padding(paddingValues),
             )
         }
     )
@@ -106,23 +109,26 @@ fun TopBar(
 
 @Composable
 fun MatchList(
+    modifier: Modifier = Modifier,
     viewModel: MatchListViewModel = viewModel(),
     onItemClickListener: (Long) -> (Unit) = { },
 ) {
-    val viewState by viewModel.viewState.observeAsState()
-    @Suppress("UnnecessaryVariable")
-    when (val state = viewState) {
+    val uiState by viewModel.uiState.collectAsState()
+
+    when (val state = uiState) {
         is Content ->
             Column(
-                modifier = Modifier.padding(vertical = 8.dp),
+                modifier = modifier
+                    .padding(vertical = 8.dp)
+                    .verticalScroll(rememberScrollState()),
             ) {
                 state.matches.forEach { message ->
                     MatchRow(message, onItemClickListener)
                 }
             }
+
         Error -> Error()
-        Loading,
-        null -> Loading()
+        Loading -> Loading()
     }
 }
 

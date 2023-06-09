@@ -1,10 +1,11 @@
 package com.szoldapps.weli.writer.domain
 
 import androidx.lifecycle.LiveData
+import kotlinx.coroutines.flow.Flow
 
 interface WeliRepository {
 
-    val matches: LiveData<List<Match>>
+    val matches: Flow<List<Match>>
 
     val players: LiveData<List<Player>>
 

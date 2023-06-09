@@ -6,12 +6,13 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.szoldapps.weli.writer.data.db.entity.MatchEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MatchDao {
 
     @Query("SELECT * FROM `match`")
-    fun getAll(): LiveData<List<MatchEntity>>
+    fun getAll(): Flow<List<MatchEntity>>
 
     @Query("SELECT * FROM `match` WHERE match_id=:matchId")
     fun getMatchById(matchId: Int): LiveData<MatchEntity>

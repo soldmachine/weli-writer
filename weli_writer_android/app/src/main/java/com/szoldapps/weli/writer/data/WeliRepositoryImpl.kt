@@ -38,6 +38,8 @@ import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.RoundRowValues
 import com.szoldapps.weli.writer.domain.WeliRepository
 import com.szoldapps.weli.writer.presentation.common.WeliConstants.WELI_MAX_ROUNDS
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -51,7 +53,7 @@ class WeliRepositoryImpl @Inject constructor(
     private val calculationRepository: CalculationRepository,
 ) : WeliRepository {
 
-    override val matches: LiveData<List<Match>> = matchDao.getAll().map { it.mapToMatch() }
+    override val matches: Flow<List<Match>> = matchDao.getAll().map { it.mapToMatch() }
 
     override val players: LiveData<List<Player>> = playerDao.getAll().map { it.mapToPlayers() }
 
