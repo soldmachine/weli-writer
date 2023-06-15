@@ -33,7 +33,6 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.composethemeadapter.MdcTheme
 import com.szoldapps.weli.writer.R
 import com.szoldapps.weli.writer.domain.Match
 import com.szoldapps.weli.writer.presentation.match_list.MatchViewState.Content
@@ -52,7 +51,7 @@ class MatchListFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         ComposeView(requireContext()).apply {
             setContent {
-                MdcTheme {
+                MaterialTheme {
                     MatchListScaffold(
                         onItemClickListener = { matchId ->
                             findNavController().navigate(
