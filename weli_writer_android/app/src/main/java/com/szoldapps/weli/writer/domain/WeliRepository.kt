@@ -1,11 +1,8 @@
 package com.szoldapps.weli.writer.domain
 
 import androidx.lifecycle.LiveData
-import kotlinx.coroutines.flow.Flow
 
 interface WeliRepository {
-
-    val matches: Flow<List<Match>>
 
     val players: LiveData<List<Player>>
 
@@ -19,8 +16,6 @@ interface WeliRepository {
     ): List<RoundValueRvAdapterItem>
 
     suspend fun roundValueCountByRoundId(roundId: Long): Int
-
-    suspend fun addMatch(match: Match)
 
     suspend fun addGame(game: Game, matchId: Long): Long
 

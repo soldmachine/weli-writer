@@ -3,6 +3,7 @@ package com.szoldapps.weli.writer.presentation.match_list
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.szoldapps.weli.writer.domain.Match
+import com.szoldapps.weli.writer.domain.MatchRepository
 import com.szoldapps.weli.writer.domain.WeliRepository
 import com.szoldapps.weli.writer.presentation.match_list.MatchViewState.Content
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,11 +17,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MatchListViewModel @Inject constructor(
-    private val weliRepository: WeliRepository
+    private val matchRepository: MatchRepository,
 ) : ViewModel() {
 
     val uiState: StateFlow<MatchViewState> =
-        weliRepository.matches
+        matchRepository.matches
             .map { matches -> Content(matches) }
             .stateIn(
                 scope = viewModelScope,
@@ -29,7 +30,7 @@ class MatchListViewModel @Inject constructor(
             )
 
     fun addRandomMatch() = viewModelScope.launch {
-        weliRepository.addMatch(Match(date = OffsetDateTime.now(), location = "testLocation"))
+        matchRepository.addMatch(Match(date = OffsetDateTime.now(), location = "testLocation"))
     }
 }
 

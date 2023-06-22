@@ -8,14 +8,11 @@ import com.szoldapps.weli.writer.calculation.PlayerX
 import com.szoldapps.weli.writer.calculation.RoundValueX
 import com.szoldapps.weli.writer.calculation.RoundX
 import com.szoldapps.weli.writer.data.db.dao.GameDao
-import com.szoldapps.weli.writer.data.db.dao.MatchDao
 import com.szoldapps.weli.writer.data.db.dao.PlayerDao
 import com.szoldapps.weli.writer.data.db.dao.PlayerGameDao
 import com.szoldapps.weli.writer.data.db.dao.RoundDao
 import com.szoldapps.weli.writer.data.db.dao.RoundValueDao
 import com.szoldapps.weli.writer.data.db.mapper.mapToGames
-import com.szoldapps.weli.writer.data.db.mapper.mapToMatch
-import com.szoldapps.weli.writer.data.db.mapper.mapToMatchDb
 import com.szoldapps.weli.writer.data.db.mapper.mapToPlayerEntity
 import com.szoldapps.weli.writer.data.db.mapper.mapToPlayers
 import com.szoldapps.weli.writer.data.db.mapper.mapToRoundEntity
@@ -28,7 +25,6 @@ import com.szoldapps.weli.writer.domain.GameRvAdapterItem
 import com.szoldapps.weli.writer.domain.GameRvAdapterItem.GameRowHeader
 import com.szoldapps.weli.writer.domain.GameRvAdapterItem.GameRowSummation
 import com.szoldapps.weli.writer.domain.GameRvAdapterItem.GameRowValues
-import com.szoldapps.weli.writer.domain.Match
 import com.szoldapps.weli.writer.domain.Player
 import com.szoldapps.weli.writer.domain.Round
 import com.szoldapps.weli.writer.domain.RoundValue
@@ -38,13 +34,10 @@ import com.szoldapps.weli.writer.domain.RoundValueRvAdapterItem.RoundRowValues
 import com.szoldapps.weli.writer.domain.WeliRepository
 import com.szoldapps.weli.writer.presentation.common.WeliConstants.WELI_MAX_ROUNDS
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class WeliRepositoryImpl @Inject constructor(
-    private val matchDao: MatchDao,
     private val playerDao: PlayerDao,
     private val playerGameDao: PlayerGameDao,
     private val gameDao: GameDao,
@@ -52,8 +45,6 @@ class WeliRepositoryImpl @Inject constructor(
     private val roundValueDao: RoundValueDao,
     private val calculationRepository: CalculationRepository,
 ) : WeliRepository {
-
-    override val matches: Flow<List<Match>> = matchDao.getAll().map { it.mapToMatch() }
 
     override val players: LiveData<List<Player>> = playerDao.getAll().map { it.mapToPlayers() }
 
@@ -135,10 +126,6 @@ class WeliRepositoryImpl @Inject constructor(
 
     override suspend fun roundValueCountByRoundId(roundId: Long): Int = withContext(Dispatchers.IO) {
         roundValueDao.getRoundValueCountByRoundId(roundId) / 4
-    }
-
-    override suspend fun addMatch(match: Match) = withContext(Dispatchers.IO) {
-        matchDao.insertAll(match.mapToMatchDb())
     }
 
     override suspend fun addGame(game: Game, matchId: Long) = withContext(Dispatchers.IO) {
