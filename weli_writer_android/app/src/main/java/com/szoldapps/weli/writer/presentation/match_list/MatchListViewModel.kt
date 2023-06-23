@@ -4,8 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.szoldapps.weli.writer.domain.Match
 import com.szoldapps.weli.writer.domain.MatchRepository
-import com.szoldapps.weli.writer.domain.WeliRepository
-import com.szoldapps.weli.writer.presentation.match_list.MatchViewState.Content
+import com.szoldapps.weli.writer.presentation.match_list.MatchListUiState.Content
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -20,13 +19,13 @@ class MatchListViewModel @Inject constructor(
     private val matchRepository: MatchRepository,
 ) : ViewModel() {
 
-    val uiState: StateFlow<MatchViewState> =
+    val uiState: StateFlow<MatchListUiState> =
         matchRepository.matches
             .map { matches -> Content(matches) }
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(),
-                initialValue = MatchViewState.Loading,
+                initialValue = MatchListUiState.Loading,
             )
 
     fun addRandomMatch() = viewModelScope.launch {
@@ -34,8 +33,8 @@ class MatchListViewModel @Inject constructor(
     }
 }
 
-sealed class MatchViewState {
-    object Loading : MatchViewState()
-    object Error : MatchViewState()
-    data class Content(val matches: List<Match>) : MatchViewState()
+sealed class MatchListUiState {
+    object Loading : MatchListUiState()
+    object Error : MatchListUiState()
+    data class Content(val matches: List<Match>) : MatchListUiState()
 }

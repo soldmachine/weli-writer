@@ -3,6 +3,7 @@ package com.szoldapps.weli.writer.presentation.match_list
 import com.szoldapps.weli.writer.common.CoroutineTestExtension
 import com.szoldapps.weli.writer.domain.FakeMatchRepository
 import com.szoldapps.weli.writer.domain.Match
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
@@ -17,7 +18,35 @@ import org.threeten.bp.OffsetDateTime
 internal class MatchListViewModelTest {
 
     @Test
-    fun `test uiState with one match`() = runTest {
+    fun `initial uiState is Loading`() = runTest {
+        // given
+        val fakeMatchRepository = FakeMatchRepository()
+
+        // when
+        val viewModel = MatchListViewModel(fakeMatchRepository)
+
+        // then
+        assertEquals(MatchListUiState.Loading, viewModel.uiState.value)
+    }
+
+    @Test
+    fun `correct uiState with empty match list`() = runTest {
+        // given
+        val matchList = emptyList<Match>()
+        val fakeMatchRepository = FakeMatchRepository()
+
+        // when
+        val viewModel = MatchListViewModel(fakeMatchRepository)
+        backgroundScope.startUiStateCollectorOf(viewModel)
+
+        // then
+        assertEquals(MatchListUiState.Loading, viewModel.uiState.value)
+        fakeMatchRepository.emit(matchList)
+        assertEquals(MatchListUiState.Content(matchList), viewModel.uiState.value)
+    }
+
+    @Test
+    fun `correct uiState with one match`() = runTest {
         // given
         val match = Match(id = -1, date = OffsetDateTime.now(), location = "some location")
         val matchList = listOf(match)
@@ -25,17 +54,36 @@ internal class MatchListViewModelTest {
 
         // when
         val viewModel = MatchListViewModel(fakeMatchRepository)
-
-        // At least one collector needed for StateFlow,
-        // because of .stateIn(SharingStarted.WhileSubscribed())
-        backgroundScope.launch(UnconfinedTestDispatcher()) {
-            viewModel.uiState.collect {}
-        }
+        backgroundScope.startUiStateCollectorOf(viewModel)
 
         // then
-        assertEquals(MatchViewState.Loading, viewModel.uiState.value)
-
+        assertEquals(MatchListUiState.Loading, viewModel.uiState.value)
         fakeMatchRepository.emit(matchList)
-        assertEquals(MatchViewState.Content(matchList), viewModel.uiState.value)
+        assertEquals(MatchListUiState.Content(matchList), viewModel.uiState.value)
+    }
+
+    @Test
+    fun `correct uiState with multiple matches`() = runTest {
+        // given
+        val match = Match(id = 1, date = OffsetDateTime.now(), location = "some location")
+        val matchList = listOf(match, match.copy(id = 2), match.copy(id = 3), match.copy(id = 4))
+        val fakeMatchRepository = FakeMatchRepository()
+
+        // when
+        val viewModel = MatchListViewModel(fakeMatchRepository)
+        backgroundScope.startUiStateCollectorOf(viewModel)
+        fakeMatchRepository.emit(matchList)
+
+        // then
+        assertEquals(MatchListUiState.Content(matchList), viewModel.uiState.value)
+    }
+
+    /**
+     * At least one collector needed for StateFlow, because of .stateIn(SharingStarted.WhileSubscribed())
+     */
+    private fun CoroutineScope.startUiStateCollectorOf(viewModel: MatchListViewModel) {
+        this.launch(UnconfinedTestDispatcher()) {
+            viewModel.uiState.collect {}
+        }
     }
 }

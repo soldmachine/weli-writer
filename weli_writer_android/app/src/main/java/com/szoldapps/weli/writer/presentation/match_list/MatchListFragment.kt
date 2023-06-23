@@ -35,9 +35,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.fragment.findNavController
 import com.szoldapps.weli.writer.R
 import com.szoldapps.weli.writer.domain.Match
-import com.szoldapps.weli.writer.presentation.match_list.MatchViewState.Content
-import com.szoldapps.weli.writer.presentation.match_list.MatchViewState.Error
-import com.szoldapps.weli.writer.presentation.match_list.MatchViewState.Loading
+import com.szoldapps.weli.writer.presentation.match_list.MatchListUiState.Content
+import com.szoldapps.weli.writer.presentation.match_list.MatchListUiState.Error
+import com.szoldapps.weli.writer.presentation.match_list.MatchListUiState.Loading
 import dagger.hilt.android.AndroidEntryPoint
 import org.threeten.bp.OffsetDateTime
 import org.threeten.bp.format.DateTimeFormatter
