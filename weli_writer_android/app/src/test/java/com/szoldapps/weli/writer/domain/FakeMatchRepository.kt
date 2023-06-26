@@ -7,11 +7,13 @@ class FakeMatchRepository : MatchRepository {
 
     private val _matches = MutableSharedFlow<List<Match>>()
 
+    var addMatchWasCalled = false
+
     suspend fun emit(value: List<Match>) = _matches.emit(value)
 
     override val matches: Flow<List<Match>> = _matches
 
     override suspend fun addMatch(match: Match) {
-        TODO("Not yet implemented")
+        addMatchWasCalled = true
     }
 }

@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.threeten.bp.OffsetDateTime
@@ -76,6 +77,20 @@ internal class MatchListViewModelTest {
 
         // then
         assertEquals(MatchListUiState.Content(matchList), viewModel.uiState.value)
+    }
+
+
+    @Test
+    fun `addMatch calls repository correctly`() = runTest {
+        // given
+        val fakeMatchRepository = FakeMatchRepository()
+        val viewModel = MatchListViewModel(fakeMatchRepository)
+
+        // when
+        viewModel.addRandomMatch()
+
+        // then
+        assertTrue(fakeMatchRepository.addMatchWasCalled)
     }
 
     /**
