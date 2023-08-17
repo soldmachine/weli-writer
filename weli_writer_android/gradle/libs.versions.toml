@@ -6,6 +6,7 @@ androidx-navigation = "2.5.3"
 # Plugin versions
 androidGradlePlugin = "8.1.0"
 kotlin = "1.8.10"
+gms-google-services = "4.3.15"
 
 # LIBRARIES ------------------------------------------------------------------------------------------------------------
 [libraries]
@@ -22,6 +23,7 @@ android-application = { id = "com.android.application", version.ref = "androidGr
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 androidx-navigation-safeargs = { id = "androidx.navigation.safeargs", version.ref = "androidx-navigation" }
+gms-google-services = { id = "com.google.gms.google-services", version.ref = "gms-google-services" }
 
 # BUNDLES --------------------------------------------------------------------------------------------------------------
 [bundles]
