@@ -1,5 +1,6 @@
 plugins {
     id("de.mannodermaus.android-junit5") version "1.8.2.1"
+    //alias libs.plugins.androidx.navigation.safeargs
 }
 
 apply plugin: "com.android.application"
@@ -55,7 +56,6 @@ android {
 dependencies {
     def kotlinVersion = "1.8.10"
     def hiltVersion = "2.46.1"
-    def navVersion = "2.5.3"
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
     // Kotlin
@@ -77,9 +77,9 @@ dependencies {
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
 
     // navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:$navVersion"
-    implementation "androidx.navigation:navigation-ui-ktx:$navVersion"
-    androidTestImplementation "androidx.navigation:navigation-testing:$navVersion"
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    androidTestImplementation(libs.androidx.navigation.testing)
 
     // room
     def roomVersion = "2.5.1"

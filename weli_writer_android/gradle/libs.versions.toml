@@ -1,16 +1,23 @@
 [versions]
-core-ktx = "1.10.1"
+androidx-core-ktx = "1.10.1"
+androidx-navigation = "2.5.3"
 
 # Plugin versions
 androidGradlePlugin = "8.1.0"
 kotlin = "1.8.10"
 
 [libraries]
-androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidx-core-ktx" }
+
+# Navigation
+androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "androidx-navigation" }
+androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "androidx-navigation" }
+androidx-navigation-testing = { group = "androidx.navigation", name = "navigation-testing", version.ref = "androidx-navigation" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+androidx-navigation-safeargs = { id = "androidx.navigation.safeargs", version.ref = "androidx-navigation" }
 
 [bundles]
