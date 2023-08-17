@@ -49,7 +49,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion "1.4.3"
+        kotlinCompilerExtensionVersion libs.versions.composeCompiler.get()
     }
 }
 
@@ -87,15 +87,14 @@ dependencies {
 
     // ThreeTenAbp
     implementation libs.threetenabp
-    testImplementation("org.threeten:threetenbp:1.4.6") {
-        exclude module: "com.jakewharton.threetenabp:threetenabp:1.4.6"
+    testImplementation(libs.threetenbp) {
+        exclude module: libs.threetenabp
     }
 
     // Timber
     implementation libs.timber
 
     // Testing
-    testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core
 
