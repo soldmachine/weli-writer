@@ -6,19 +6,20 @@ androidx-constraintlayout = "2.1.4"
 androidx-fragment-ktx = "1.5.7"
 androidx-lifecycle = "2.4.0"
 androidx-navigation = "2.5.3"
+hilt = "2.46.1"
+legacySupportV4 = "1.0.0"
 
 # Plugin versions
 androidGradlePlugin = "8.1.0"
 kotlin = "1.8.10"
 gms-google-services = "4.3.15"
 firebase-crashlytics = "2.9.6"
-dagger-hilt = "2.46.1"
 
 # LIBRARIES ------------------------------------------------------------------------------------------------------------
 [libraries]
 kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
 
-# Androidx libs
+# Androidx
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx-appcompat" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidx-core-ktx" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidx-constraintlayout" }
@@ -27,6 +28,11 @@ androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecyc
 androidx-lifecycle-common-java8 = { group = "androidx.lifecycle", name = "lifecycle-common-java8", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "androidx-lifecycle" }
+
+# Hilt
+androidx-legacy-support-v4 = { module = "androidx.legacy:legacy-support-v4", version.ref = "legacySupportV4" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 
 # Navigation
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "androidx-navigation" }
@@ -41,7 +47,7 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 androidx-navigation-safeargs = { id = "androidx.navigation.safeargs", version.ref = "androidx-navigation" }
 gms-google-services = { id = "com.google.gms.google-services", version.ref = "gms-google-services" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics" }
-dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger-hilt" }
+dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 
 # BUNDLES --------------------------------------------------------------------------------------------------------------
 [bundles]

@@ -54,12 +54,12 @@ android {
 }
 
 dependencies {
-    def hiltVersion = "2.46.1"
-
     implementation fileTree(dir: "libs", include: ["*.jar"])
+
     // Kotlin
     implementation(libs.kotlin.stdlib)
 
+    // Androidx
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.constraintlayout)
@@ -69,12 +69,12 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
 
-    // hilt
-    implementation "com.google.dagger:hilt-android:$hiltVersion"
-    implementation "androidx.legacy:legacy-support-v4:1.0.0"
-    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+    // Hilt
+    implementation libs.hilt.android
+    implementation libs.androidx.legacy.support.v4
+    kapt libs.hilt.compiler
 
-    // navigation
+    // Navigation
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     androidTestImplementation(libs.androidx.navigation.testing)
