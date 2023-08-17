@@ -80,11 +80,10 @@ dependencies {
     androidTestImplementation(libs.androidx.navigation.testing)
 
     // room
-    def roomVersion = "2.5.1"
-    implementation "androidx.room:room-runtime:$roomVersion"
-    kapt "androidx.room:room-compiler:$roomVersion"
-    implementation "androidx.room:room-ktx:$roomVersion"
-    testImplementation "androidx.room:room-testing:$roomVersion"
+    implementation libs.androidx.room.runtime
+    kapt libs.androidx.room.compiler
+    implementation libs.androidx.room.ktx
+    testImplementation libs.androidx.room.testing
 
     // ThreeTenAbp
     implementation "com.jakewharton.threetenabp:threetenabp:1.4.6"

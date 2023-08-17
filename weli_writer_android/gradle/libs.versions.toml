@@ -6,6 +6,7 @@ androidxConstraintlayout = "2.1.4"
 androidxFragmentKtx = "1.5.7"
 androidxLifecycle = "2.4.0"
 androidxNavigation = "2.5.3"
+androidxRoom = "2.5.1"
 hilt = "2.46.1"
 legacySupportV4 = "1.0.0"
 
@@ -38,6 +39,12 @@ hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.re
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "androidxNavigation" }
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "androidxNavigation" }
 androidx-navigation-testing = { group = "androidx.navigation", name = "navigation-testing", version.ref = "androidxNavigation" }
+
+# Room
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "androidxRoom" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "androidxRoom" }
+androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "androidxRoom" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidxRoom" }
 
 # PLUGINS --------------------------------------------------------------------------------------------------------------
 [plugins]
