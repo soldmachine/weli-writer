@@ -1,6 +1,9 @@
+plugins {
+    id("de.mannodermaus.android-junit5") version "1.8.2.1"
+}
+
 apply plugin: "com.android.application"
 apply plugin: "kotlin-android"
-apply plugin: "de.mannodermaus.android-junit5"
 apply plugin: "kotlin-kapt"
 apply plugin: "com.google.dagger.hilt.android"
 apply plugin: "androidx.navigation.safeargs.kotlin"
@@ -45,11 +48,15 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion "$composeVersion"
+        kotlinCompilerExtensionVersion "1.4.3"
     }
 }
 
 dependencies {
+    def kotlinVersion = "1.8.10"
+    def hiltVersion = "2.46.1"
+    def navVersion = "2.5.3"
+
     implementation fileTree(dir: "libs", include: ["*.jar"])
     // Kotlin
     implementation(libs.androidx.core.ktx)
