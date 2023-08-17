@@ -3,12 +3,17 @@
 androidxAppcompat = "1.6.1"
 androidxCoreKtx = "1.10.1"
 androidxConstraintlayout = "2.1.4"
+androidxEspressoCore = "3.5.1"
 androidxFragmentKtx = "1.5.7"
 androidxLifecycle = "2.4.0"
 androidxNavigation = "2.5.3"
 androidxRoom = "2.5.1"
 hilt = "2.46.1"
+junit = "4.13.2"
+androidxJunit = "1.1.5"
 legacySupportV4 = "1.0.0"
+threetenabp = "1.4.6"
+timber = "4.7.1"
 
 # Plugin versions
 androidGradlePlugin = "8.1.0"
@@ -45,6 +50,17 @@ androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "androidx
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "androidxRoom" }
 androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "androidxRoom" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidxRoom" }
+
+# ThreeTenAbp
+threetenabp = { module = "com.jakewharton.threetenabp:threetenabp", version.ref = "threetenabp" }
+
+# Timber
+timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+
+# Testing
+androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "androidxEspressoCore" }
+androidx-junit = { module = "androidx.test.ext:junit", version.ref = "androidxJunit" }
+junit = { module = "junit:junit", version.ref = "junit" }
 
 # PLUGINS --------------------------------------------------------------------------------------------------------------
 [plugins]
