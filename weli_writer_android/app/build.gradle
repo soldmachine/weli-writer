@@ -105,7 +105,7 @@ dependencies {
     testImplementation libs.junit.jupiter.params
 
     // Coroutines test
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1"
+    testImplementation libs.kotlinx.coroutines.test
 
     // compose
     implementation platform("androidx.compose:compose-bom:2023.04.01")
