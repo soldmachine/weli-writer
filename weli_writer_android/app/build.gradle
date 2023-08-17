@@ -123,8 +123,8 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
 
     // Firebase
-    implementation platform("com.google.firebase:firebase-bom:29.0.1")
-    implementation "com.google.firebase:firebase-crashlytics-ktx"
-    implementation "com.google.firebase:firebase-analytics-ktx"
+    implementation platform(libs.firebase.bom)
+    implementation libs.firebase.crashlytics.ktx
+    implementation libs.firebase.analytics.ktx
 
 }

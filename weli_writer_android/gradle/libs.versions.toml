@@ -11,6 +11,7 @@ androidxLifecycle = "2.4.0"
 androidxNavigation = "2.5.3"
 androidxRoom = "2.5.1"
 composeThemeAdapter = "1.2.1"
+firebaseBom = "29.0.1"
 hilt = "2.46.1"
 junit = "4.13.2"
 androidxJunit = "1.1.5"
@@ -90,6 +91,11 @@ androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4
 
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivityCompose" }
 compose-theme-adapter = { module = "com.google.android.material:compose-theme-adapter", version.ref = "composeThemeAdapter" }
+
+# Firebase
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-crashlytics-ktx = { module = "com.google.firebase:firebase-crashlytics-ktx" }
+firebase-analytics-ktx = { module = "com.google.firebase:firebase-analytics-ktx" }
 
 # PLUGINS --------------------------------------------------------------------------------------------------------------
 [plugins]
