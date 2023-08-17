@@ -1,5 +1,6 @@
 # VERSIONS -------------------------------------------------------------------------------------------------------------
 [versions]
+androidJunit5 = "1.8.2.1"
 androidxActivityCompose = "1.7.2"
 androidxAppcompat = "1.6.1"
 androidxCoreKtx = "1.10.1"
@@ -107,6 +108,7 @@ androidx-navigation-safeargs = { id = "androidx.navigation.safeargs", version.re
 gms-google-services = { id = "com.google.gms.google-services", version.ref = "gmsGoogleServices" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlytics" }
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+android-junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "androidJunit5" }
 
 # BUNDLES --------------------------------------------------------------------------------------------------------------
 [bundles]

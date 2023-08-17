@@ -1,15 +1,13 @@
 plugins {
-    id("de.mannodermaus.android-junit5") version "1.8.2.1"
-    //alias libs.plugins.androidx.navigation.safeargs
+    alias libs.plugins.android.application
+    alias libs.plugins.kotlin.android
+    id("kotlin-kapt")
+    alias libs.plugins.dagger.hilt
+    alias libs.plugins.androidx.navigation.safeargs
+    alias libs.plugins.gms.google.services
+    alias libs.plugins.firebase.crashlytics
+    alias libs.plugins.android.junit5
 }
-
-apply plugin: "com.android.application"
-apply plugin: "kotlin-android"
-apply plugin: "kotlin-kapt"
-apply plugin: "com.google.dagger.hilt.android"
-apply plugin: "androidx.navigation.safeargs.kotlin"
-apply plugin: "com.google.gms.google-services"
-apply plugin: "com.google.firebase.crashlytics"
 
 android {
     compileSdkVersion 33
@@ -119,7 +117,6 @@ dependencies {
     implementation libs.androidx.compose.runtime.rxjava2
     implementation libs.androidx.activity.compose
     implementation libs.compose.theme.adapter
-    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
 
     // Firebase
     implementation platform(libs.firebase.bom)
