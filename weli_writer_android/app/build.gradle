@@ -64,11 +64,10 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.fragment.ktx)
-    def androidXLifeCycleVersion = "2.4.0"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$androidXLifeCycleVersion"
-    implementation "androidx.lifecycle:lifecycle-common-java8:$androidXLifeCycleVersion"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$androidXLifeCycleVersion"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$androidXLifeCycleVersion"
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.common.java8)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
 
     // hilt
     implementation "com.google.dagger:hilt-android:$hiltVersion"
