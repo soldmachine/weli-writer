@@ -3,11 +3,13 @@ plugins {
     alias libs.plugins.kotlin.android
     id("kotlin-kapt")
     alias libs.plugins.dagger.hilt
-    alias libs.plugins.androidx.navigation.safeargs
     alias libs.plugins.gms.google.services
     alias libs.plugins.firebase.crashlytics
     alias libs.plugins.android.junit5
+    // alias libs.plugins.androidx.navigation.safeargs (did not work)
 }
+
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdkVersion 33
