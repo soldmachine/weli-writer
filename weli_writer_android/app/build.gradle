@@ -12,7 +12,7 @@ plugins {
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
-    compileSdk = 33
+    compileSdk = 34
     buildToolsVersion = "33.0.2"
 
     namespace "com.szoldapps.weli.writer"
