@@ -9,7 +9,7 @@ import androidx.room.Entity
 )
 data class PlayerGameEntity(
     @ColumnInfo(name = "player_id")
-    val playerId: Long = 0,
+    var playerId: Long = 0,
     @ColumnInfo(name = "game_id")
-    val gameId: Long = 0
+    var gameId: Long = 0
 )
