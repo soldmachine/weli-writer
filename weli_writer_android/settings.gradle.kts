@@ -14,5 +14,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = 'Weli Writer'
-include ':app'
+rootProject.name = "Weli Writer"
+include("app")

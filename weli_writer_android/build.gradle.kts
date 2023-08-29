@@ -10,6 +10,8 @@ plugins {
     alias(libs.plugins.dagger.hilt) apply false
 }
 
-tasks.register('clean', Delete) {
-    delete(rootProject.buildDir)
+tasks {
+    register("clean", Delete::class) {
+        delete(rootProject.buildDir)
+    }
 }

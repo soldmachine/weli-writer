@@ -17,8 +17,8 @@ android {
 
     defaultConfig {
         applicationId = "com.szoldapps.weli.writer"
-        minSdkVersion 23
-        targetSdkVersion 34
+        minSdk = 23
+        targetSdk = 34
         versionCode = 6
         versionName = "1.0-alpha.6"
 
@@ -32,8 +32,8 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled = true
-            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+            isMinifyEnabled = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
 
@@ -52,7 +52,7 @@ android {
 }
 
 dependencies {
-    implementation(fileTree(dir: "libs", include: ["*.jar"]))
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     // Kotlin
     implementation(libs.kotlin.stdlib)
@@ -86,7 +86,7 @@ dependencies {
     // ThreeTenAbp
     implementation(libs.threetenabp)
     testImplementation(libs.threetenbp) {
-        exclude(module: libs.threetenabp)
+        exclude(libs.threetenabp.toString(), libs.threetenabp.toString())
     }
 
     // Timber
