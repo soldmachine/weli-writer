@@ -6,10 +6,8 @@ plugins {
     alias libs.plugins.gms.google.services
     alias libs.plugins.firebase.crashlytics
     alias libs.plugins.android.junit5
-    // alias libs.plugins.androidx.navigation.safeargs (did not work)
+    alias libs.plugins.androidx.navigation.safeargs
 }
-
-apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdk = 34
