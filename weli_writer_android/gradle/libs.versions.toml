@@ -18,7 +18,7 @@ hilt = "2.46.1"
 junit = "4.13.2"
 androidxJunit = "1.1.5"
 junit5 = "5.9.3"
-kotlinxCoroutinesTest = "1.7.1"
+kotlinxCoroutinesTest = "1.7.3"
 legacySupportV4 = "1.0.0"
 #noinspection GradleDependency shows not existing version, see https://github.com/JakeWharton/ThreeTenABP/tags
 threetenabp = "1.4.6"
@@ -27,8 +27,8 @@ timber = "5.0.1"
 # Plugin versions
 androidGradlePlugin = "8.5.0"
 kotlin = "1.9.24"
-gmsGoogleServices = "4.3.15"
-firebaseCrashlytics = "2.9.6"
+gmsGoogleServices = "4.4.2"
+firebaseCrashlytics = "3.0.2"
 
 # LIBRARIES ------------------------------------------------------------------------------------------------------------
 [libraries]
