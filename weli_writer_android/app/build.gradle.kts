@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.android.junit5)
     alias(libs.plugins.androidx.navigation.safeargs)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -44,10 +45,6 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17.toString()
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
     }
 }
 

@@ -11,11 +11,9 @@ androidxFragmentKtx = "1.8.0"
 androidxLifecycle = "2.8.2"
 androidxNavigation = "2.7.7"
 androidxRoom = "2.6.1"
-composeCompiler = "1.5.14"
 composeThemeAdapter = "1.2.1"
 firebaseBom = "33.1.1"
 hilt = "2.46.1"
-junit = "4.13.2"
 androidxJunit = "1.1.5"
 junit5 = "5.9.3"
 kotlinxCoroutinesTest = "1.7.3"
@@ -26,7 +24,7 @@ timber = "5.0.1"
 
 # Plugin versions
 androidGradlePlugin = "8.5.0"
-kotlin = "1.9.24"
+kotlin = "2.0.0"
 gmsGoogleServices = "4.4.2"
 firebaseCrashlytics = "3.0.2"
 
@@ -110,6 +108,7 @@ gms-google-services = { id = "com.google.gms.google-services", version.ref = "gm
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlytics" }
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 android-junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "androidJunit5" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
 # BUNDLES --------------------------------------------------------------------------------------------------------------
 [bundles]
