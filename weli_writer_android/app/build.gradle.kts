@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.android.junit5)
     alias(libs.plugins.androidx.navigation.safeargs)
     alias(libs.plugins.compose.compiler)
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -76,7 +77,7 @@ dependencies {
 
     // room
     implementation(libs.androidx.room.runtime)
-    kapt(libs.androidx.room.compiler)
+    ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
     testImplementation(libs.androidx.room.testing)
 

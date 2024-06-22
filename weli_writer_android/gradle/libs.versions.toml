@@ -17,6 +17,7 @@ hilt = "2.46.1"
 androidxJunit = "1.1.5"
 junit5 = "5.9.3"
 kotlinxCoroutinesTest = "1.7.3"
+ksp = "2.0.0-1.0.21"
 legacySupportV4 = "1.0.0"
 #noinspection GradleDependency shows not existing version, see https://github.com/JakeWharton/ThreeTenABP/tags
 threetenabp = "1.4.6"
@@ -109,6 +110,7 @@ firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 android-junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "androidJunit5" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 # BUNDLES --------------------------------------------------------------------------------------------------------------
 [bundles]
