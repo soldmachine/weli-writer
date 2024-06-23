@@ -8,7 +8,9 @@ androidxConstraintlayout = "2.1.4"
 androidxComposeBom = "2024.06.00"
 androidxEspressoCore = "3.5.1"
 androidxFragmentKtx = "1.8.0"
-androidxLifecycle = "2.8.2"
+# 2.8.2 was crashing in release only, because of compose incompatibility
+# https://issuetracker.google.com/issues/336842920?pli=1
+androidxLifecycle = "2.7.0"
 androidxNavigation = "2.7.7"
 androidxRoom = "2.6.1"
 composeThemeAdapter = "1.2.1"
