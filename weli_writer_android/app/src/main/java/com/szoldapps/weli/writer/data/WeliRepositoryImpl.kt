@@ -35,7 +35,6 @@ import com.szoldapps.weli.writer.domain.WeliRepository
 import com.szoldapps.weli.writer.presentation.common.WeliConstants.WELI_MAX_ROUNDS
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 import javax.inject.Inject
 
 class WeliRepositoryImpl @Inject constructor(
