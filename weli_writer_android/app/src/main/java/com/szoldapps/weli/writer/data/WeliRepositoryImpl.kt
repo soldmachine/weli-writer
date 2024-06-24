@@ -35,6 +35,7 @@ import com.szoldapps.weli.writer.domain.WeliRepository
 import com.szoldapps.weli.writer.presentation.common.WeliConstants.WELI_MAX_ROUNDS
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 import javax.inject.Inject
 
 class WeliRepositoryImpl @Inject constructor(
@@ -178,6 +179,18 @@ class WeliRepositoryImpl @Inject constructor(
                 .forEach {
                     roundValueDao.insertAll(it)
                 }
+
+            getPlayersOfRound(roundId).forEach { player ->
+                val currentVal = roundValueDao.sumValueOfPlayer(roundId, player.id)
+
+                if (currentVal < 0) {
+                    val roundVal = roundValueDao.getRoundValueByRoundIdAndNumber(roundId, roundNumber).find { roundValue -> roundValue.playerId == player.id }
+                    val insert = roundVal?.copy(value = roundVal.value - currentVal)
+                    if (insert != null) {
+                        roundValueDao.insertAll(insert)
+                    }
+                }
+            }
         }
     }
 
