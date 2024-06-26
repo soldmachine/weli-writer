@@ -178,6 +178,15 @@ class WeliRepositoryImpl @Inject constructor(
                 .forEach {
                     roundValueDao.insertAll(it)
                 }
+
+            getPlayersOfRound(roundId).forEach { player ->
+                val currentVal = roundValueDao.sumValueOfPlayer(roundId, player.id)
+
+                if (currentVal < 0) {
+                    val roundVal = roundValueDao.getRoundValueByRoundIdAndNumber(roundId, roundNumber).find { roundValue -> roundValue.playerId == player.id }
+                    roundVal?.copy(value = roundVal.value - currentVal)?.let { roundValueDao.insertAll(it) }
+                }
+            }
         }
     }
 
