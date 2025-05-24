@@ -26,7 +26,7 @@ threetenabp = "1.4.6"
 timber = "5.0.1"
 
 # Plugin versions
-androidGradlePlugin = "8.5.0"
+androidGradlePlugin = "8.10.0"
 kotlin = "2.0.0"
 gmsGoogleServices = "4.4.2"
 firebaseCrashlytics = "3.0.2"
