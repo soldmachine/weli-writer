@@ -12,15 +12,15 @@ plugins {
 }
 
 android {
-    compileSdk = 34
-    buildToolsVersion = "34.0.0"
+    compileSdk = 35
+    buildToolsVersion = "35.0.0"
 
     namespace = "com.szoldapps.weli.writer"
 
     defaultConfig {
         applicationId = "com.szoldapps.weli.writer"
         minSdk = 23
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 9
         versionName = "1.0-alpha.9"
 

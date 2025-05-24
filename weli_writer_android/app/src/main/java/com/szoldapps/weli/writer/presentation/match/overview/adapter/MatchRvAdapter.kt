@@ -45,7 +45,7 @@ class MatchRvAdapter(
 
         private fun List<Player>.getInitials(): String =
             this.joinToString(separator = " | ") { player ->
-                player.firstName.first().toUpperCase().toString() + player.lastName.first().toUpperCase().toString()
+                player.firstName.first().uppercaseChar().toString() + player.lastName.first().uppercaseChar().toString()
             }
 
 

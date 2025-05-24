@@ -1,25 +1,25 @@
 # VERSIONS -------------------------------------------------------------------------------------------------------------
 [versions]
 androidJunit5 = "1.9.3.0"
-androidxActivityCompose = "1.9.0"
+androidxActivityCompose = "1.10.1"
 androidxAppcompat = "1.7.0"
-androidxCoreKtx = "1.13.1"
-androidxConstraintlayout = "2.1.4"
-androidxComposeBom = "2024.06.00"
-androidxEspressoCore = "3.5.1"
-androidxFragmentKtx = "1.8.0"
+androidxCoreKtx = "1.16.0"
+androidxConstraintlayout = "2.2.1"
+androidxComposeBom = "2025.05.01"
+androidxEspressoCore = "3.6.1"
+androidxFragmentKtx = "1.8.7"
 # 2.8.2 was crashing in release only, because of compose incompatibility
 # https://issuetracker.google.com/issues/336842920?pli=1
-androidxLifecycle = "2.7.0"
-androidxNavigation = "2.7.7"
-androidxRoom = "2.6.1"
+androidxLifecycle = "2.9.0"
+androidxNavigation = "2.9.0"
+androidxRoom = "2.7.1"
 composeThemeAdapter = "1.2.1"
-firebaseBom = "33.1.1"
+firebaseBom = "33.14.0"
 hilt = "2.46.1"
-androidxJunit = "1.1.5"
+androidxJunit = "1.2.1"
 junit5 = "5.9.3"
 kotlinxCoroutinesTest = "1.7.3"
-ksp = "2.0.0-1.0.21"
+ksp = "2.1.21-2.0.1"
 legacySupportV4 = "1.0.0"
 #noinspection GradleDependency shows not existing version, see https://github.com/JakeWharton/ThreeTenABP/tags
 threetenabp = "1.4.6"
@@ -27,9 +27,9 @@ timber = "5.0.1"
 
 # Plugin versions
 androidGradlePlugin = "8.10.0"
-kotlin = "2.0.0"
+kotlin = "2.1.21"
 gmsGoogleServices = "4.4.2"
-firebaseCrashlytics = "3.0.2"
+firebaseCrashlytics = "3.0.3"
 
 # LIBRARIES ------------------------------------------------------------------------------------------------------------
 [libraries]
