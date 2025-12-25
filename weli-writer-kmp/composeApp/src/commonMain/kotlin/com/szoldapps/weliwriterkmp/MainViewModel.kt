@@ -2,6 +2,7 @@ package com.szoldapps.weliwriterkmp
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import co.touchlab.kermit.Logger
 import com.szoldapps.weliwriterkmp.appDatabase.GithubRepoDao
 import com.szoldapps.weliwriterkmp.appDatabase.GithubRepoEntity
 import kotlinx.coroutines.launch
@@ -21,7 +22,7 @@ class MainViewModel(
                     description = "description",
                 )
             )
-            println("xxx: ${githubRepoDao.getAll()}")
+            Logger.i { "xxx: ${githubRepoDao.getAll()}" }
         }
         return repository.getSomeTextFromRepo()
     }
