@@ -4,8 +4,10 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -17,6 +19,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.szoldapps.weliwriterkmp.MainViewModel.UiState
 import com.szoldapps.weliwriterkmp.appDatabase.AppDatabase
 import com.szoldapps.weliwriterkmp.di.appModules
 import org.jetbrains.compose.resources.painterResource
@@ -43,7 +48,7 @@ internal fun App(appDatabase: AppDatabase) = MaterialTheme {
 fun AppContent(
     viewModel: MainViewModel = koinInject(),
 ) {
-    var showContent by remember { mutableStateOf(false) }
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     Column(
         modifier = Modifier
             .background(MaterialTheme.colorScheme.primaryContainer)
@@ -51,18 +56,43 @@ fun AppContent(
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Button(onClick = { showContent = !showContent }) {
-            Text(viewModel.getTextFromRepo())
-        }
-        AnimatedVisibility(showContent) {
-            val greeting = remember { Greeting().greet() }
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Image(painterResource(Res.drawable.compose_multiplatform), null)
-                Text("Compose: $greeting")
+        when (uiState) {
+            is UiState.Content -> {
+                Content(uiState as UiState.Content)
+            }
+
+            is UiState.Error -> {
+                Text("Error")
+            }
+
+            is UiState.Loading -> {
+                Text("Loading")
             }
         }
+
     }
+}
+
+@Composable
+private fun ColumnScope.Content(
+    uiState: UiState.Content,
+) {
+    var showContent by remember { mutableStateOf(false) }
+    Button(onClick = { showContent = !showContent }) {
+        Text(uiState.buttonLabel)
+    }
+    AnimatedVisibility(showContent) {
+        val greeting = remember { Greeting().greet() }
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Image(painterResource(Res.drawable.compose_multiplatform), null)
+            Text("Compose: $greeting")
+        }
+    }
+    Text(
+        text = uiState.text,
+        modifier = Modifier.padding(16.dp),
+    )
 }

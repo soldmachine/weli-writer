@@ -18,6 +18,10 @@ kotlin {
         }
     }
 
+    compilerOptions {
+        freeCompilerArgs.add("-XXLanguage:+ExplicitBackingFields") // needed for explicit backing fields in Kotlin
+    }
+
     listOf(
         iosArm64(),
         iosSimulatorArm64()

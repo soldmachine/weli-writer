@@ -2,9 +2,10 @@ package com.szoldapps.weliwriterkmp
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import co.touchlab.kermit.Logger
 import com.szoldapps.weliwriterkmp.appDatabase.GithubRepoDao
 import com.szoldapps.weliwriterkmp.appDatabase.GithubRepoEntity
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class MainViewModel(
@@ -12,7 +13,14 @@ class MainViewModel(
     private val githubRepoDao: GithubRepoDao,
 ) : ViewModel() {
 
-    fun getTextFromRepo(): String {
+    internal val uiState: StateFlow<UiState>
+        field = MutableStateFlow<UiState>(UiState.Loading)
+
+    init {
+        loadContent()
+    }
+
+    fun loadContent() {
         viewModelScope.launch {
             githubRepoDao.insert(
                 GithubRepoEntity(
@@ -22,8 +30,20 @@ class MainViewModel(
                     description = "description",
                 )
             )
-            Logger.i { "xxx: ${githubRepoDao.getAll()}" }
+            uiState.value = UiState.Content(
+                buttonLabel = repository.getSomeTextFromRepo(),
+                text = "xxx: ${githubRepoDao.getAll()}",
+            )
         }
-        return repository.getSomeTextFromRepo()
+    }
+
+    internal sealed class UiState {
+        data object Loading : UiState()
+        data class Content(
+            val buttonLabel: String,
+            val text: String,
+        ) : UiState()
+
+        data object Error : UiState()
     }
 }
