@@ -20,8 +20,7 @@ interface GithubRepoDao {
     @Query("SELECT * FROM GithubRepoEntity")
     fun getAllAsFlow(): Flow<List<GithubRepoEntity>>
 
-
-    @Query("SELECT * FROM GithubRepoEntity")
+    @Query("SELECT * FROM GithubRepoEntity ORDER BY id DESC")
     suspend fun getAll(): List<GithubRepoEntity>
 
     @Query("SELECT count(*) FROM GithubRepoEntity")

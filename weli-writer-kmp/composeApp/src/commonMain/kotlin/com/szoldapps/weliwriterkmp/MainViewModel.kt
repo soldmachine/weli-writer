@@ -2,15 +2,12 @@ package com.szoldapps.weliwriterkmp
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.szoldapps.weliwriterkmp.appDatabase.GithubRepoDao
-import com.szoldapps.weliwriterkmp.appDatabase.GithubRepoEntity
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class MainViewModel(
-    private val repository: SomeRepoImpl,
-    private val githubRepoDao: GithubRepoDao,
+    private val repository: MainRepositoryImpl,
 ) : ViewModel() {
 
     internal val uiState: StateFlow<UiState>
@@ -22,18 +19,20 @@ class MainViewModel(
 
     fun loadContent() {
         viewModelScope.launch {
-            githubRepoDao.insert(
-                GithubRepoEntity(
-                    id = 0,
-                    name = "name",
-                    stars = "stars",
-                    description = "description",
-                )
-            )
             uiState.value = UiState.Content(
-                buttonLabel = repository.getSomeTextFromRepo(),
-                text = "xxx: ${githubRepoDao.getAll()}",
+                buttonLabel = "Click Me",
+                text = repository.getGithubRepoEntities().toString(),
+                clickAction = {
+                    insertAndLoadContent()
+                }
             )
+        }
+    }
+
+    private fun insertAndLoadContent() {
+        viewModelScope.launch {
+            repository.insertGithubRepoEntity()
+            loadContent()
         }
     }
 
@@ -42,6 +41,7 @@ class MainViewModel(
         data class Content(
             val buttonLabel: String,
             val text: String,
+            val clickAction: () -> Unit,
         ) : UiState()
 
         data object Error : UiState()
