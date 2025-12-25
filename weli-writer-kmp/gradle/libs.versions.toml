@@ -18,6 +18,7 @@ kotlinx-coroutines = "1.10.2"
 koin = "4.1.1"
 
 # room
+kotlinxDatetime = "0.7.1"
 room = "2.8.4"
 sqlite = "2.6.2"
 ksp = "2.3.2"
@@ -46,6 +47,7 @@ koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", ver
 androidx-sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 
 
 [plugins]
