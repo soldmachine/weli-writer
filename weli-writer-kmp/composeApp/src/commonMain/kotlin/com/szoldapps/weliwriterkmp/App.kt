@@ -17,7 +17,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.szoldapps.weliwriterkmp.di.appModule
+import com.szoldapps.weliwriterkmp.appDatabase.AppDatabase
+import com.szoldapps.weliwriterkmp.di.appModules
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinApplication
@@ -26,10 +27,10 @@ import weliwriterkmp.composeapp.generated.resources.Res
 import weliwriterkmp.composeapp.generated.resources.compose_multiplatform
 
 @Composable
-internal fun App() = MaterialTheme {
+internal fun App(appDatabase: AppDatabase) = MaterialTheme {
     KoinApplication(
         application = {
-            modules(appModule)
+            modules(modules = appModules(appDatabase))
         }
     ) {
         AppContent()
