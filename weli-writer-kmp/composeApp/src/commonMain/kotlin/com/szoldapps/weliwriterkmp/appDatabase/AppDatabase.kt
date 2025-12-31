@@ -35,7 +35,7 @@ import com.szoldapps.weliwriterkmp.data.db.entity.RoundValueEntity
 @ConstructedBy(AppDatabaseConstructor::class)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun getDao(): GithubRepoDao
+    abstract fun getGithubRepoDao(): GithubRepoDao
 
     abstract fun playerDao(): PlayerDao
 
