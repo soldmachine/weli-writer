@@ -2,12 +2,14 @@ package com.szoldapps.weliwriterkmp
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.szoldapps.weliwriterkmp.domain.WeliRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class MainViewModel(
     private val repository: MainRepositoryImpl,
+    private val weliRepository: WeliRepository,
 ) : ViewModel() {
 
     internal val uiState: StateFlow<UiState>
@@ -19,6 +21,7 @@ class MainViewModel(
 
     fun loadContent() {
         viewModelScope.launch {
+            val players = weliRepository.players
             uiState.value = UiState.Content(
                 buttonLabel = "Click Me",
                 text = repository.getGithubRepoEntities().toString(),
