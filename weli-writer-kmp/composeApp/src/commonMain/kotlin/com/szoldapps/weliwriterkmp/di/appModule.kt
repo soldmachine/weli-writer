@@ -3,7 +3,9 @@ package com.szoldapps.weliwriterkmp.di
 import com.szoldapps.weliwriterkmp.MainRepositoryImpl
 import com.szoldapps.weliwriterkmp.MainViewModel
 import com.szoldapps.weliwriterkmp.appDatabase.AppDatabase
+import com.szoldapps.weliwriterkmp.data.MatchRepositoryImpl
 import com.szoldapps.weliwriterkmp.data.WeliRepositoryImpl
+import com.szoldapps.weliwriterkmp.domain.MatchRepository
 import com.szoldapps.weliwriterkmp.domain.WeliRepository
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModelOf
@@ -21,6 +23,11 @@ fun appModules(appDatabase: AppDatabase) = module {
             gameDao = get(),
             roundDao = get(),
             roundValueDao = get(),
+        )
+    }
+    single<MatchRepository> {
+        MatchRepositoryImpl(
+            matchDao = get(),
         )
     }
 
