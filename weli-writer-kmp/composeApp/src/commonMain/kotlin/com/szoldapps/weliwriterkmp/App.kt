@@ -16,9 +16,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.szoldapps.weli.writer.presentation.common.click_action.LongUnitClickAction
 import com.szoldapps.weliwriterkmp.MainViewModel.UiState
 import com.szoldapps.weliwriterkmp.appDatabase.AppDatabase
 import com.szoldapps.weliwriterkmp.di.appModules
+import com.szoldapps.weliwriterkmp.presentation.match_list.MatchListScreen
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinApplication
 import org.koin.compose.koinInject
@@ -30,7 +32,9 @@ internal fun App(appDatabase: AppDatabase) = MaterialTheme {
             modules(modules = appModules(appDatabase))
         }
     ) {
-        AppContent()
+        MatchListScreen(
+            onMatchListItemClickAction = LongUnitClickAction { /* TBD */ }
+        )
     }
 }
 

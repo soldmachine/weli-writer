@@ -19,6 +19,7 @@ koin = "4.1.1"
 
 # room
 kotlinxDatetime = "0.7.1"
+materialIconsCore = "1.7.3"
 room = "2.8.4"
 sqlite = "2.6.2"
 ksp = "2.3.2"
@@ -48,6 +49,7 @@ androidx-sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.r
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
+material-icons-core = { module = "org.jetbrains.compose.material:material-icons-core", version.ref = "materialIconsCore" }
 
 
 [plugins]
