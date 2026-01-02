@@ -17,10 +17,10 @@ interface GameDao {
     fun getGamesByMatchById(matchId: Long): Flow<List<GameEntity>>
 
     @Insert
-    fun insertAll(vararg gameEntity: GameEntity)
+    suspend fun insertAll(vararg gameEntity: GameEntity)
 
     @Insert
-    fun insert(gameEntity: GameEntity): Long
+    suspend fun insert(gameEntity: GameEntity): Long
 
     @Query(
         """
@@ -30,5 +30,5 @@ interface GameDao {
         AND game.game_id = :gameId
     """
     )
-    fun getPlayersOfGame(gameId: Long): List<PlayerEntity>
+    suspend fun getPlayersOfGame(gameId: Long): List<PlayerEntity>
 }

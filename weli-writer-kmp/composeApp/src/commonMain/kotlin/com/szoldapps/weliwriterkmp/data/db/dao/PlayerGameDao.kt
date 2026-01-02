@@ -20,16 +20,16 @@ interface PlayerGameDao {
     fun getGamesWithPlayersEntities(matchId: Long): Flow<List<GameWithPlayersEntity>>
 
     @Insert
-    fun insertGameEntity(gameEntity: GameEntity): Long
+    suspend fun insertGameEntity(gameEntity: GameEntity): Long
 
     @Insert
-    fun insertPlayerEntities(playerEntities: List<PlayerEntity>): List<Long>
+    suspend fun insertPlayerEntities(playerEntities: List<PlayerEntity>): List<Long>
 
     @Insert
-    fun insert(playerGameEntity: List<PlayerGameEntity>)
+    suspend fun insert(playerGameEntity: List<PlayerGameEntity>)
 
     @Transaction
-    fun insert(game: Game, matchId: Long): Long {
+    suspend fun insert(game: Game, matchId: Long): Long {
         val gameId = insertGameEntity(game.mapToGameEntity(matchId))
         val playerIds = game.players.map { player -> player.id }
         val playerGameCrossRefs = playerIds.map { playerId ->

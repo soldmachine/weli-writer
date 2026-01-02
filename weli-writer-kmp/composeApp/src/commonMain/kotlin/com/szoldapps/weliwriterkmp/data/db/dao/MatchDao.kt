@@ -17,8 +17,8 @@ interface MatchDao {
     fun getMatchById(matchId: Int): Flow<MatchEntity>
 
     @Insert
-    fun insertAll(vararg matchEntity: MatchEntity)
+    suspend fun insertAll(vararg matchEntity: MatchEntity)
 
     @Delete
-    fun delete(matchEntity: MatchEntity)
+    suspend fun delete(matchEntity: MatchEntity)
 }

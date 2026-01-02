@@ -15,29 +15,29 @@ interface PlayerDao {
 
     @Transaction
     @Query("SELECT * FROM player")
-    fun getPlayersWithGamesEntities(): List<PlayerWithGamesEntity>
+    suspend fun getPlayersWithGamesEntities(): List<PlayerWithGamesEntity>
 
     @Query("SELECT * FROM player")
     fun getAll(): Flow<List<PlayerEntity>>
 
     @Query("SELECT * FROM player WHERE player_id IN (:playerIds)")
-    fun loadAllByIds(playerIds: LongArray): List<PlayerEntity>
+    suspend fun loadAllByIds(playerIds: LongArray): List<PlayerEntity>
 
     @Query(
         "SELECT * FROM player WHERE first_name LIKE :first AND " +
                 "last_name LIKE :last LIMIT 1"
     )
-    fun findByName(first: String, last: String): PlayerEntity
+    suspend fun findByName(first: String, last: String): PlayerEntity
 
     @Insert
-    fun insertAll(vararg playerEntities: PlayerEntity)
+    suspend fun insertAll(vararg playerEntities: PlayerEntity)
 
     @Insert
-    fun insert(playerEntities: List<PlayerEntity>): List<Long>
+    suspend fun insert(playerEntities: List<PlayerEntity>): List<Long>
 
     @Insert
-    fun insertX(playerGameEntity: List<PlayerGameEntity>)
+    suspend fun insertX(playerGameEntity: List<PlayerGameEntity>)
 
     @Delete
-    fun delete(playerEntity: PlayerEntity)
+    suspend fun delete(playerEntity: PlayerEntity)
 }

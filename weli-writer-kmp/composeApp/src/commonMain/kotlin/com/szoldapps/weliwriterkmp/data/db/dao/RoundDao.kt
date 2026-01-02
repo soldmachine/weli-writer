@@ -14,7 +14,7 @@ interface RoundDao {
     fun getAll(): Flow<List<RoundEntity>>
 
     @Query("SELECT * FROM `round` WHERE round_game_id=:gameId")
-    fun getRoundsByGameById(gameId: Long): List<RoundEntity>
+    suspend fun getRoundsByGameById(gameId: Long): List<RoundEntity>
 
     @Query(
         """
@@ -23,10 +23,10 @@ interface RoundDao {
         ORDER BY date_time ASC
         """
     )
-    fun getListOfRoundIdsByRoundId(roundId: Long): List<Long>
+    suspend fun getListOfRoundIdsByRoundId(roundId: Long): List<Long>
 
     @Insert
-    fun insert(roundEntity: RoundEntity): Long
+    suspend fun insert(roundEntity: RoundEntity): Long
 
     @Query(
         """
@@ -36,5 +36,5 @@ interface RoundDao {
         AND game.game_id = (SELECT round_game_id FROM round WHERE round_id = :roundId)
     """
     )
-    fun getPlayersOfRound(roundId: Long): List<PlayerEntity>
+    suspend fun getPlayersOfRound(roundId: Long): List<PlayerEntity>
 }

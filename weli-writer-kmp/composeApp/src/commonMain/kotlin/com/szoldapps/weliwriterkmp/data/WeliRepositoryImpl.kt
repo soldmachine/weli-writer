@@ -75,7 +75,7 @@ class WeliRepositoryImpl(
             return@withContext header + gameRowValues + summation
         }
 
-    private fun lastRoundRowValuesByRoundId(roundId: Long): RoundRowValues =
+    private suspend fun lastRoundRowValuesByRoundId(roundId: Long): RoundRowValues =
         roundValueDao.getRoundValueByRoundId(roundId)
             .mapToRoundRowValues()
             .last()

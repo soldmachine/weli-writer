@@ -14,20 +14,20 @@ interface RoundValueDao {
     fun getAll(): Flow<List<RoundValueEntity>>
 
     @Query("SELECT * FROM round_value WHERE round_value_round_id = :roundId")
-    fun getRoundValueByRoundIdLiveData(roundId: Long): List<RoundValueEntity>
+    suspend fun getRoundValueByRoundIdLiveData(roundId: Long): List<RoundValueEntity>
 
     @Query("SELECT * FROM round_value WHERE round_value_round_id = :roundId")
-    fun getRoundValueByRoundId(roundId: Long): List<RoundValueEntity>
+    suspend fun getRoundValueByRoundId(roundId: Long): List<RoundValueEntity>
 
     @Query("SELECT * FROM round_value WHERE round_value_round_id = :roundId AND number = :roundNumber")
-    fun getRoundValueByRoundIdAndNumber(roundId: Long, roundNumber: Int): List<RoundValueEntity>
+    suspend fun getRoundValueByRoundIdAndNumber(roundId: Long, roundNumber: Int): List<RoundValueEntity>
 
     @Query("SELECT COUNT(*) FROM round_value WHERE round_value_round_id = :roundId")
-    fun getRoundValueCountByRoundId(roundId: Long): Int
+    suspend fun getRoundValueCountByRoundId(roundId: Long): Int
 
     @Query("SELECT SUM(value) FROM round_value WHERE round_value_round_id = :roundId AND round_value_player_id = :playerId")
-    fun sumValueOfPlayer(roundId: Long, playerId: Long): Int
+    suspend fun sumValueOfPlayer(roundId: Long, playerId: Long): Int
 
     @Insert(onConflict = REPLACE)
-    fun insertAll(vararg roundValueEntity: RoundValueEntity)
+    suspend fun insertAll(vararg roundValueEntity: RoundValueEntity)
 }
