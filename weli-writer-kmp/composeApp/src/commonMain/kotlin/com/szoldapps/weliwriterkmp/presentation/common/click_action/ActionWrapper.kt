@@ -1,4 +1,4 @@
-package com.szoldapps.weli.writer.presentation.common.click_action
+package com.szoldapps.weliwriterkmp.presentation.common.click_action
 
 /**
  * A stand-in for an action that would normally be implemented as a lambda.

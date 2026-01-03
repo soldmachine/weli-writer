@@ -22,8 +22,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.szoldapps.weli.writer.presentation.common.click_action.ClickAction
-import com.szoldapps.weli.writer.presentation.common.click_action.LongUnitClickAction
+import com.szoldapps.weliwriterkmp.presentation.common.click_action.ClickAction
+import com.szoldapps.weliwriterkmp.presentation.common.click_action.LongUnitClickAction
 import com.szoldapps.weliwriterkmp.domain.Match
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.format

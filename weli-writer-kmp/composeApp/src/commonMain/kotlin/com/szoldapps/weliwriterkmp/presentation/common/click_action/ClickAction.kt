@@ -1,4 +1,4 @@
-package com.szoldapps.weli.writer.presentation.common.click_action
+package com.szoldapps.weliwriterkmp.presentation.common.click_action
 
 /**
  * An [ActionWrapper] with type arguments fit for representing a click handler.
