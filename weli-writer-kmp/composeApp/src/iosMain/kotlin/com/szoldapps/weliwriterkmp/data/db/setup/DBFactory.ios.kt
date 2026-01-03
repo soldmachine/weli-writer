@@ -1,7 +1,9 @@
-package com.szoldapps.weliwriterkmp.appDatabase
+package com.szoldapps.weliwriterkmp.data.db.setup
 
 import androidx.room.Room
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
+import com.szoldapps.weliwriterkmp.data.db.setup.AppDatabase
+import com.szoldapps.weliwriterkmp.data.db.setup.dbFileName
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO

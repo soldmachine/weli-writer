@@ -1,4 +1,4 @@
-package com.szoldapps.weliwriterkmp.appDatabase
+package com.szoldapps.weliwriterkmp.data.db.setup
 
 import androidx.room.Room
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
@@ -8,8 +8,9 @@ import java.io.File
 actual class DBFactory {
 
     actual fun createDatabase(): AppDatabase {
-        val dbFile = File(System.getProperty("java.io.tmpdir"), dbFileName)
-        return Room.databaseBuilder<AppDatabase>(dbFile.absolutePath)
+        val absolutePathToDbFile = File(System.getProperty("java.io.tmpdir"), dbFileName).absolutePath
+        println("DB stored in = $absolutePathToDbFile")
+        return Room.databaseBuilder<AppDatabase>(absolutePathToDbFile)
             .setDriver(BundledSQLiteDriver())
             .setQueryCoroutineContext(Dispatchers.IO)
             .build()

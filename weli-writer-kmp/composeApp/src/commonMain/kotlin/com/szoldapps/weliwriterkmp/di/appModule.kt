@@ -1,6 +1,6 @@
 package com.szoldapps.weliwriterkmp.di
 
-import com.szoldapps.weliwriterkmp.appDatabase.AppDatabase
+import com.szoldapps.weliwriterkmp.data.db.setup.AppDatabase
 import com.szoldapps.weliwriterkmp.data.MatchRepositoryImpl
 import com.szoldapps.weliwriterkmp.data.WeliRepositoryImpl
 import com.szoldapps.weliwriterkmp.domain.MatchRepository
@@ -31,7 +31,6 @@ fun appModules(appDatabase: AppDatabase) = module {
     }
 
     // DAOs
-    single { appDatabase.getGithubRepoDao() }
     single { appDatabase.playerDao() }
     single { appDatabase.playerGameDao() }
     single { appDatabase.matchDao() }

@@ -2,7 +2,7 @@ package com.szoldapps.weliwriterkmp
 
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import com.szoldapps.weliwriterkmp.appDatabase.DBFactory
+import com.szoldapps.weliwriterkmp.data.db.setup.DBFactory
 
 fun main() = application {
     Window(

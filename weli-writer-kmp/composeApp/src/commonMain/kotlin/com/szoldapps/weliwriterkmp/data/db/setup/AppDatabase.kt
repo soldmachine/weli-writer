@@ -1,4 +1,4 @@
-package com.szoldapps.weliwriterkmp.appDatabase
+package com.szoldapps.weliwriterkmp.data.db.setup
 
 import androidx.room.ConstructedBy
 import androidx.room.Database
@@ -21,7 +21,6 @@ import com.szoldapps.weliwriterkmp.data.db.entity.RoundValueEntity
 
 @Database(
     entities = [
-        GithubRepoEntity::class,
         PlayerEntity::class,
         PlayerGameEntity::class,
         MatchEntity::class,
@@ -34,8 +33,6 @@ import com.szoldapps.weliwriterkmp.data.db.entity.RoundValueEntity
 @TypeConverters(DateTypeConverter::class)
 @ConstructedBy(AppDatabaseConstructor::class)
 abstract class AppDatabase : RoomDatabase() {
-
-    abstract fun getGithubRepoDao(): GithubRepoDao
 
     abstract fun playerDao(): PlayerDao
 
@@ -56,7 +53,7 @@ expect object AppDatabaseConstructor : RoomDatabaseConstructor<AppDatabase> {
     override fun initialize(): AppDatabase
 }
 
-internal const val dbFileName = "app_room_db.db"
+internal const val dbFileName = "weli_writer_room.db"
 
 
 interface DB {
