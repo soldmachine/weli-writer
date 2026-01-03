@@ -1,10 +1,10 @@
 package com.szoldapps.weliwriterkmp.data
 
-import com.szoldapps.weliwriterkmp.calculation.CalculationRepository
-import com.szoldapps.weliwriterkmp.calculation.GameX
-import com.szoldapps.weliwriterkmp.calculation.PlayerX
-import com.szoldapps.weliwriterkmp.calculation.RoundValueX
-import com.szoldapps.weliwriterkmp.calculation.RoundX
+import com.szoldapps.weliwriterkmp.data.calculation.CalculationRepository
+import com.szoldapps.weliwriterkmp.data.calculation.GameX
+import com.szoldapps.weliwriterkmp.data.calculation.PlayerX
+import com.szoldapps.weliwriterkmp.data.calculation.RoundValueX
+import com.szoldapps.weliwriterkmp.data.calculation.RoundX
 import com.szoldapps.weliwriterkmp.data.db.dao.GameDao
 import com.szoldapps.weliwriterkmp.data.db.dao.PlayerDao
 import com.szoldapps.weliwriterkmp.data.db.dao.PlayerGameDao

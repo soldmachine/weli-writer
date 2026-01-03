@@ -1,4 +1,4 @@
-package com.szoldapps.weliwriterkmp.calculation
+package com.szoldapps.weliwriterkmp.data.calculation
 
 object CalculationRepository {
 
