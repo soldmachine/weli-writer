@@ -62,7 +62,7 @@ class MatchFragment : Fragment(R.layout.fragment_match) {
         when (viewState) {
             Loading,
             Error -> Unit
-            is Content -> gameRvAdapter.refresh(viewState.games)
+            is Content -> gameRvAdapter.submitList(viewState.games)
         }
         updateVisibility(viewState)
     }
