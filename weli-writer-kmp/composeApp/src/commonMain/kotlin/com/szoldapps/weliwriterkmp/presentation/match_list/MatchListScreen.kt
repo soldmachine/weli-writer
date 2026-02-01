@@ -150,6 +150,7 @@ private fun Loading() {
     )
 }
 
+@Preview
 @Composable
 private fun Error() {
     Text(
