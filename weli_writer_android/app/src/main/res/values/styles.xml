@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorError">@color/colorError</item>
 
+        <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
         <item name="actionMenuTextColor">@color/colorWhite</item>
     </style>
 </resources>
