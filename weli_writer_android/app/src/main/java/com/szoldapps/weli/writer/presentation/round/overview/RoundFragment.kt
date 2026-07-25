@@ -16,6 +16,7 @@ import com.szoldapps.weli.writer.R
 import com.szoldapps.weli.writer.databinding.FragmentRoundBinding
 import com.szoldapps.weli.writer.domain.Round
 import com.szoldapps.weli.writer.domain.RoundValue
+import com.szoldapps.weli.writer.presentation.common.helper.setupEdgeToEdge
 import com.szoldapps.weli.writer.presentation.common.helper.viewBinding
 import com.szoldapps.weli.writer.presentation.round.overview.RoundViewEvent.OpenAddRoundValueFragment
 import com.szoldapps.weli.writer.presentation.round.overview.RoundViewState.Content
@@ -40,21 +41,15 @@ class RoundFragment : Fragment(R.layout.fragment_round) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupEdgeToEdge()
+        binding.root.setupEdgeToEdge(
+            topView = binding.roundToolbar,
+            bottomView = binding.roundRv
+        )
 
         setupToolbarAndRv()
         viewModel.viewState.observe(viewLifecycleOwner, ::handleViewState)
         viewModel.viewEvent.observe(viewLifecycleOwner, ::handleViewEvent)
         viewModel.loadContent(args.roundId)
-    }
-
-    private fun setupEdgeToEdge() {
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-            binding.roundToolbar.updatePadding(top = insets.top)
-            binding.roundRv.updatePadding(bottom = insets.bottom)
-            windowInsets
-        }
     }
 
     private fun setupToolbarAndRv() {

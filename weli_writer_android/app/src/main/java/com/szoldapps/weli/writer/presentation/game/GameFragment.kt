@@ -20,6 +20,7 @@ import com.szoldapps.weli.writer.R
 import com.szoldapps.weli.writer.databinding.FragmentGameBinding
 import com.szoldapps.weli.writer.domain.Game
 import com.szoldapps.weli.writer.domain.Round
+import com.szoldapps.weli.writer.presentation.common.helper.setupEdgeToEdge
 import com.szoldapps.weli.writer.presentation.common.helper.viewBinding
 import com.szoldapps.weli.writer.presentation.game.GameViewState.Content
 import com.szoldapps.weli.writer.presentation.game.GameViewState.Error
@@ -44,21 +45,15 @@ class GameFragment : Fragment(R.layout.fragment_game) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
-        setupEdgeToEdge()
+        binding.root.setupEdgeToEdge(
+            topView = binding.gameToolbar,
+            bottomView = binding.gameRv
+        )
 
         setupToolbarAndRv()
         viewModel.viewState.observe(viewLifecycleOwner, ::handleViewState)
         viewModel.viewEvent.observe(viewLifecycleOwner, ::handleViewEvent)
         viewModel.loadContent(args.gameId)
-    }
-
-    private fun setupEdgeToEdge() {
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-            binding.gameToolbar.updatePadding(top = insets.top)
-            binding.gameRv.updatePadding(bottom = insets.bottom)
-            windowInsets
-        }
     }
 
     private fun handleViewEvent(viewEvent: GameViewEvent) =

@@ -6,15 +6,13 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.ToggleButton
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
-import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.szoldapps.weli.writer.R
+import com.szoldapps.weli.writer.presentation.common.helper.setupEdgeToEdge
 import com.szoldapps.weli.writer.presentation.round.add_round_value.AddRoundValueViewState.Content
 import com.szoldapps.weli.writer.presentation.round.add_round_value.AddRoundValueViewState.Error
 import com.szoldapps.weli.writer.presentation.round.add_round_value.AddRoundValueViewState.Loading
@@ -55,24 +53,16 @@ class AddRoundValueFragmentOld : Fragment(R.layout.fragment_add_round_value) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupEdgeToEdge(view)
+        view.setupEdgeToEdge(
+            topView = view,
+            bottomView = view
+        )
 
         viewModel.viewState.observe(viewLifecycleOwner, ::handleViewState)
         viewModel.viewEvent.observe(viewLifecycleOwner, ::handleEventState)
         viewModel.loadPlayerInitials(args.roundId, args.roundNumber)
 
         setupUi(view)
-    }
-
-    private fun setupEdgeToEdge(view: View) {
-        ViewCompat.setOnApplyWindowInsetsListener(view) { v, windowInsets ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.updatePadding(
-                top = insets.top + (16 * v.resources.displayMetrics.density).toInt(),
-                bottom = insets.bottom + (16 * v.resources.displayMetrics.density).toInt()
-            )
-            windowInsets
-        }
     }
 
     private fun handleViewState(viewState: AddRoundValueViewState) {

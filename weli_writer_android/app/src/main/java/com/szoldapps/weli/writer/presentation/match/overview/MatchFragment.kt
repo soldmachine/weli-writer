@@ -20,6 +20,7 @@ import com.szoldapps.weli.writer.R
 import com.szoldapps.weli.writer.databinding.FragmentMatchBinding
 import com.szoldapps.weli.writer.domain.Game
 import com.szoldapps.weli.writer.domain.Match
+import com.szoldapps.weli.writer.presentation.common.helper.setupEdgeToEdge
 import com.szoldapps.weli.writer.presentation.common.helper.viewBinding
 import com.szoldapps.weli.writer.presentation.match.overview.MatchViewState.*
 import com.szoldapps.weli.writer.presentation.match.overview.adapter.MatchRvAdapter
@@ -44,19 +45,13 @@ class MatchFragment : Fragment(R.layout.fragment_match) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
-        setupEdgeToEdge()
+        binding.root.setupEdgeToEdge(
+            topView = binding.matchToolbar,
+            bottomView = binding.matchRv
+        )
 
         setupToolbarAndRv()
         viewModel.viewState.observe(viewLifecycleOwner, ::handleViewState)
-    }
-
-    private fun setupEdgeToEdge() {
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-            binding.matchToolbar.updatePadding(top = insets.top)
-            binding.matchRv.updatePadding(bottom = insets.bottom)
-            windowInsets
-        }
     }
 
     private fun setupToolbarAndRv() {

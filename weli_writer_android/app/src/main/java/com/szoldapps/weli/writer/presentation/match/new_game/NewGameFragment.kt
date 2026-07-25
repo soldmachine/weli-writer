@@ -22,6 +22,7 @@ import com.szoldapps.weli.writer.R
 import com.szoldapps.weli.writer.databinding.FragmentNewGameBinding
 import com.szoldapps.weli.writer.domain.Game
 import com.szoldapps.weli.writer.domain.Round
+import com.szoldapps.weli.writer.presentation.common.helper.setupEdgeToEdge
 import com.szoldapps.weli.writer.presentation.common.helper.viewBinding
 import com.szoldapps.weli.writer.presentation.match.new_game.NewGameViewState.Content
 import com.szoldapps.weli.writer.presentation.match.new_game.NewGameViewState.Error
@@ -50,23 +51,14 @@ class NewGameFragment : Fragment(R.layout.fragment_new_game) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
-        setupEdgeToEdge()
+        binding.root.setupEdgeToEdge(
+            topView = binding.newGameToolbar,
+            bottomViewMargin = binding.newGameButton
+        )
 
         setupToolbarAndRv()
         sharedViewModel.viewState.observe(viewLifecycleOwner, ::handleViewState)
         sharedViewModel.viewEvent.observe(viewLifecycleOwner, ::handleViewEvent)
-    }
-
-    private fun setupEdgeToEdge() {
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-            binding.newGameToolbar.updatePadding(top = insets.top)
-            binding.newGameButton.updateLayoutParams<MarginLayoutParams> {
-                val density = v.resources.displayMetrics.density
-                bottomMargin = insets.bottom + (16 * density).toInt()
-            }
-            windowInsets
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
