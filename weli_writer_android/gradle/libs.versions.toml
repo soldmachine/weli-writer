@@ -1,6 +1,6 @@
 # VERSIONS -------------------------------------------------------------------------------------------------------------
 [versions]
-androidJunit5 = "1.9.3.0"
+androidJunit5 = "2.0.1"
 androidxActivityCompose = "1.10.1"
 androidxAppcompat = "1.7.0"
 androidxCoreKtx = "1.19.0"
