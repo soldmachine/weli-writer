@@ -5,8 +5,13 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup.MarginLayoutParams
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updateLayoutParams
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -45,10 +50,23 @@ class NewGameFragment : Fragment(R.layout.fragment_new_game) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
+        setupEdgeToEdge()
 
         setupToolbarAndRv()
         sharedViewModel.viewState.observe(viewLifecycleOwner, ::handleViewState)
         sharedViewModel.viewEvent.observe(viewLifecycleOwner, ::handleViewEvent)
+    }
+
+    private fun setupEdgeToEdge() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            binding.newGameToolbar.updatePadding(top = insets.top)
+            binding.newGameButton.updateLayoutParams<MarginLayoutParams> {
+                val density = v.resources.displayMetrics.density
+                bottomMargin = insets.bottom + (16 * density).toInt()
+            }
+            windowInsets
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
