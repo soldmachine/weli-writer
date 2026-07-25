@@ -1,17 +1,26 @@
 package com.szoldapps.weli.writer.presentation.match_list
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.AppBarDefaults
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
@@ -57,14 +66,25 @@ private fun MatchListScreen(
     onAddMatchClickAction: ClickAction,
     onMatchListItemClickAction: LongUnitClickAction,
 ) {
-    Column {
-        TopBar(
-            onAddItemClickListener = { onAddMatchClickAction.invoke(Unit) }
-        )
-        when (uiState) {
-            is MatchListUiState.Content -> Content(uiState, onMatchListItemClickAction)
-            MatchListUiState.Error -> Error()
-            MatchListUiState.Loading -> Loading()
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        topBar = {
+            TopBar(
+                onAddItemClickListener = { onAddMatchClickAction.invoke(Unit) }
+            )
+        }
+    ) { paddingValues ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .windowInsetsPadding(WindowInsets.navigationBars)
+        ) {
+            when (uiState) {
+                is MatchListUiState.Content -> Content(uiState, onMatchListItemClickAction)
+                MatchListUiState.Error -> Error()
+                MatchListUiState.Loading -> Loading()
+            }
         }
     }
 }
@@ -73,20 +93,27 @@ private fun MatchListScreen(
 private fun TopBar(
     onAddItemClickListener: () -> (Unit) = { },
 ) {
-    TopAppBar(
-        title = { Text(text = stringResource(id = R.string.match_toolbar_title)) },
-        actions = {
-            IconButton(
-                onClick = { onAddItemClickListener.invoke() },
-                content = {
-                    Icon(
-                        imageVector = Icons.Filled.Add,
-                        contentDescription = stringResource(id = R.string.match_menu_title)
-                    )
-                }
-            )
-        }
-    )
+    Surface(
+        color = MaterialTheme.colors.primary,
+        elevation = AppBarDefaults.TopAppBarElevation
+    ) {
+        TopAppBar(
+            title = { Text(text = stringResource(id = R.string.match_toolbar_title)) },
+            modifier = Modifier.statusBarsPadding(),
+            elevation = 0.dp,
+            actions = {
+                IconButton(
+                    onClick = { onAddItemClickListener.invoke() },
+                    content = {
+                        Icon(
+                            imageVector = Icons.Filled.Add,
+                            contentDescription = stringResource(id = R.string.match_menu_title)
+                        )
+                    }
+                )
+            }
+        )
+    }
 }
 
 @Composable
@@ -96,6 +123,7 @@ private fun Content(
 ) {
     Column(
         modifier = Modifier
+            .fillMaxSize()
             .verticalScroll(rememberScrollState())
             .padding(vertical = 8.dp),
     ) {
