@@ -1,7 +1,5 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    id("kotlin-kapt")
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.gms.google.services)
     alias(libs.plugins.firebase.crashlytics)
@@ -12,15 +10,15 @@ plugins {
 }
 
 android {
-    compileSdk = 35
-    buildToolsVersion = "35.0.0"
+    compileSdk = 37
+    buildToolsVersion = "37.0.0"
 
     namespace = "com.szoldapps.weli.writer"
 
     defaultConfig {
         applicationId = "com.szoldapps.weli.writer"
         minSdk = 23
-        targetSdk = 35
+        targetSdk = 37
         versionCode = 12
         versionName = "1.0-alpha.12"
 
@@ -30,6 +28,7 @@ android {
     buildFeatures {
         viewBinding = true
         compose = true
+        buildConfig = true
     }
 
     buildTypes {
@@ -42,10 +41,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
     }
 }
 
@@ -68,7 +63,7 @@ dependencies {
     // Hilt
     implementation(libs.hilt.android)
     implementation(libs.androidx.legacy.support.v4)
-    kapt(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
 
     // Navigation
     implementation(libs.androidx.navigation.fragment.ktx)
@@ -118,7 +113,7 @@ dependencies {
 
     // Firebase
     implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.crashlytics.ktx)
-    implementation(libs.firebase.analytics.ktx)
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.analytics)
 
 }
